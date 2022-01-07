@@ -1,6 +1,6 @@
 --- 
-title: "R 语言最佳实践"
-author: "biomooc.com | version: 0.0.0-1"
+title: "R 语言最佳实践 (R Best Practice)"
+author: "biomooc.com | version: 0.0.0-3"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -8,7 +8,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: rstudio/bookdown-demo
+github-repo: dawneve/R_best_practice
 description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
 ---
 
@@ -52,6 +52,9 @@ knitr::opts_chunk$set(fig.width=3, fig.height=2.8,
   * https://www.tidytextmining.com/
   * https://otexts.com/fpp2/
 
+
+
+### R包版本信息
 ```{r}
 sessionInfo()
 ```
