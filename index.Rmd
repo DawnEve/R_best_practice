@@ -1,0 +1,57 @@
+--- 
+title: "R 语言最佳实践"
+author: "biomooc.com | version: 0.0.0-1"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+
+```{r setup, include=FALSE}
+# settings
+# knitr::opts_chunk$set(echo = TRUE)
+
+knitr::opts_chunk$set(fig.width=3, fig.height=2.8, 
+                      echo=T, warning=T, message=FALSE)
+```
+
+
+# 前沿
+
+本书目标：总结R语言的最佳实践，特别是可视化方面，并付诸行动，持续提升技能、习惯和思维方式。
+
+- 覆盖范围，文件摆放
+- 编码习惯，代码结构
+- 函数命名，函数结构，变量命名
+- 并行执行
+
+
+
+
+
+## 帮助 help
+
+本文定位是中高级用户，熟手。
+对于还没入门的，请参考入门读物 [准备工作](https://shixiangwang.github.io/geek-r-tutorial/prepare.html)，阅读前两个章节。
+
+
+
+- https://www.biomooc.com/
+- 生物信息与R语言 QQ 群: 187923577
+- 设置国内镜像来下载包 options(repos=structure(c(CRAN="https://mirrors.tuna.tsinghua.edu.cn/CRAN/")))
+- 免费电子书 [bookdown.org](https://bookdown.org/yihui/bookdown/usage.html)
+  * https://r-graphics.org/
+  * https://r4ds.had.co.nz/
+  * https://rafalab.github.io/dsbook/
+  * https://www.tidytextmining.com/
+  * https://otexts.com/fpp2/
+
+```{r}
+sessionInfo()
+```

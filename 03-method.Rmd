@@ -1,0 +1,216 @@
+# 最佳实践
+
+
+
+## Best practices
+
+what are some tips for writing clean and efficient R code?
+
+- Best practices: https://krlmlr.github.io/tidyprog/best-practices.html
+  * 写注释，写测试
+- 谷歌的风格指导(多语言) https://google.github.io/styleguide/Rguide.html
+  * 函数命名使用 BigCamelCase，私有函数则加上 dot 前缀；
+  * dot.case 这种命名容易和S3类混淆，不建议使用；
+  * Don’t use attach()
+  * Right-hand assignment 不要用，容易看不到，且和其他主流语言不同；
+  * Use explicit returns，最后一句明写 return(x+y)
+- http://adv-r.had.co.nz/Style.html
+  * variable names should be nouns and function names should be verbs.
+  * Use an underscore (_) to separate words within a name.
+  * Comments should explain the why, not the what.
+
+- http://www.johnmyleswhite.com/notebook/2010/08/26/projecttemplate/
+  * to automatically run all of the unit tests in your tests directory. `run.tests()`
+  * 学习最佳实践的包：stringr/testthat
+
+- [Best Practices for Writing R Code](https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/)
+  * 使用 git https://swcarpentry.github.io/git-novice/
+  * Be careful when using setwd()，只在开始用，或者不用。
+  * 函数单独写到一个文件中，然后引入  source("my_genius_fxns.R")
+  * 变量命名统一规则，比如 矩阵结尾 _mat，数据框结尾 _df
+  * Don’t repeat yourself– 当你开始复制好几行代码的时候，尝试写成循环or函数。否则未来极有可能犯错，代价昂贵。
+  * 一个项目的代码放到一个文件夹内，使用相对路径。
+  * 在某个文件中记录使用的包的版本号  keep track of sessionInfo()
+  * 
+
+
+- other hints:
+  * For efficiency, prefer vector operations over for loops.
+  * use a version control system, such as Git;
+  * Review and test your code rigorously 
+  * Don’t save your workspace
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 文件结构
+
+只能从代码结构中反推文件结构，比如代码放到哪里，数据放到哪里，输出放到哪里
+
+```
+(1) 
+sce_all = readRDS(sprintf("%s/../../data/expression/CD8/integration/int.CD8.S35.sce.merged.rds",oDir))
+sce_ref = readRDS(sprintf("%s/../../data/expression/CD8/integration/int.CD8.S35.HVG.continumOnly.v1.sce.Path.rds",oDir))
+gene_used = read.table(sprintf("%s/../../data/metaInfo/int.CD8_Tex.genes.txt",oDir), header=F, stringsAsFactors=F)$V1
+colSet = readRDS(sprintf("%s/../../data/metaInfo/panC.colSet.list.rds",oDir))
+
+推测
+/
+/data/
+	|-metaInfo/
+		|-int.CD8_Tex.genes.txt
+		|-panC.colSet.list.rds
+	|-expression/
+		|-CD8
+			|-integration/
+				|-int.CD8.S35.sce.merged.rds
+				|-int.CD8.S35.HVG.continumOnly.v1.sce.Path.rds
+|-xx/
+	|-yy/
+		|-OUT_FigS17/ just created
+		|- #here now
+```
+
+
+
+
+
+## 代码块
+对于不常用，但是是一起执行的代码，使用{}括起来，整体只需要按一下ctrl+enter即可全部执行，清晰高效。
+
+```
+{
+	a=1
+	b=2
+	print(a+b)
+}
+```
+
+
+
+
+
+
+## 函数
+
+### 函数命名的规范化
+
+对于使用超过2次的代码块，包装成函数，放到专门的文件中，供其他脚本source()引用。
+
+
+```
+$ ls -lth | grep -i func
+-r--r--r-- 1 wangjl wangjl 9.7K Nov 23 11:34 source_dyn_func.R
+-r--r--r-- 1 wangjl wangjl 7.3K Nov  5 00:32 source_FigS22_func.R
+-r--r--r-- 1 wangjl wangjl  84K Sep 30 14:45 func.R
+```
+
+
+查看一下函数名字，函数名字加点号，中间的单词使用首字母大写。
+
+```
+$ grep -i "function" func.R
+changeSomeNames <- function(obj,col.mcls="meta.cluster",col.ctype="cancerType",col.dataset="dataset")
+correctCellInfo <- function(cellInfo.tb)
+plotNightingaleRose <- function(dat.plot.NightingaleRose,empty_bar=2,
+do.tissueDist <- function(cellInfo.tb,out.prefix,pdf.width=3,pdf.height=5,verbose=0)
+test.dist.table <- function(count.dist,min.rowSum=0)
+    count.dist.melt.ext.tb <- as.data.table(ldply(seq_len(nrow(count.dist.melt.tb)), function(i){
+fetchMetaClusterID2CusterFullName <- function(col.use="cluster.name.full")
+
+计算分裂指数
+calProliferationScore <- function(obj,assay.name,gene.prol,out.prefix=NULL,method="mean")
+    f.zero <- apply(exp.sub,1,function(x){ all(x==0) })
+        f.zero <- apply(exp.sub,1,function(x){ all(x==0) })
+vis.clonotype <- function(out.prefix,
+        annotation_legend_param <- llply(mcls.sig,function(x){ list(at=sig.pretty) })
+    annotation_legend_param_prob <- llply(mcls.sig,function(x){
+        colSet.prob <- llply(mcls.sig,function(x){
+ana.clonotypeAcrossMcls.moreThanTwo <- function(object,
+    clone.LLR.tb <- ldply(seq_len(nrow(clone.info.flt.tb)),function(i){
+    do.plot.bar <- function(dat.block.flt.freq,clone.info.flt.tb,
+        l_ply(seq_along(clone.example.vec),function(i){
+makeFig.ExampleGeneBarplot <- function(out.prefix,gene.to.plot,
+    prepare.data.for.plot <- function(dat.long,gene.desc.top,mcls,a.gene,mod.sort=3)
+    dat.fig.list <- llply(gene.to.plot,function(a.gene){
+run.clusterProfiler <- function(out.prefix, gene.oi, gene.bg,
+
+do.plot.freq.heatmap <- function(dat.plot.a,colSet,mapping.vec,group.var="meta.cluster",
+        mcls.cor.max <- apply(cor.dat,1,function(x){ max(abs(x[x!=1])) })
+    makeHTPlot <- function(dat.in,out.prefix)
+
+sigGeneVennPlot <- function(v.list,background.list,out.prefix,col.venn=NULL,fill.venn=NULL,venn.alpha=c(1,0.7,0.7))
+
+sigGeneVennTable <- function(gene.tb,cmp,only.sig=T)
+					function(x){ any(x==T,na.rm=T) })
+run.nichenet <- function(gene.oi,gene.bg,out.prefix,
+								  function(x){ mean(x,na.rm=T) >= 0.5 })
+
+run.venn.nicheNet.g2 <- function(mcls,sname,out.prefix,gene.bg,...)
+
+gen.gsea.script <- function(gene.desc.top,sh.dir,out.prefix,db.file,
+```
+
+
+函数的参数，使用点号前缀，目的是？为了防止重复？只有函数内部使用点号开头的变量。
+```
+$ grep -i "function" source_dyn_func.R
+heatmap_sm = function (obj, assay.name = "exprs", out.prefix = NULL, ncell.downsample = NULL, 
+  dat.plot = t(apply(dat.plot, 1, function(x){rollmean(x, 50, fill="extend")}))
+## 2. new functions
+convertGeneID = function(.genes, .from="SYMBOL", .to="ENSEMBL"){
+convertDPTperc = function(.sce){
+testOneGene = function(.gene, .sce){
+testProcess = function(.sce, .tfs){
+plotONEgene = function(.gene, .sce, .colSet){
+hyper.test = function(set1, set2, bg){
+```
+
+
+### 没见过或使用较少的函数
+
+```
+(1) sprintf() #好处是和C一致，减少记忆负担。
+
+(2) 开头引入包后，定义文件夹
+stype = "CD8"
+oDir = "./OUT_FigS17/"
+dir.create(oDir, F, T)
+	# dir.create(path, showWarnings = TRUE, recursive = FALSE, mode = "0777")
+
+(3) ggsave, 及其参数 useDingbats=F(方便后期AI处理图片)
+print(p) #要打出来图才能保存
+ggsave(p, file=sprintf("%s/%s_ISG.mapping.umap.pdf",oDir, stype), width=5.5, height=8, useDingbats=F)
+```
+
+
+
+
+
+
+
+
+
+
+
+## 图形操作
+
+1. 用到了很多 ggpubr 包
+
+2. 用到了 ggplot2 图形基本操作。
+
+3. 画热图，用到了 ComplexHeatmap 包，并用 grid 做参数整合。
+
+4. 对 seurat 掰开揉碎了，写到自己的包里了。
+
+

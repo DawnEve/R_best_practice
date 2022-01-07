@@ -1,0 +1,225 @@
+# Literature2
+
+## 向高水平文章学习
+
+整体使用了很多的包，对 `library()` 语句汇总计数后，排名靠前的包分别是:
+
+```
+某science文章中最高频率的R包，前3个频次超过40次。
+ggpubr
+plyr
+data.table
+ggplot2
+dplyr
+sscVis
+ssscClust
+reshape2
+tictoc
+ComplexHeatmap
+cowplot
+ggrastr
+R.utils
+ggsci
+grid
+RcolorBrewer
+circlize
+Seurat
+Startrac
+stringr
+doParallel
+...
+```
+
+
+还用到了 Gviz 包，可能是画基因峰图的。
+
+
+
+### 按类别整理后如下
+
+```
+画图包
+"grid",	https://stat.ethz.ch/R-manual/R-devel/library/grid/doc/index.html
+	"gridBase", 修饰ggplot2的低层包
+	"ggplotify", [Good] Convert plot function call (using expression or formula) to 'grob' or 'ggplot' object that compatible to the 'grid' and 'ggplot2' ecosystem. https://www.jianshu.com/p/7a1050d54b31
+	gridExtra, 
+
+
+"ggplot2",	
+	"ggpubr", [Good]‘ggplot2’ Based Publication Ready Plots https://rpkgs.datanovia.com/ggpubr/
+	"cowplot", [Good] 为ggplot2提供一个出版级别的主题 https://www.jianshu.com/p/fea410378360
+		cowplot添加注释，连接图片 https://www.jianshu.com/p/0ec30fdffbd5
+		排版 https://www.jianshu.com/p/6400fd3abc56
+	"ggrastr",	[Good] 像素画点图，保持文字和标签向量化。大幅减少图片体积。 https://github.com/VPetukhov/ggrastr
+	"ggrepel",	 repel overlapping text labels
+	
+	"ggvenn", 韦恩图 https://statisticsglobe.com/ggvenn-r-package
+	"VennDiagram",  https://statisticsglobe.com/venn-diagram-in-r
+		https://www.r-graph-gallery.com/venn-diagram.html
+		https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
+	"patchwork", [Good]make plot composition in R extremely simple and powerful. https://patchwork.data-imaginist.com/articles/patchwork.html
+	"ggforce", 注释和分面(椭圆圈住某些点)  https://www.jianshu.com/p/9409650971d9
+
+	"ggraph", A grammar of graphics for relational data
+		Layouts https://www.data-imaginist.com/2017/ggraph-introduction-layouts/
+		https://www.r-bloggers.com/2017/02/introduction-to-ggraph-layouts/
+		https://ggraph.data-imaginist.com/reference/ggraph.html
+
+所有可以转换为grob对象的图形都可以使用as.ggplot函数转换为ggplot对象
+现在有了ggplot对象，我们可以利用cowplot或者patchwork包将所有的图形组合起来。
+
+
+"ComplexHeatmap", https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html
+"circlize",  一个圆形布局包含扇形(sector)和轨道(track)两个部分 https://www.sohu.com/a/351872019_718302 https://github.com/jokergoo/circlize
+	https://jokergoo.github.io/circlize_book/book/
+"gplots", 用gplots包中的heatmap.2函数就可以画出想要的热图
+"igraph", provides versatile options for descriptive network analysis and visualization in R, Python, and C/C++ https://igraph.org/r/
+
+"png",
+
+"fmsb", radar plot
+	https://www.datanovia.com/en/blog/beautiful-radar-chart-in-r-using-fmsb-and-ggplot-packages/
+
+
+
+颜色
+"ggsci", offers a collection of ggplot2 color palettes inspired by scientific journals, data visualization libraries, science fiction movies, and TV shows.	
+"RColorBrewer", 
+"colorRamps",
+
+
+数据框处理包
+"tidyverse",
+"plyr", "dplyr", 
+"data.table", 高效数据框 https://www.jianshu.com/p/01598d707ac4
+"reshape2", https://www.jianshu.com/p/370a04c6b64a 修整数据的内置函数（比如stack、unstack与reshape）
+"Matrix",
+"tibble", tibble()做的事情更少——这更加符合我们的需要：它从不改变输入数据的类型 https://www.jianshu.com/p/49e8a2d38389
+"zoo", Time Series 时间序列基础库
+"stringr", 一致的、简单易用的字符串工具集
+	http://blog.fens.me/r-stringr/
+	https://www.cnblogs.com/nxld/p/6062950.html
+"magrittr", 该包定义了管道符 %>%
+"matrixStats", 矩阵 Functions that Apply to Rows and Columns of Matrices (and to Vectors)
+"dendextend", 树状图 provides general functions for handling tree-like structures in R.
+	[Good] https://mran.microsoft.com/snapshot/2016-10-12/web/packages/dendextend/vignettes/introduction.html
+
+
+meta 分析
+"meta", User-friendly general package providing standard methods for meta-analysis and supporting Schwarzer, Carpenter, and Rücker 
+	# w.step2.FigureS32.TCGA_mut_valid.R
+"esc", esc: Effect Size Computation for Meta Analysis
+"forestplot", 森林图
+
+
+
+数学建模
+"ranger", 随机森林 a fast implementation of random forests (Breiman 2001) or recursive partitioning, particularly suited for high dimensional data.
+"gam", Generalized Additive Models in R
+	https://www.rdocumentation.org/packages/mgcv/versions/1.8-38/topics/gam
+"MASS", 可以多元正态分布数据
+	https://cran.r-project.org/web/packages/MASS/MASS.pdf
+"nlme", 混合线性模型
+
+"webr", Data and Functions for Web-Based Analysis
+	https://github.com/cardiomoon/webr
+
+
+
+
+
+生信专用包
+"limma",
+"survival", "survminer",
+"Gviz",
+"motifmatchr",
+"Startrac", 通过Rna-seq和Tcr跟踪进行单T细胞分析
+"chromVARmotifs", make it easy to use several different motif collections in R, particularly for use with motifmatchr and chromVAR packages.
+
+
+
+
+单细胞包(前几个是作者自己写的包，都在github上 https://github.com/Japrin/)
+"sscVis", "sscClust",
+"scPip",  A pipeline for scRNA-seq data analysis
+	https://github.com/Japrin/scPip
+
+"Seurat","sctransform", "harmony", "monocle3", "SingleCellExperiment", "SCENIC",
+"scran", implements methods to perform low-level processing of scRNA-seq data, including cell cycle phase assignment, variance modelling and testing
+	w.step0.10.TCGA_immuneTyping.R
+# "scReClassify", a post hoc cell type classification of single-cell RNA-sequencing data to fine-tune cell type annotations generated by any cell type classification procedure.
+	https://bioconductor.org/packages/devel/bioc/vignettes/scReClassify/inst/doc/scReClassify.html
+	# wrapper.reClassify.R
+"nichenetr", NicheNet: predict active ligand-target links between interacting cells
+"SCopeLoomR", R package (compatible with SCope) to create generic .loom files and extend them with other data e.g.: SCENIC regulons, Seurat clusters and markers, ...
+	https://github.com/aertslab/SCopeLoomR
+"AUCell", http://events.jianshu.io/p/c15db7c9d3c5
+
+
+
+GO分析与基因注释:
+"clusterProfiler",
+"org.Hs.eg.db",
+"TxDb.Hsapiens.UCSC.hg19.knownGene",
+"BSgenome.Hsapiens.UCSC.hg19",
+"GSVA",
+
+
+R语言开发与调试
+"tictoc", Functions for Timing R Scripts, as Well as Implementations of Stack and List Structures
+"R.utils", #使用 R.utils 中的 gunzip 解压缩
+"rlang",
+"argparse",
+"reticulate",
+"future",
+
+并行计算
+"parallel", https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf
+"doParallel", https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html
+"BiocParallel", https://www.r-bloggers.com/2016/03/are-you-doing-parallel-computations-in-r-then-use-biocparallel/
+	https://bioconductor.org/packages/release/bioc/vignettes/BiocParallel/inst/doc/Introduction_To_BiocParallel.pdf
+
+
+
+
+
+查这个包在哪个函数出现过
+$ find . | grep "R$" | xargs grep -P "zoo" --color=auto
+./source_FigS22_func.R:library("zoo")
+./source_dyn_func.R:library("zoo")
+
+$ find . | grep "R$" | xargs grep -P "stringr" --color=auto
+./w.step2.FigureS17.CD8_ISG_mapping.R:library("stringr")
+./w.step2.FigureS22.MAIT_Tex.R:library("stringr")
+./w.step2.FigureS11.blood_Temra.R:library("stringr")
+
+
+$ find . | xargs grep -P "gam" | grep library --color=auto
+./w.step2.FigureS17.CD8_ISG_highlight.Rmd:library("gam")
+./w.step2.FigureS24.CD8_Tex_Dyn.Rmd:library("gam")
+./w.step1.Figure3.CD4_Tfh_Dyn.Rmd:library("gam")
+./w.step2.FigureS26.CD4_Treg_Dyn.Rmd:library("gam")
+
+
+$ find . | xargs grep -P "ggrastr" --color=auto
+./w.step2.FigureS14.CD8_Tex_score.Rmd:library("ggrastr")
+./w.step2.FigureS17.CD8_ISG_mapping.R:#library("ggrastr")
+./w.step2.FigureS17.CD8_ISG_highlight.Rmd:library("ggrastr")
+./w.step2.FigureS13.CD8_global_monocle3.Rmd:library("ggrastr")
+./w.step2.FigureS25.CD4_Tfh_monocle3.Rmd:library("ggrastr")
+./w.step2.FigureS26.CD4_Treg_monocle3.Rmd:library("ggrastr")
+./scenic/run.scenic.step6.comb.R:library("ggrastr")
+./w.step2.FigureS32.TCGA_mut_valid.R:	library("ggrastr")
+./w.step2.FigureS24.CD8_Tex_Dyn.Rmd:library("ggrastr")
+./w.step0.04.proliferationScore.R:library("ggrastr")
+./w.step2.FigureS22.MAIT_Tex.R:library("ggrastr")
+./w.step1.Figure3.CD4_Tfh_Dyn.Rmd:library("ggrastr")
+./w.step2.FigureS26.CD4_Treg_Dyn.Rmd:library("ggrastr")
+./w.step2.FigureS11.blood_Temra.R:library("ggrastr")
+
+
+找R包的官方主页，一般有文档
+https://bioconductor.org/packages/release/bioc/html/BiocParallel.html
+
+```
+

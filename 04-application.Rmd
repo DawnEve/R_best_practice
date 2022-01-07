@@ -1,0 +1,367 @@
+# Applications
+
+Some _significant_ applications are demonstrated in this chapter.
+
+
+
+## 图片瘦身(ggrastr)
+ggrastr: Rasterize Layers for 'ggplot2'
+
+作用: 生成栅格图、矢量文字。
+生成pdf的时候，图片瘦身效果明显，1.4M 栅格化后只有200k。
+
+```{r, fig.width=4, fig.height=3}
+library(ggrastr)
+library(ggplot2)
+
+#pdf("my_output/test1.pdf", width=4, height=3)
+ggplot(diamonds, aes(carat, price, color=cut))+
+  #geom_point(size=0.1)+
+  geom_point_rast(size=0.1, raster.dpi = getOption("ggrastr.default.dpi", 300),)+ #图片瘦身：点图不是是矢量，文字是
+  theme_classic()+
+  guides(color = guide_legend(override.aes = list(size = 3)))
+#dev.off()
+```
+
+
+
+
+
+## 为paper配色而生(ggsci包)
+
+包含各种sci-fi主题的调色盘！
+
+scale_color_palname() scale_fill_palname() 就包含了 nature, Lancet, NEJM，JAMA,JCO等顶级杂志的配色风格
+
+
+```{r, fig.width=7, fig.height=4}
+library(ggplot2)
+library(dplyr)
+library(ggsci)
+library(gridExtra)
+
+p1 = ggplot(subset(diamonds, carat >= 2.2), aes(x = table, y = price, colour = cut) )+
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "loess", alpha = 0.05, size = 1, span = 1) +
+  theme_bw()
+
+p2 = ggplot(subset(diamonds, carat > 2.2 & depth > 55 & depth < 70), aes(x = depth, fill = cut)) +
+  geom_histogram(colour = "#00112200", binwidth = 1, position = "dodge") +
+  theme_bw()
+
+
+# NPG配色
+p1_npg = p1 + scale_color_npg()
+p2_npg = p2 + scale_fill_npg()
+grid.arrange(p1_npg, p2_npg, ncol = 2)##grid组图
+
+
+# 新英格兰医学杂志配色
+grid.arrange(p1 + scale_color_nejm(), 
+             p2 + scale_fill_nejm(), 
+             ncol = 2)
+```
+
+```{r}
+# 柳叶刀杂志配色 scale_color_lancet(), scale_fill_lancet(), 
+# JAMA配色 scale_color_jama(), scale_fill_jama(), 
+
+set.seed(202201)
+p1=diamonds  %>% sample_n(1000) %>%
+  ggplot()+
+  aes(x=cut,y=price,fill=cut) +
+  geom_boxplot()+
+  theme_classic()
+
+p1+scale_fill_lancet()
+
+
+# 动画主题
+p1+scale_fill_rickandmorty()
+```
+
+### 获取颜色16进制值
+
+```{r}
+nejm<-pal_nejm("default",alpha = 1)(8)##(9表示呈现多少个颜色)
+nejm
+
+library(scales)
+scales::show_col(nejm, cex_label = 0.8 )
+
+
+#scales::show_col( ggsci::rgb_material("red"), cex_label = 0.6  )
+#scales::show_col( ggsci::rgb_material("blue"), cex_label = 0.6  )
+scales::show_col( ggsci::rgb_material("purple"), cex_label = 0.6  )
+```
+
+
+
+
+
+
+
+## 图片布局(grid, gridExtra)
+
+在grid包中，grob是一个可编辑的绘图对象，grob是graphical object两个单词的前两个字符的组合。常用于表示ggplot对象、lattice等高级图形系统创建图形对象。
+
+grid.arrange()函数，不仅能够控制个数已知的图形布局，还能对控制未知个数的图形布局，功能十分强大。
+
+`arrangeGrob()和grid.arrange()函数` 这两个布局函数的区别是：arrangeGrob()返回未绘制的grob，而grid.arrange()函数在当前的设备上绘图图形。
+
+
+```{r}
+library(grid)
+library(gridExtra)
+
+library(ggplot2)
+
+# 创建对象
+g1=ggplot(mtcars, aes(disp, mpg))+geom_point()+theme_classic();g1
+g2=ggplot(iris, aes(Species, Sepal.Length, fill=Species))+
+  geom_violin()+theme_classic()+labs(x="")+
+  theme( axis.text.x = element_text(angle=60, hjust = 1),
+         legend.position = "none");g2
+
+# (1) 两列
+grid.arrange(g1, circleGrob(),
+             rectGrob(width=0.8, height=0.5), g2, 
+             ncol = 2) 
+
+
+# (2) 控制每行每列的宽高比例
+grid.arrange(g1, g2, circleGrob(), rectGrob(width=0.9), ncol=2, nrow=2, widths=c(3,5), heights=c(4,1))
+
+
+# (3) 绘图对象合并为一个list参数传入
+gs=list()
+gs[[1]]=g1
+gs[[2]]=g2
+# gs
+grid.arrange(grobs=gs,ncol = 2)
+
+
+# (4) 使用 rbind.gtable 合并后再画图
+gA <- ggplotGrob(g1)
+gB <- ggplotGrob(g2)
+grid::grid.newpage()
+grid::grid.draw(rbind(gA, gB))
+
+
+
+```
+
+
+
+
+### 更精细控制布局:使用 layout_matrix=矩阵
+```{r, fig.width=3, fig.height=3}
+# 共三列，1/3, 2/3
+grid.arrange(g1, g2,
+             layout_matrix = matrix(c(1, 2, 2), ncol = 3))
+
+
+# 还可以留空白
+grid.arrange(g1, g2,
+             layout_matrix = matrix(c(1, NA, NA, NA, 2, 2), 
+                                    byrow = TRUE, ncol = 3))
+```
+
+```{r, fig.width=4, fig.height=4}
+# 更复杂的布局
+lay <- rbind(c(1,1,1,2,3),
+             c(1,1,1,4,5),
+             c(6,7,8,9,9))
+grid.arrange(grobs = gs, layout_matrix = lay)
+```
+
+
+
+
+### 图中图
+```{r, fig.width=3, fig.height=3}
+# 把 ggplot2 对象转变为 grob 对象
+g2_2=ggplot2::ggplotGrob(g2)
+grid.draw(g2_2)
+
+# 通过添加注释(annotate)的方式，向一个图形内部添加一个小图形
+#参数解释
+# xmin、xmax、ymin、ymax # 添加图形在大图中的四个点的坐标
+# grob # 要添加的小图对象
+grid.newpage()
+g1 +
+  annotation_custom(grob = g2_2,
+                    xmin = 250, xmax = 450, ymin = 20, ymax = 35)
+
+```
+
+
+
+## 拼接图形(gridExtra/ cowplot/ patchwork)
+
+创建带边缘分布的散点图，边缘分布图和中间的主图坐标怎么对齐呢？
+- 可以尝试 cowplot 包的 plot_grid 函数的 align 函数实现坐标对齐。
+- 或者 patchwork 包的 plot_layout 函数。
+
+
+
+```{r}
+library(RColorBrewer)
+
+# 模拟数据
+set.seed(202201)
+df1 <- data.frame(x=c(rnorm(1000, mean=1),rnorm(3000, mean=4.5)),
+                  y=c(rnorm(3000, mean=-1.6),rnorm(1000, mean=2.2)) ) 
+
+
+# 二维分布云图
+p1<-ggplot(df1, aes(x, y)) +
+   #geom_hex(bins = 40,na.rm=TRUE)+ #填充单元形状设定为六边形
+   geom_bin2d (bins=40,na.rm=TRUE) + #填充单元形状设定为正方形
+   scale_fill_gradientn(colours=rev(brewer.pal(11,'Spectral')))+
+   theme_classic()
+p1
+
+# 二维分布密度图
+p2<-ggplot(df1, aes(x, y)) +
+   stat_density_2d (geom ="raster",aes(fill = ..density..),contour = F)+ #栅格形填充
+    # stat_density_2d (geom ="polygon",aes(fill = ..level..),bins=30 )+ #多边形填充
+    scale_fill_gradientn(colours= rev(brewer.pal(11,'Spectral')))+
+    theme_classic()
+p2
+
+
+
+# 效果1: 二维分布云图+边缘直方图
+#建立空白图形面板
+empty<-ggplot()+
+  theme(panel.background = element_rect(fill="white", color="white"))
+
+# 绘制顶部直方图
+hist_top <- ggplot(df1, aes(x)) +
+  geom_histogram(colour="black",fill='#5E4FA2',size=0.25)+
+  theme_void()
+
+# 绘制右边的直方图
+hist_right <- ggplot(df1, aes(y)) +
+  geom_histogram(colour="black",fill='#5E4FA2',size=0.25)+
+  theme_void()+
+  coord_flip() #旋转坐标轴
+
+#绘制云图
+scatter<-ggplot(df1, aes(x, y)) + 
+  #stat_density2d(geom ="polygon",aes(fill = ..level..),bins=30 )+
+  stat_binhex(bins = 15,na.rm=TRUE,color="black")+#
+  scale_fill_gradientn(colours=rev(brewer.pal(11,'Spectral')))+
+  theme_minimal()+theme(
+    legend.position = "none"
+  )
+# 最终的组合
+grid.newpage()
+grid.arrange(hist_top, empty, 
+             p1+theme( legend.position = "none"), hist_right, 
+             ncol=2, nrow=2, widths=c(4,1), heights=c(1,4))
+# grid.arrange(hist_top, empty, scatter, hist_right, ncol=2, nrow=2, widths=c(4,1), heights=c(1,4))
+
+# 或者先返回对象，再画出来
+p5=arrangeGrob(hist_top, empty, scatter, hist_right, ncol=2, nrow=2, widths=c(4,1), heights=c(1,4))
+p5
+grid.draw(p5)
+
+
+
+
+
+# 效果2: 二维密度云图+边缘密度图
+# 绘制顶部直方图
+hist_top <- ggplot(df1, aes(x)) +
+            geom_density(colour="black",fill='#5E4FA2',size=0.25)+
+            theme_void()
+# 绘制右边的直方图
+hist_right <- ggplot(df1, aes(y)) +
+              geom_density(colour="black",fill='#5E4FA2',size=0.25)+
+              theme_void()+
+              coord_flip()
+#绘制云图
+scatter<-ggplot(df1, aes(x, y)) + 
+         #stat_density2d(geom ="polygon",aes(fill = ..level..),bins=30 )+
+         stat_density2d(geom ="raster",aes(fill = ..density..),bins = 15,na.rm=TRUE,contour = F,alpha=1)+#
+         scale_fill_gradientn(colours=rev(brewer.pal(11,'Spectral')))+
+         theme_minimal()+
+         theme(panel.background=element_rect(fill="white",colour="black",size=0.25),
+               legend.position = "none" )
+# 最终的组合
+grid.arrange(hist_top, empty, scatter, hist_right, ncol=2, nrow=2, widths=c(4,1), heights=c(1,4))
+```
+
+
+
+
+
+
+### cowplot 拼接图
+```{r}
+library(cowplot)
+plot_grid(hist_top, empty, 
+          p1+theme( legend.position = "none"), hist_right, 
+          ncol = 2, 
+          #labels = "XX", hjust = -0.5, vjust = 1,
+          align = "hv", # h 和 v 方向都对齐
+          #scale = 1,
+          rel_widths = c(4, 1), rel_heights = c(1, 4))
+```
+
+
+### patchwork 拼接图
+```{r}
+library(patchwork)
+
+hist_top + plot_spacer() + # patchwork的函数，自动添加一个空白块
+  (p1+theme( legend.position = "none")) + hist_right + 
+  plot_layout(
+    ncol = 2, 
+    nrow = 2, 
+    widths = c(4, 1),
+    heights = c(1, 4)
+  )
+```
+
+
+
+
+
+## ggExtra 画边缘分布
+```{r}
+# https://www.r-graph-gallery.com/277-marginal-histogram-for-ggplot2
+# https://github.com/daattali/ggExtra
+
+p0<-ggplot(df1, aes(x, y)) +
+   geom_point(color="slateblue", alpha=0.2, size=0.2)+
+   scale_fill_gradientn(colours=rev(brewer.pal(11,'Spectral')))+
+   theme_classic()
+# p0
+
+library(ggExtra)
+ggMarginal( (p0+theme( legend.position = "none")), type="boxplot", fill = "slateblue")
+
+grid.newpage()
+ggMarginal( (p0+theme( legend.position = "none")), type="density", fill = "slateblue")
+
+grid.newpage()
+ggMarginal( (p0+theme( legend.position = "none")), type="histogram", fill = "slateblue")
+
+grid.newpage()
+ggMarginal( (p0+theme( legend.position = "none")), type="histogram", fill = "slateblue", xparams = list(  bins=10))
+```
+
+
+
+
+## 相关分析(去掉共线性的变量)
+```{r}
+# Finding highly correlated variables
+library(corrplot)
+M=cor(na.omit(mtcars))
+corrplot(M, method = "circle", type = "lower",
+         tl.srt = 45, tl.col = "black", tl.cex = 0.75)
+```
