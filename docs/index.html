@@ -4,24 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R 语言最佳实践</title>
+  <title>R 语言最佳实践 (R Best Practice)</title>
   <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R 语言最佳实践" />
+  <meta property="og:title" content="R 语言最佳实践 (R Best Practice)" />
   <meta property="og:type" content="book" />
   
   
   <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="dawneve/R_best_practice" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R 语言最佳实践" />
+  <meta name="twitter:title" content="R 语言最佳实践 (R Best Practice)" />
   
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
-<meta name="author" content="biomooc.com | version: 0.0.0-1" />
+<meta name="author" content="biomooc.com | version: 0.0.0-3" />
 
 
 <meta name="date" content="2022-01-07" />
@@ -156,19 +156,23 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">R Best Practice</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前沿</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#帮助-help"><i class="fa fa-check"></i><b>1.1</b> 帮助 help</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#帮助-help"><i class="fa fa-check"></i><b>1.1</b> 帮助 help</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#r包版本信息"><i class="fa fa-check"></i><b>1.1.1</b> R包版本信息</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="literature2.html"><a href="literature2.html"><i class="fa fa-check"></i><b>3</b> Literature2</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="literature2.html"><a href="literature2.html#向高水平文章学习"><i class="fa fa-check"></i><b>3.1</b> 向高水平文章学习</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="literature2.html"><a href="literature2.html#按类别整理后如下"><i class="fa fa-check"></i><b>3.1.1</b> 按类别整理后如下</a></li>
+<li class="chapter" data-level="3.1.1" data-path="literature2.html"><a href="literature2.html#某-science-paper"><i class="fa fa-check"></i><b>3.1.1</b> 某 Science paper</a></li>
+<li class="chapter" data-level="3.1.2" data-path="literature2.html"><a href="literature2.html#按类别整理后如下"><i class="fa fa-check"></i><b>3.1.2</b> 按类别整理后如下</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="最佳实践.html"><a href="最佳实践.html"><i class="fa fa-check"></i><b>4</b> 最佳实践</a>
@@ -204,6 +208,12 @@ div.csl-indent {
 <li class="chapter" data-level="5.6" data-path="applications.html"><a href="applications.html#相关分析去掉共线性的变量"><i class="fa fa-check"></i><b>5.6</b> 相关分析(去掉共线性的变量)</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="7" data-path="good-resource.html"><a href="good-resource.html"><i class="fa fa-check"></i><b>7</b> Good resource</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="good-resource.html"><a href="good-resource.html#单细胞教程en"><i class="fa fa-check"></i><b>7.1</b> 单细胞教程(en)</a></li>
+<li class="chapter" data-level="7.2" data-path="good-resource.html"><a href="good-resource.html#单细胞教程cn"><i class="fa fa-check"></i><b>7.2</b> 单细胞教程(cn)</a></li>
+<li class="chapter" data-level="7.3" data-path="good-resource.html"><a href="good-resource.html#r-及-r包-教程"><i class="fa fa-check"></i><b>7.3</b> R 及 R包 教程</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -217,7 +227,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 语言最佳实践</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 语言最佳实践 (R Best Practice)</a>
           </h1>
         </div>
 
@@ -226,8 +236,8 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">R 语言最佳实践</h1>
-<p class="author"><em>biomooc.com | version: 0.0.0-1</em></p>
+<h1 class="title">R 语言最佳实践 (R Best Practice)</h1>
+<p class="author"><em>biomooc.com | version: 0.0.0-3</em></p>
 <p class="date"><em>2022-01-07</em></p>
 </div>
 <div id="前沿" class="section level1" number="1">
@@ -256,6 +266,8 @@ div.csl-indent {
 <li><a href="https://otexts.com/fpp2/" class="uri">https://otexts.com/fpp2/</a></li>
 </ul></li>
 </ul>
+<div id="r包版本信息" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> R包版本信息</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.1.1 (2021-08-10)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
@@ -284,6 +296,7 @@ div.csl-indent {
 ## [17] fastmap_1.1.0   compiler_4.1.1  htmltools_0.5.2 knitr_1.34     
 ## [21] sass_0.4.0</code></pre>
 
+</div>
 </div>
 </div>
             </section>

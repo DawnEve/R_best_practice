@@ -2,9 +2,11 @@ fig:nice-fig
 tab:nice-tab
 前沿
 帮助-help
+r包版本信息
 intro
 literature2
 向高水平文章学习
+某-science-paper
 按类别整理后如下
 最佳实践
 best-practices
@@ -27,3 +29,7 @@ patchwork-拼接图
 ggextra-画边缘分布
 相关分析去掉共线性的变量
 final-words
+good-resource
+单细胞教程en
+单细胞教程cn
+r-及-r包-教程
