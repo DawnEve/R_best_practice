@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Literature2 | R 语言最佳实践</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Literature2 | R 语言最佳实践" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Literature2 | R 语言最佳实践" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="biomooc.com | version: 0.0.0-1" />
+
+
+<meta name="date" content="2022-01-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="最佳实践.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前沿</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#帮助-help"><i class="fa fa-check"></i><b>1.1</b> 帮助 help</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="literature2.html"><a href="literature2.html"><i class="fa fa-check"></i><b>3</b> Literature2</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="literature2.html"><a href="literature2.html#向高水平文章学习"><i class="fa fa-check"></i><b>3.1</b> 向高水平文章学习</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="literature2.html"><a href="literature2.html#按类别整理后如下"><i class="fa fa-check"></i><b>3.1.1</b> 按类别整理后如下</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="最佳实践.html"><a href="最佳实践.html"><i class="fa fa-check"></i><b>4</b> 最佳实践</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="最佳实践.html"><a href="最佳实践.html#best-practices"><i class="fa fa-check"></i><b>4.1</b> Best practices</a></li>
+<li class="chapter" data-level="4.2" data-path="最佳实践.html"><a href="最佳实践.html#文件结构"><i class="fa fa-check"></i><b>4.2</b> 文件结构</a></li>
+<li class="chapter" data-level="4.3" data-path="最佳实践.html"><a href="最佳实践.html#代码块"><i class="fa fa-check"></i><b>4.3</b> 代码块</a></li>
+<li class="chapter" data-level="4.4" data-path="最佳实践.html"><a href="最佳实践.html#函数"><i class="fa fa-check"></i><b>4.4</b> 函数</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="最佳实践.html"><a href="最佳实践.html#函数命名的规范化"><i class="fa fa-check"></i><b>4.4.1</b> 函数命名的规范化</a></li>
+<li class="chapter" data-level="4.4.2" data-path="最佳实践.html"><a href="最佳实践.html#没见过或使用较少的函数"><i class="fa fa-check"></i><b>4.4.2</b> 没见过或使用较少的函数</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="最佳实践.html"><a href="最佳实践.html#图形操作"><i class="fa fa-check"></i><b>4.5</b> 图形操作</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#图片瘦身ggrastr"><i class="fa fa-check"></i><b>5.1</b> 图片瘦身(ggrastr)</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#为paper配色而生ggsci包"><i class="fa fa-check"></i><b>5.2</b> 为paper配色而生(ggsci包)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="applications.html"><a href="applications.html#获取颜色16进制值"><i class="fa fa-check"></i><b>5.2.1</b> 获取颜色16进制值</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="applications.html"><a href="applications.html#图片布局grid-gridextra"><i class="fa fa-check"></i><b>5.3</b> 图片布局(grid, gridExtra)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="applications.html"><a href="applications.html#更精细控制布局使用-layout_matrix矩阵"><i class="fa fa-check"></i><b>5.3.1</b> 更精细控制布局:使用 layout_matrix=矩阵</a></li>
+<li class="chapter" data-level="5.3.2" data-path="applications.html"><a href="applications.html#图中图"><i class="fa fa-check"></i><b>5.3.2</b> 图中图</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="applications.html"><a href="applications.html#拼接图形gridextra-cowplot-patchwork"><i class="fa fa-check"></i><b>5.4</b> 拼接图形(gridExtra/ cowplot/ patchwork)</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="applications.html"><a href="applications.html#cowplot-拼接图"><i class="fa fa-check"></i><b>5.4.1</b> cowplot 拼接图</a></li>
+<li class="chapter" data-level="5.4.2" data-path="applications.html"><a href="applications.html#patchwork-拼接图"><i class="fa fa-check"></i><b>5.4.2</b> patchwork 拼接图</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="applications.html"><a href="applications.html#ggextra-画边缘分布"><i class="fa fa-check"></i><b>5.5</b> ggExtra 画边缘分布</a></li>
+<li class="chapter" data-level="5.6" data-path="applications.html"><a href="applications.html#相关分析去掉共线性的变量"><i class="fa fa-check"></i><b>5.6</b> 相关分析(去掉共线性的变量)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 语言最佳实践</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="literature2" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Literature2</h1>
+<div id="向高水平文章学习" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> 向高水平文章学习</h2>
+<p>整体使用了很多的包，对 <code>library()</code> 语句汇总计数后，排名靠前的包分别是:</p>
+<pre><code>某science文章中最高频率的R包，前3个频次超过40次。
+ggpubr
+plyr
+data.table
+ggplot2
+dplyr
+sscVis
+ssscClust
+reshape2
+tictoc
+ComplexHeatmap
+cowplot
+ggrastr
+R.utils
+ggsci
+grid
+RcolorBrewer
+circlize
+Seurat
+Startrac
+stringr
+doParallel
+...</code></pre>
+<p>还用到了 Gviz 包，可能是画基因峰图的。</p>
+<div id="按类别整理后如下" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> 按类别整理后如下</h3>
+<pre><code>画图包
+&quot;grid&quot;, https://stat.ethz.ch/R-manual/R-devel/library/grid/doc/index.html
+    &quot;gridBase&quot;, 修饰ggplot2的低层包
+    &quot;ggplotify&quot;, [Good] Convert plot function call (using expression or formula) to &#39;grob&#39; or &#39;ggplot&#39; object that compatible to the &#39;grid&#39; and &#39;ggplot2&#39; ecosystem. https://www.jianshu.com/p/7a1050d54b31
+    gridExtra, 
+
+
+&quot;ggplot2&quot;,  
+    &quot;ggpubr&quot;, [Good]‘ggplot2’ Based Publication Ready Plots https://rpkgs.datanovia.com/ggpubr/
+    &quot;cowplot&quot;, [Good] 为ggplot2提供一个出版级别的主题 https://www.jianshu.com/p/fea410378360
+        cowplot添加注释，连接图片 https://www.jianshu.com/p/0ec30fdffbd5
+        排版 https://www.jianshu.com/p/6400fd3abc56
+    &quot;ggrastr&quot;,  [Good] 像素画点图，保持文字和标签向量化。大幅减少图片体积。 https://github.com/VPetukhov/ggrastr
+    &quot;ggrepel&quot;,   repel overlapping text labels
+    
+    &quot;ggvenn&quot;, 韦恩图 https://statisticsglobe.com/ggvenn-r-package
+    &quot;VennDiagram&quot;,  https://statisticsglobe.com/venn-diagram-in-r
+        https://www.r-graph-gallery.com/venn-diagram.html
+        https://www.geeksforgeeks.org/how-to-create-a-venn-diagram-in-r/
+    &quot;patchwork&quot;, [Good]make plot composition in R extremely simple and powerful. https://patchwork.data-imaginist.com/articles/patchwork.html
+    &quot;ggforce&quot;, 注释和分面(椭圆圈住某些点)  https://www.jianshu.com/p/9409650971d9
+
+    &quot;ggraph&quot;, A grammar of graphics for relational data
+        Layouts https://www.data-imaginist.com/2017/ggraph-introduction-layouts/
+        https://www.r-bloggers.com/2017/02/introduction-to-ggraph-layouts/
+        https://ggraph.data-imaginist.com/reference/ggraph.html
+
+所有可以转换为grob对象的图形都可以使用as.ggplot函数转换为ggplot对象
+现在有了ggplot对象，我们可以利用cowplot或者patchwork包将所有的图形组合起来。
+
+
+&quot;ComplexHeatmap&quot;, https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html
+&quot;circlize&quot;,  一个圆形布局包含扇形(sector)和轨道(track)两个部分 https://www.sohu.com/a/351872019_718302 https://github.com/jokergoo/circlize
+    https://jokergoo.github.io/circlize_book/book/
+&quot;gplots&quot;, 用gplots包中的heatmap.2函数就可以画出想要的热图
+&quot;igraph&quot;, provides versatile options for descriptive network analysis and visualization in R, Python, and C/C++ https://igraph.org/r/
+
+&quot;png&quot;,
+
+&quot;fmsb&quot;, radar plot
+    https://www.datanovia.com/en/blog/beautiful-radar-chart-in-r-using-fmsb-and-ggplot-packages/
+
+
+
+颜色
+&quot;ggsci&quot;, offers a collection of ggplot2 color palettes inspired by scientific journals, data visualization libraries, science fiction movies, and TV shows. 
+&quot;RColorBrewer&quot;, 
+&quot;colorRamps&quot;,
+
+
+数据框处理包
+&quot;tidyverse&quot;,
+&quot;plyr&quot;, &quot;dplyr&quot;, 
+&quot;data.table&quot;, 高效数据框 https://www.jianshu.com/p/01598d707ac4
+&quot;reshape2&quot;, https://www.jianshu.com/p/370a04c6b64a 修整数据的内置函数（比如stack、unstack与reshape）
+&quot;Matrix&quot;,
+&quot;tibble&quot;, tibble()做的事情更少——这更加符合我们的需要：它从不改变输入数据的类型 https://www.jianshu.com/p/49e8a2d38389
+&quot;zoo&quot;, Time Series 时间序列基础库
+&quot;stringr&quot;, 一致的、简单易用的字符串工具集
+    http://blog.fens.me/r-stringr/
+    https://www.cnblogs.com/nxld/p/6062950.html
+&quot;magrittr&quot;, 该包定义了管道符 %&gt;%
+&quot;matrixStats&quot;, 矩阵 Functions that Apply to Rows and Columns of Matrices (and to Vectors)
+&quot;dendextend&quot;, 树状图 provides general functions for handling tree-like structures in R.
+    [Good] https://mran.microsoft.com/snapshot/2016-10-12/web/packages/dendextend/vignettes/introduction.html
+
+
+meta 分析
+&quot;meta&quot;, User-friendly general package providing standard methods for meta-analysis and supporting Schwarzer, Carpenter, and Rücker 
+    # w.step2.FigureS32.TCGA_mut_valid.R
+&quot;esc&quot;, esc: Effect Size Computation for Meta Analysis
+&quot;forestplot&quot;, 森林图
+
+
+
+数学建模
+&quot;ranger&quot;, 随机森林 a fast implementation of random forests (Breiman 2001) or recursive partitioning, particularly suited for high dimensional data.
+&quot;gam&quot;, Generalized Additive Models in R
+    https://www.rdocumentation.org/packages/mgcv/versions/1.8-38/topics/gam
+&quot;MASS&quot;, 可以多元正态分布数据
+    https://cran.r-project.org/web/packages/MASS/MASS.pdf
+&quot;nlme&quot;, 混合线性模型
+
+&quot;webr&quot;, Data and Functions for Web-Based Analysis
+    https://github.com/cardiomoon/webr
+
+
+
+
+
+生信专用包
+&quot;limma&quot;,
+&quot;survival&quot;, &quot;survminer&quot;,
+&quot;Gviz&quot;,
+&quot;motifmatchr&quot;,
+&quot;Startrac&quot;, 通过Rna-seq和Tcr跟踪进行单T细胞分析
+&quot;chromVARmotifs&quot;, make it easy to use several different motif collections in R, particularly for use with motifmatchr and chromVAR packages.
+
+
+
+
+单细胞包(前几个是作者自己写的包，都在github上 https://github.com/Japrin/)
+&quot;sscVis&quot;, &quot;sscClust&quot;,
+&quot;scPip&quot;,  A pipeline for scRNA-seq data analysis
+    https://github.com/Japrin/scPip
+
+&quot;Seurat&quot;,&quot;sctransform&quot;, &quot;harmony&quot;, &quot;monocle3&quot;, &quot;SingleCellExperiment&quot;, &quot;SCENIC&quot;,
+&quot;scran&quot;, implements methods to perform low-level processing of scRNA-seq data, including cell cycle phase assignment, variance modelling and testing
+    w.step0.10.TCGA_immuneTyping.R
+# &quot;scReClassify&quot;, a post hoc cell type classification of single-cell RNA-sequencing data to fine-tune cell type annotations generated by any cell type classification procedure.
+    https://bioconductor.org/packages/devel/bioc/vignettes/scReClassify/inst/doc/scReClassify.html
+    # wrapper.reClassify.R
+&quot;nichenetr&quot;, NicheNet: predict active ligand-target links between interacting cells
+&quot;SCopeLoomR&quot;, R package (compatible with SCope) to create generic .loom files and extend them with other data e.g.: SCENIC regulons, Seurat clusters and markers, ...
+    https://github.com/aertslab/SCopeLoomR
+&quot;AUCell&quot;, http://events.jianshu.io/p/c15db7c9d3c5
+
+
+
+GO分析与基因注释:
+&quot;clusterProfiler&quot;,
+&quot;org.Hs.eg.db&quot;,
+&quot;TxDb.Hsapiens.UCSC.hg19.knownGene&quot;,
+&quot;BSgenome.Hsapiens.UCSC.hg19&quot;,
+&quot;GSVA&quot;,
+
+
+R语言开发与调试
+&quot;tictoc&quot;, Functions for Timing R Scripts, as Well as Implementations of Stack and List Structures
+&quot;R.utils&quot;, #使用 R.utils 中的 gunzip 解压缩
+&quot;rlang&quot;,
+&quot;argparse&quot;,
+&quot;reticulate&quot;,
+&quot;future&quot;,
+
+并行计算
+&quot;parallel&quot;, https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf
+&quot;doParallel&quot;, https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html
+&quot;BiocParallel&quot;, https://www.r-bloggers.com/2016/03/are-you-doing-parallel-computations-in-r-then-use-biocparallel/
+    https://bioconductor.org/packages/release/bioc/vignettes/BiocParallel/inst/doc/Introduction_To_BiocParallel.pdf
+
+
+
+
+
+查这个包在哪个函数出现过
+$ find . | grep &quot;R$&quot; | xargs grep -P &quot;zoo&quot; --color=auto
+./source_FigS22_func.R:library(&quot;zoo&quot;)
+./source_dyn_func.R:library(&quot;zoo&quot;)
+
+$ find . | grep &quot;R$&quot; | xargs grep -P &quot;stringr&quot; --color=auto
+./w.step2.FigureS17.CD8_ISG_mapping.R:library(&quot;stringr&quot;)
+./w.step2.FigureS22.MAIT_Tex.R:library(&quot;stringr&quot;)
+./w.step2.FigureS11.blood_Temra.R:library(&quot;stringr&quot;)
+
+
+$ find . | xargs grep -P &quot;gam&quot; | grep library --color=auto
+./w.step2.FigureS17.CD8_ISG_highlight.Rmd:library(&quot;gam&quot;)
+./w.step2.FigureS24.CD8_Tex_Dyn.Rmd:library(&quot;gam&quot;)
+./w.step1.Figure3.CD4_Tfh_Dyn.Rmd:library(&quot;gam&quot;)
+./w.step2.FigureS26.CD4_Treg_Dyn.Rmd:library(&quot;gam&quot;)
+
+
+$ find . | xargs grep -P &quot;ggrastr&quot; --color=auto
+./w.step2.FigureS14.CD8_Tex_score.Rmd:library(&quot;ggrastr&quot;)
+./w.step2.FigureS17.CD8_ISG_mapping.R:#library(&quot;ggrastr&quot;)
+./w.step2.FigureS17.CD8_ISG_highlight.Rmd:library(&quot;ggrastr&quot;)
+./w.step2.FigureS13.CD8_global_monocle3.Rmd:library(&quot;ggrastr&quot;)
+./w.step2.FigureS25.CD4_Tfh_monocle3.Rmd:library(&quot;ggrastr&quot;)
+./w.step2.FigureS26.CD4_Treg_monocle3.Rmd:library(&quot;ggrastr&quot;)
+./scenic/run.scenic.step6.comb.R:library(&quot;ggrastr&quot;)
+./w.step2.FigureS32.TCGA_mut_valid.R:   library(&quot;ggrastr&quot;)
+./w.step2.FigureS24.CD8_Tex_Dyn.Rmd:library(&quot;ggrastr&quot;)
+./w.step0.04.proliferationScore.R:library(&quot;ggrastr&quot;)
+./w.step2.FigureS22.MAIT_Tex.R:library(&quot;ggrastr&quot;)
+./w.step1.Figure3.CD4_Tfh_Dyn.Rmd:library(&quot;ggrastr&quot;)
+./w.step2.FigureS26.CD4_Treg_Dyn.Rmd:library(&quot;ggrastr&quot;)
+./w.step2.FigureS11.blood_Temra.R:library(&quot;ggrastr&quot;)
+
+
+找R包的官方主页，一般有文档
+https://bioconductor.org/packages/release/bioc/html/BiocParallel.html
+</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="最佳实践.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-literature.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
