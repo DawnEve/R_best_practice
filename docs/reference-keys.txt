@@ -1,8 +1,8 @@
 fig:nice-fig
 tab:nice-tab
-前沿
+前言-preface
 帮助-help
-r包版本信息
+r包版本信息-version
 intro
 literature2
 向高水平文章学习
@@ -28,6 +28,11 @@ cowplot-拼接图
 patchwork-拼接图
 ggextra-画边缘分布
 相关分析去掉共线性的变量
+complexheatmap-画热图
+pheatmap-过渡函数
+heatmap-主力热图函数
+为条形图加barplot顶右
+仅注释特定几个基因
 final-words
 good-resource
 单细胞教程en

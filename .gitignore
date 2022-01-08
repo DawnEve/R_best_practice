@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+
+docs
+_book
+_bookdown_files
+rsconnect
+
+my_output
+backup/
+dustbin/

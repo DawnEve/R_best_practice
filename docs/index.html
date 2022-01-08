@@ -21,10 +21,10 @@
   <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
   
 
-<meta name="author" content="biomooc.com | version: 0.0.0-3" />
+<meta name="author" content="biomooc.com | version: 0.0.0-4" />
 
 
-<meta name="date" content="2022-01-07" />
+<meta name="date" content="2022-01-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,11 +159,11 @@ div.csl-indent {
 <li><a href="./">R Best Practice</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前沿</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前言 preface</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#帮助-help"><i class="fa fa-check"></i><b>1.1</b> 帮助 help</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#r包版本信息"><i class="fa fa-check"></i><b>1.1.1</b> R包版本信息</a></li>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#r包版本信息-version"><i class="fa fa-check"></i><b>1.1.1</b> R包版本信息 version</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
@@ -206,6 +206,13 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="applications.html"><a href="applications.html#ggextra-画边缘分布"><i class="fa fa-check"></i><b>5.5</b> ggExtra 画边缘分布</a></li>
 <li class="chapter" data-level="5.6" data-path="applications.html"><a href="applications.html#相关分析去掉共线性的变量"><i class="fa fa-check"></i><b>5.6</b> 相关分析(去掉共线性的变量)</a></li>
+<li class="chapter" data-level="5.7" data-path="applications.html"><a href="applications.html#complexheatmap-画热图"><i class="fa fa-check"></i><b>5.7</b> ComplexHeatmap 画热图</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="applications.html"><a href="applications.html#pheatmap-过渡函数"><i class="fa fa-check"></i><b>5.7.1</b> pheatmap() 过渡函数</a></li>
+<li class="chapter" data-level="5.7.2" data-path="applications.html"><a href="applications.html#heatmap-主力热图函数"><i class="fa fa-check"></i><b>5.7.2</b> Heatmap() 主力热图函数</a></li>
+<li class="chapter" data-level="5.7.3" data-path="applications.html"><a href="applications.html#为条形图加barplot顶右"><i class="fa fa-check"></i><b>5.7.3</b> 为条形图加barplot(顶/右)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="applications.html"><a href="applications.html#仅注释特定几个基因"><i class="fa fa-check"></i><b>5.7.4</b> 仅注释特定几个基因</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="7" data-path="good-resource.html"><a href="good-resource.html"><i class="fa fa-check"></i><b>7</b> Good resource</a>
@@ -237,11 +244,11 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">R 语言最佳实践 (R Best Practice)</h1>
-<p class="author"><em>biomooc.com | version: 0.0.0-3</em></p>
-<p class="date"><em>2022-01-07</em></p>
+<p class="author"><em>biomooc.com | version: 0.0.0-4</em></p>
+<p class="date"><em>2022-01-08</em></p>
 </div>
-<div id="前沿" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> 前沿</h1>
+<div id="前言-preface" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> 前言 preface</h1>
 <p>本书目标：总结R语言的最佳实践，特别是可视化方面，并付诸行动，持续提升技能、习惯和思维方式。</p>
 <ul>
 <li>覆盖范围，文件摆放</li>
@@ -249,6 +256,13 @@ div.csl-indent {
 <li>函数命名，函数结构，变量命名</li>
 <li>并行执行</li>
 </ul>
+<p>养成良好的编程习惯重在日常。
+一个好的程序应该具备可读性与可理解性。</p>
+<p>下面是应该养成的好习惯：
+- 采用结构化、模块化编程
+- 增加注释
+- 使用意义明确的名字给变量命名
+- 行前自动缩进</p>
 <div id="帮助-help" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> 帮助 help</h2>
 <p>本文定位是中高级用户，熟手。
@@ -266,8 +280,8 @@ div.csl-indent {
 <li><a href="https://otexts.com/fpp2/" class="uri">https://otexts.com/fpp2/</a></li>
 </ul></li>
 </ul>
-<div id="r包版本信息" class="section level3" number="1.1.1">
-<h3><span class="header-section-number">1.1.1</span> R包版本信息</h3>
+<div id="r包版本信息-version" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> R包版本信息 version</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div>
 <pre><code>## R version 4.1.1 (2021-08-10)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
