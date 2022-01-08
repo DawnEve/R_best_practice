@@ -8,3 +8,5 @@ _bookdown_files
 rsconnect
 
 my_output
+backup/
+dustbin/

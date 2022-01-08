@@ -365,3 +365,260 @@ M=cor(na.omit(mtcars))
 corrplot(M, method = "circle", type = "lower",
          tl.srt = 45, tl.col = "black", tl.cex = 0.75)
 ```
+
+
+
+
+
+
+
+## ComplexHeatmap 画热图 
+
+[官方文档](https://jokergoo.github.io/ComplexHeatmap-reference/book/)
+
+
+```{r}
+# Create test matrix
+test = matrix(rnorm(200), 20, 10)
+test[1:10, seq(1, 10, 2)] = test[1:10, seq(1, 10, 2)] + 3
+test[11:20, seq(2, 10, 2)] = test[11:20, seq(2, 10, 2)] + 2
+test[15:20, seq(2, 10, 2)] = test[15:20, seq(2, 10, 2)] + 4
+colnames(test) = paste("Sample", 1:10, sep = "")
+rownames(test) = paste("Gene", 1:20, sep = "")
+test[1:3,1:4]
+```
+
+
+### pheatmap() 过渡函数
+
+ComplexHeatmap::pheatmap() 过渡函数，仅仅是为了方便用户从 pheatmap 包无痛过渡。
+
+
+```{r, fig.width=5, fig.height=5}
+library(ComplexHeatmap)
+
+#v1 basic version
+pheatmap( as.matrix(test), border_color = NA, #"#00112200",
+          scale = "row",
+          main="1")
+
+
+#v2, add more annotation
+# Generate annotations for rows and columns
+annotation_col = data.frame(
+  CellType = factor(rep(c("CT1", "CT2"), 5)),
+  Time = 1:5
+)
+rownames(annotation_col) = paste("Sample", 1:10, sep = "")
+head(annotation_col)
+
+#
+annotation_row = data.frame(
+  GeneClass = factor(rep(c("Path1", "Path2", "Path3"), c(10, 4, 6)))
+)
+rownames(annotation_row) = paste("Gene", 1:20, sep = "")
+head(annotation_row)
+
+# Specify colors
+ann_colors = list(
+  Time = c("white", "firebrick"),
+  CellType = c(CT1 = "#1B9E77", CT2 = "#D95F02"),
+  GeneClass = c(Path1 = "#7570B3", Path2 = "#E7298A", Path3 = "#66A61E")
+)
+
+# 除了图例，其他还是很一致的
+pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row,
+         border_color = NA,
+         annotation_colors = ann_colors)
+
+pheatmap::pheatmap(test, annotation_col = annotation_col, annotation_row = annotation_row,
+         border_color = NA,
+         annotation_colors = ann_colors)
+```
+
+
+
+### Heatmap() 主力热图函数
+
+正经功能还是推荐使用 ComplexHeatmap::Heatmap() 函数。
+
+ComplexHeatmap::pheatmap()内部其实使用了Heatmap()函数，因此更多的参数都最终传递给了Heatmap()。
+我们可以在pheatmap()中使用一些Heatmap()特有的参数，比如row_split和column_split来对行和列进行切分。
+
+
+
+```{r, fig.width=5, fig.height=5}
+Heatmap(test) #可见，主函数默认是不带边框的，符合预期
+
+
+# 自定义颜色，这主要是通过circlize包中的colorRamp2()函数来实现的
+library(circlize)
+Heatmap(test,
+       col = colorRamp2(c(-5,0,5), c("green","white","red")),
+       cluster_rows = T,
+       cluster_columns = FALSE)
+
+
+#拼接
+#ComplexHeatmap::pheatmap()返回一个Heatmap对象，因此它可以与其他Heatmap/HeatmapAnnotation对象连接。
+# 换句话说，你可以使用炫酷的+或者%v%对多个pheatmap水平连接或者垂直连接。
+p1=Heatmap(test, name="mat1")
+p2=rowAnnotation(foo=anno_barplot(1:nrow(test)))
+p3=Heatmap(test, name="mat2",
+            col=c("navy", 'white', 'firebrick3'))
+grid.newpage()
+p1 + p2 + p3
+
+p1+p3
+
+
+# 水平条注释
+va1 = HeatmapAnnotation(
+  dist1 = anno_barplot(  #等号左侧的名字能否不显示呢？
+    colSums(test), 
+    bar_width = 1,
+    border = F, #不要边框
+    #height = unit(2, "cm"), 
+    axis_param = list(at = c(0, 20, 40, 60),
+                      labels = c("0", "20", "40", "60")),
+    gp = gpar(col="white", fill = 1:10)), 
+  show_annotation_name = F)# 不显示这个bar的名字
+va2 = HeatmapAnnotation(
+  foo = anno_boxplot(test, #默认显示这个bar的名字是等号左侧的名字
+                     height = unit(2, "cm"), 
+                     border = F, #不要边框
+                     gp = gpar(fill = 1:10)))
+grid.newpage()
+va1  %v% Heatmap(test, name="mat1") %v% va2
+#Heatmap(test, name="mat1", height = unit(10, "cm"),  top_annotation = va2)
+
+
+
+# 控制顶部的高度
+Heatmap(test, name = "base mean", 
+    top_annotation = HeatmapAnnotation(summary = anno_boxplot(test, 
+                                                              height = unit(1, "cm"),
+                                                              gp = gpar(fill = 1:10))),
+    height = unit(0.6, "npc"))
+
+
+
+
+# 竖直条注释 rowAnnotation
+ha = rowAnnotation(foo = anno_histogram(test, n_breaks = 20, gp = gpar(fill = 1:10)))
+ha2 = rowAnnotation(foo2 = anno_boxplot(test))
+ha3 = rowAnnotation(foo3 = anno_density(test))
+ha3_ = rowAnnotation(foo4 = anno_density(test, 
+                                        joyplot_scale = 2,#height of peaks
+                                        gp = gpar(fill = 1:20) ))
+ha+ha2+ha3+ha3_
+
+
+# 竖直条注释 2
+ha4 = rowAnnotation(foo4 = anno_barplot( rowSums(test>4), 
+                                        border = T,
+                                        gp = gpar(fill = 1:10, col="#00112200")))
+ha5 = rowAnnotation(foo5 = anno_density(test, type = "violin", 
+    gp = gpar(fill = 1:10)))
+
+# when too many rows, space maybe small, then use heatmap
+ha5_ = rowAnnotation(foo5_ = anno_density(test, type = "heatmap", #width = unit(2, "cm"),
+                                          border = T))
+
+ha5_2 = rowAnnotation(foo5_2 = anno_density(test, type = "heatmap", width = unit(2, "cm"), 
+    heatmap_colors = c("white", "orange"))) #a better color schema
+ha4 + ha5+ha5_+ha5_2
+```
+
+
+
+
+### 为条形图加barplot(顶/右)
+
+```{r, fig.width=4, fig.height=5}
+# 模仿 https://jokergoo.github.io/ComplexHeatmap-reference/book/more-examples.html 14.2
+mat=as.matrix(mtcars)
+# top
+ha1 = HeatmapAnnotation(
+    dist1 = anno_barplot(
+        colSums(mat), 
+        bar_width = 1, 
+        gp = gpar(col = "white", fill = "#FFE200"), 
+        border = FALSE,
+        axis_param = list(at = c(0, 2000, 4000, 6000, 8000),
+            labels = c("0", "2k", "4k", "6k", "10k")),
+        height = unit(2, "cm")
+    ), show_annotation_name = FALSE)
+
+# right
+ha2 = rowAnnotation(
+    dist2 = anno_barplot(
+        rowSums(mat), 
+        bar_width = 1, 
+        gp = gpar(col = "white", fill = "#FFE200"), 
+        border = FALSE,
+        axis_param = list(at = c(0, 300, 600),
+            labels = c("0", "0.3", "0.6")),
+        width = unit(1.5, "cm")
+    ), show_annotation_name = FALSE)
+#draw(ha2)
+
+# x axis text 底部坐标文字
+x_text = colnames(mat)
+#x_text[year_text %% 10 != 0] = ""
+ha_column = HeatmapAnnotation(
+    year = anno_text(x_text, rot = 60, location = unit(1, "npc"), just = c('right', "top") )
+)
+
+# 热图
+col_fun = colorRamp2(c(0, 20, 200, 472), c("white", "cornflowerblue", "yellow", "red"))
+ht_list = Heatmap(
+  mat, name = "XX01", #图例
+  col = col_fun,
+  cluster_columns = FALSE, show_row_dend = FALSE, 
+  rect_gp = gpar(col= "white"), 
+  show_column_names = FALSE,
+  row_names_side = "left",  #左侧显示文字
+  row_names_gp = gpar(fontsize = 8),
+  
+  column_title = 'Car dataset\nProduced at 2022',
+  top_annotation = ha1, #top bar
+  bottom_annotation = ha_column, #底部文字
+  heatmap_legend_param = list(at = c(0, 150, 300, 450), 
+      labels = c("0", "150", "300", "450"))) + ha2 #右侧bar
+draw(ht_list, ht_gap = unit(3, "mm"))
+
+# 添加修饰竖线，虚线
+decorate_heatmap_body("XX01", {
+    i = which(colnames(mat) == "wt")
+    x = i/ncol(mat)
+    grid.lines(c(x, x), c(0, 1), gp = gpar(lwd = 2, lty = 2))
+    grid.text("yy point", x, unit(1, "npc") + unit(5, "mm"))
+})
+```
+
+
+
+
+
+### 仅注释特定几个基因
+
+自定义行注释，仅注释特定几个基因 rowAnnotation
+
+-  https://blog.csdn.net/weixin_39942995/article/details/111985755
+- https://www.jianshu.com/p/eb8548cf73c4
+
+
+```{r, fig.width=4, fig.height=4}
+gene=c("Gene18", "Gene19", "Gene7","Gene3", "Gene9", "Gene15")
+gene_pos=which(rownames(test) %in% gene) #3  7  9 15 18 19
+
+#右侧要注释的基因
+row_anno=rowAnnotation(gene=anno_mark(at=gene_pos, #位置
+                                      labels=gene, #文字
+                                      labels_gp=gpar(fontsize=8, col="red"))) #样式
+Heatmap( test,
+         heatmap_legend_param = list(title=""), #修改图例标题，该语句或者 name=语句
+         show_row_names = F, #不显示右侧注释
+         right_annotation = row_anno) #只显示感兴趣基因
+```

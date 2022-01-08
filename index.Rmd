@@ -1,6 +1,6 @@
 --- 
 title: "R 语言最佳实践 (R Best Practice)"
-author: "biomooc.com | version: 0.0.0-3"
+author: "biomooc.com | version: 0.0.0-4"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(fig.width=3, fig.height=2.8,
 ```
 
 
-# 前沿
+# 前言 preface
 
 本书目标：总结R语言的最佳实践，特别是可视化方面，并付诸行动，持续提升技能、习惯和思维方式。
 
@@ -32,6 +32,15 @@ knitr::opts_chunk$set(fig.width=3, fig.height=2.8,
 - 并行执行
 
 
+
+养成良好的编程习惯重在日常。
+一个好的程序应该具备可读性与可理解性。
+
+下面是应该养成的好习惯：
+-	采用结构化、模块化编程
+-	增加注释
+-	使用意义明确的名字给变量命名
+-	行前自动缩进
 
 
 
@@ -54,7 +63,7 @@ knitr::opts_chunk$set(fig.width=3, fig.height=2.8,
 
 
 
-### R包版本信息
+### R包版本信息 version
 ```{r}
 sessionInfo()
 ```
