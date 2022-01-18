@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 introduction | R 语言最佳实践 (R Best Practice)</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 introduction | R 语言最佳实践 (R Best Practice)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="dawneve/R_best_practice" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 introduction | R 语言最佳实践 (R Best Practice)" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="biomooc.com | version: 0.0.0-5" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="colors.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Best Practice</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前言 preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#帮助-help"><i class="fa fa-check"></i><b>1.1</b> 帮助 help</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#r包版本信息-version"><i class="fa fa-check"></i><b>1.1.1</b> R包版本信息 version</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#how-to-build-and-publish"><i class="fa fa-check"></i><b>1.1.2</b> How to Build and publish?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#为-rstudio-server-指定r版本"><i class="fa fa-check"></i><b>2.1</b> 为 Rstudio Server 指定R版本</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="colors.html"><a href="colors.html"><i class="fa fa-check"></i><b>3</b> colors</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="colors.html"><a href="colors.html#ggplot2-常用的渐变色"><i class="fa fa-check"></i><b>3.1</b> 1.ggplot2 常用的渐变色</a></li>
+<li class="chapter" data-level="3.2" data-path="colors.html"><a href="colors.html#自定义渐变色bias-参数"><i class="fa fa-check"></i><b>3.2</b> 自定义渐变色(bias 参数)</a></li>
+<li class="chapter" data-level="3.3" data-path="colors.html"><a href="colors.html#multi-color-system"><i class="fa fa-check"></i><b>3.3</b> Multi Color System</a></li>
+<li class="chapter" data-level="3.4" data-path="colors.html"><a href="colors.html#single-color-system"><i class="fa fa-check"></i><b>3.4</b> Single Color System</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="literature2.html"><a href="literature2.html"><i class="fa fa-check"></i><b>4</b> Literature2</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="literature2.html"><a href="literature2.html#向高水平文章学习"><i class="fa fa-check"></i><b>4.1</b> 向高水平文章学习</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="literature2.html"><a href="literature2.html#某-science-paper"><i class="fa fa-check"></i><b>4.1.1</b> 某 Science paper</a></li>
+<li class="chapter" data-level="4.1.2" data-path="literature2.html"><a href="literature2.html#按类别整理后如下"><i class="fa fa-check"></i><b>4.1.2</b> 按类别整理后如下</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="最佳实践.html"><a href="最佳实践.html"><i class="fa fa-check"></i><b>5</b> 最佳实践</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="最佳实践.html"><a href="最佳实践.html#best-practices"><i class="fa fa-check"></i><b>5.1</b> Best practices</a></li>
+<li class="chapter" data-level="5.2" data-path="最佳实践.html"><a href="最佳实践.html#文件结构"><i class="fa fa-check"></i><b>5.2</b> 文件结构</a></li>
+<li class="chapter" data-level="5.3" data-path="最佳实践.html"><a href="最佳实践.html#代码块"><i class="fa fa-check"></i><b>5.3</b> 代码块</a></li>
+<li class="chapter" data-level="5.4" data-path="最佳实践.html"><a href="最佳实践.html#函数"><i class="fa fa-check"></i><b>5.4</b> 函数</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="最佳实践.html"><a href="最佳实践.html#函数命名的规范化"><i class="fa fa-check"></i><b>5.4.1</b> 函数命名的规范化</a></li>
+<li class="chapter" data-level="5.4.2" data-path="最佳实践.html"><a href="最佳实践.html#没见过或使用较少的函数"><i class="fa fa-check"></i><b>5.4.2</b> 没见过或使用较少的函数</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="最佳实践.html"><a href="最佳实践.html#图形操作"><i class="fa fa-check"></i><b>5.5</b> 图形操作</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6</b> functions</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="functions.html"><a href="functions.html#函数的定义"><i class="fa fa-check"></i><b>6.1</b> 函数的定义</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html#返回函数的函数"><i class="fa fa-check"></i><b>6.2</b> 返回函数的函数</a></li>
+<li class="chapter" data-level="6.3" data-path="functions.html"><a href="functions.html#df-相关函数"><i class="fa fa-check"></i><b>6.3</b> df 相关函数</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="functions.html"><a href="functions.html#横向合并表格cbindmerge"><i class="fa fa-check"></i><b>6.3.1</b> 横向合并表格(cbind/merge)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plots</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="plots.html"><a href="plots.html#ggplot2-特殊用法"><i class="fa fa-check"></i><b>7.1</b> ggplot2 特殊用法</a></li>
+<li class="chapter" data-level="7.2" data-path="plots.html"><a href="plots.html#ggplot2-主题及自定义主题"><i class="fa fa-check"></i><b>7.2</b> ggplot2 主题及自定义主题</a></li>
+<li class="chapter" data-level="7.3" data-path="plots.html"><a href="plots.html#图片瘦身ggrastr"><i class="fa fa-check"></i><b>7.3</b> 图片瘦身(ggrastr)</a></li>
+<li class="chapter" data-level="7.4" data-path="plots.html"><a href="plots.html#为paper配色而生ggsci包"><i class="fa fa-check"></i><b>7.4</b> 为paper配色而生(ggsci包)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="plots.html"><a href="plots.html#获取颜色16进制值"><i class="fa fa-check"></i><b>7.4.1</b> 获取颜色16进制值</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="plots.html"><a href="plots.html#图片布局grid-gridextra"><i class="fa fa-check"></i><b>7.5</b> 图片布局(grid, gridExtra)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="plots.html"><a href="plots.html#更精细控制布局使用-layout_matrix矩阵"><i class="fa fa-check"></i><b>7.5.1</b> 更精细控制布局:使用 layout_matrix=矩阵</a></li>
+<li class="chapter" data-level="7.5.2" data-path="plots.html"><a href="plots.html#图中图"><i class="fa fa-check"></i><b>7.5.2</b> 图中图</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="plots.html"><a href="plots.html#拼接图形gridextra-cowplot-patchwork"><i class="fa fa-check"></i><b>7.6</b> 拼接图形(gridExtra/ cowplot/ patchwork)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="plots.html"><a href="plots.html#cowplot-拼接图"><i class="fa fa-check"></i><b>7.6.1</b> cowplot 拼接图</a></li>
+<li class="chapter" data-level="7.6.2" data-path="plots.html"><a href="plots.html#patchwork-拼接图"><i class="fa fa-check"></i><b>7.6.2</b> patchwork 拼接图</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="plots.html"><a href="plots.html#ggextra-画边缘分布"><i class="fa fa-check"></i><b>7.7</b> ggExtra 画边缘分布</a></li>
+<li class="chapter" data-level="7.8" data-path="plots.html"><a href="plots.html#相关分析去掉共线性的变量"><i class="fa fa-check"></i><b>7.8</b> 相关分析(去掉共线性的变量)</a></li>
+<li class="chapter" data-level="7.9" data-path="plots.html"><a href="plots.html#pheatmap-热图成熟"><i class="fa fa-check"></i><b>7.9</b> pheatmap 热图(成熟)</a></li>
+<li class="chapter" data-level="7.10" data-path="plots.html"><a href="plots.html#complexheatmap-热图功能多"><i class="fa fa-check"></i><b>7.10</b> ComplexHeatmap 热图(功能多)</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="plots.html"><a href="plots.html#pheatmap-过渡函数"><i class="fa fa-check"></i><b>7.10.1</b> pheatmap() 过渡函数</a></li>
+<li class="chapter" data-level="7.10.2" data-path="plots.html"><a href="plots.html#heatmap-主力热图函数"><i class="fa fa-check"></i><b>7.10.2</b> Heatmap() 主力热图函数</a></li>
+<li class="chapter" data-level="7.10.3" data-path="plots.html"><a href="plots.html#为条形图加barplot顶右"><i class="fa fa-check"></i><b>7.10.3</b> 为条形图加barplot(顶/右)</a></li>
+<li class="chapter" data-level="7.10.4" data-path="plots.html"><a href="plots.html#仅注释特定几个基因"><i class="fa fa-check"></i><b>7.10.4</b> 仅注释特定几个基因</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="plots.html"><a href="plots.html#dendextend-给聚类图上色"><i class="fa fa-check"></i><b>7.11</b> dendextend 给聚类图上色</a></li>
+<li class="chapter" data-level="7.12" data-path="plots.html"><a href="plots.html#标文字-ggrepel-避免重叠"><i class="fa fa-check"></i><b>7.12</b> 标文字 ggrepel 避免重叠</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="grid.html"><a href="grid.html"><i class="fa fa-check"></i><b>8</b> grid</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="grid.html"><a href="grid.html#坐标系统-unit1-npc"><i class="fa fa-check"></i><b>8.1</b> 坐标系统 unit(1, “npc”)</a></li>
+<li class="chapter" data-level="8.2" data-path="grid.html"><a href="grid.html#基本图形及图形参数-gpgpar"><i class="fa fa-check"></i><b>8.2</b> 基本图形及图形参数 gp=gpar()</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="grid.html"><a href="grid.html#使用-rect.rect-绘制矩形"><i class="fa fa-check"></i><b>8.2.1</b> 使用 rect.rect() 绘制矩形</a></li>
+<li class="chapter" data-level="8.2.2" data-path="grid.html"><a href="grid.html#绘制嵌套的圆环并在顶部添加文字"><i class="fa fa-check"></i><b>8.2.2</b> 绘制嵌套的圆环，并在顶部添加文字</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="grid.html"><a href="grid.html#图形对象-grob-对象-及其排布放置"><i class="fa fa-check"></i><b>8.3</b> 图形对象 Grob 对象 及其排布、放置</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="grid.html"><a href="grid.html#grob-对象"><i class="fa fa-check"></i><b>8.3.1</b> Grob 对象</a></li>
+<li class="chapter" data-level="8.3.2" data-path="grid.html"><a href="grid.html#grid.edit"><i class="fa fa-check"></i><b>8.3.2</b> grid.edit</a></li>
+<li class="chapter" data-level="8.3.3" data-path="grid.html"><a href="grid.html#对象排布-glist-or-gtree"><i class="fa fa-check"></i><b>8.3.3</b> 对象排布 gList, or gTree</a></li>
+<li class="chapter" data-level="8.3.4" data-path="grid.html"><a href="grid.html#gpath-todo"><i class="fa fa-check"></i><b>8.3.4</b> gPath //todo</a></li>
+<li class="chapter" data-level="8.3.5" data-path="grid.html"><a href="grid.html#使用grobx和groby获得grob对象的坐标"><i class="fa fa-check"></i><b>8.3.5</b> 使用grobX和grobY获得grob对象的坐标</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="grid.html"><a href="grid.html#视口viewport"><i class="fa fa-check"></i><b>8.4</b> 视口(viewport)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="grid.html"><a href="grid.html#函数grid.show.viewport查看创建的视口"><i class="fa fa-check"></i><b>8.4.1</b> 函数grid.show.viewport()查看创建的视口</a></li>
+<li class="chapter" data-level="8.4.2" data-path="grid.html"><a href="grid.html#视口可以旋转"><i class="fa fa-check"></i><b>8.4.2</b> 视口可以旋转</a></li>
+<li class="chapter" data-level="8.4.3" data-path="grid.html"><a href="grid.html#viewport树"><i class="fa fa-check"></i><b>8.4.3</b> viewport树</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="grid.html"><a href="grid.html#行列布局-layout"><i class="fa fa-check"></i><b>8.5</b> 行列布局 layout</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="grid.html"><a href="grid.html#grid.show.layoutlayout-查看布局"><i class="fa fa-check"></i><b>8.5.1</b> grid.show.layout(layout) 查看布局</a></li>
+<li class="chapter" data-level="8.5.2" data-path="grid.html"><a href="grid.html#拼装散点图"><i class="fa fa-check"></i><b>8.5.2</b> 拼装散点图</a></li>
+<li class="chapter" data-level="8.5.3" data-path="grid.html"><a href="grid.html#print.ggplotg1-vp-拼合-ggplot2-图形"><i class="fa fa-check"></i><b>8.5.3</b> print.ggplot(g1, vp=) 拼合 ggplot2 图形</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="grid.html"><a href="grid.html#视口路径-viewport-paths"><i class="fa fa-check"></i><b>8.6</b> 视口路径 Viewport paths</a></li>
+<li class="chapter" data-level="8.7" data-path="grid.html"><a href="grid.html#grid-的渐变色"><i class="fa fa-check"></i><b>8.7</b> grid 的渐变色</a></li>
+<li class="chapter" data-level="8.8" data-path="grid.html"><a href="grid.html#拆解-ggplot2-对象"><i class="fa fa-check"></i><b>8.8</b> 拆解 ggplot2 对象</a></li>
+<li class="chapter" data-level="8.9" data-path="grid.html"><a href="grid.html#扩展"><i class="fa fa-check"></i><b>8.9</b> 扩展</a></li>
+<li class="chapter" data-level="8.10" data-path="grid.html"><a href="grid.html#ref"><i class="fa fa-check"></i><b>8.10</b> ref</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="good-resource.html"><a href="good-resource.html"><i class="fa fa-check"></i><b>9</b> Good resource</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="good-resource.html"><a href="good-resource.html#单细胞教程en"><i class="fa fa-check"></i><b>9.1</b> 单细胞教程(en)</a></li>
+<li class="chapter" data-level="9.2" data-path="good-resource.html"><a href="good-resource.html#单细胞教程cn"><i class="fa fa-check"></i><b>9.2</b> 单细胞教程(cn)</a></li>
+<li class="chapter" data-level="9.3" data-path="good-resource.html"><a href="good-resource.html#r-及-r包-教程"><i class="fa fa-check"></i><b>9.3</b> R 及 R包 教程</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>10</b> tables</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="intro.html"><a href="intro.html#how-to-make-tables"><i class="fa fa-check"></i><b>10.1</b> how to make tables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 语言最佳实践 (R Best Practice)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> introduction</h1>
+<p>学而时习之，不亦说乎？</p>
+<p>主要是一些常用的可视化细节。碰到了就整理一下。</p>
+<div id="为-rstudio-server-指定r版本" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> 为 Rstudio Server 指定R版本</h2>
+<p>免费的 Rstudio Server 已经不支持为每个用户设置R版本了。要改就是所有用户一起改。改的方法如下：</p>
+<pre><code>* change R location in /etc/rstudio/rserver.conf:
+
+rsession-which-r=/usr/bin/R
+
+* restart rstudio-server
+sudo rstudio-server restart</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="colors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

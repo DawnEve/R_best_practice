@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 grid | R 语言最佳实践 (R Best Practice)</title>
+  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 grid | R 语言最佳实践 (R Best Practice)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="dawneve/R_best_practice" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 grid | R 语言最佳实践 (R Best Practice)" />
+  
+  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="biomooc.com | version: 0.0.0-5" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="plots.html"/>
+<link rel="next" href="good-resource.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Best Practice</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 前言 preface</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#帮助-help"><i class="fa fa-check"></i><b>1.1</b> 帮助 help</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#r包版本信息-version"><i class="fa fa-check"></i><b>1.1.1</b> R包版本信息 version</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#how-to-build-and-publish"><i class="fa fa-check"></i><b>1.1.2</b> How to Build and publish?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction.html"><a href="introduction.html#为-rstudio-server-指定r版本"><i class="fa fa-check"></i><b>2.1</b> 为 Rstudio Server 指定R版本</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="colors.html"><a href="colors.html"><i class="fa fa-check"></i><b>3</b> colors</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="colors.html"><a href="colors.html#ggplot2-常用的渐变色"><i class="fa fa-check"></i><b>3.1</b> 1.ggplot2 常用的渐变色</a></li>
+<li class="chapter" data-level="3.2" data-path="colors.html"><a href="colors.html#自定义渐变色bias-参数"><i class="fa fa-check"></i><b>3.2</b> 自定义渐变色(bias 参数)</a></li>
+<li class="chapter" data-level="3.3" data-path="colors.html"><a href="colors.html#multi-color-system"><i class="fa fa-check"></i><b>3.3</b> Multi Color System</a></li>
+<li class="chapter" data-level="3.4" data-path="colors.html"><a href="colors.html#single-color-system"><i class="fa fa-check"></i><b>3.4</b> Single Color System</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="literature2.html"><a href="literature2.html"><i class="fa fa-check"></i><b>4</b> Literature2</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="literature2.html"><a href="literature2.html#向高水平文章学习"><i class="fa fa-check"></i><b>4.1</b> 向高水平文章学习</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="literature2.html"><a href="literature2.html#某-science-paper"><i class="fa fa-check"></i><b>4.1.1</b> 某 Science paper</a></li>
+<li class="chapter" data-level="4.1.2" data-path="literature2.html"><a href="literature2.html#按类别整理后如下"><i class="fa fa-check"></i><b>4.1.2</b> 按类别整理后如下</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="最佳实践.html"><a href="最佳实践.html"><i class="fa fa-check"></i><b>5</b> 最佳实践</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="最佳实践.html"><a href="最佳实践.html#best-practices"><i class="fa fa-check"></i><b>5.1</b> Best practices</a></li>
+<li class="chapter" data-level="5.2" data-path="最佳实践.html"><a href="最佳实践.html#文件结构"><i class="fa fa-check"></i><b>5.2</b> 文件结构</a></li>
+<li class="chapter" data-level="5.3" data-path="最佳实践.html"><a href="最佳实践.html#代码块"><i class="fa fa-check"></i><b>5.3</b> 代码块</a></li>
+<li class="chapter" data-level="5.4" data-path="最佳实践.html"><a href="最佳实践.html#函数"><i class="fa fa-check"></i><b>5.4</b> 函数</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="最佳实践.html"><a href="最佳实践.html#函数命名的规范化"><i class="fa fa-check"></i><b>5.4.1</b> 函数命名的规范化</a></li>
+<li class="chapter" data-level="5.4.2" data-path="最佳实践.html"><a href="最佳实践.html#没见过或使用较少的函数"><i class="fa fa-check"></i><b>5.4.2</b> 没见过或使用较少的函数</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="最佳实践.html"><a href="最佳实践.html#图形操作"><i class="fa fa-check"></i><b>5.5</b> 图形操作</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>6</b> functions</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="functions.html"><a href="functions.html#函数的定义"><i class="fa fa-check"></i><b>6.1</b> 函数的定义</a></li>
+<li class="chapter" data-level="6.2" data-path="functions.html"><a href="functions.html#返回函数的函数"><i class="fa fa-check"></i><b>6.2</b> 返回函数的函数</a></li>
+<li class="chapter" data-level="6.3" data-path="functions.html"><a href="functions.html#df-相关函数"><i class="fa fa-check"></i><b>6.3</b> df 相关函数</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="functions.html"><a href="functions.html#横向合并表格cbindmerge"><i class="fa fa-check"></i><b>6.3.1</b> 横向合并表格(cbind/merge)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>7</b> Plots</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="plots.html"><a href="plots.html#ggplot2-特殊用法"><i class="fa fa-check"></i><b>7.1</b> ggplot2 特殊用法</a></li>
+<li class="chapter" data-level="7.2" data-path="plots.html"><a href="plots.html#ggplot2-主题及自定义主题"><i class="fa fa-check"></i><b>7.2</b> ggplot2 主题及自定义主题</a></li>
+<li class="chapter" data-level="7.3" data-path="plots.html"><a href="plots.html#图片瘦身ggrastr"><i class="fa fa-check"></i><b>7.3</b> 图片瘦身(ggrastr)</a></li>
+<li class="chapter" data-level="7.4" data-path="plots.html"><a href="plots.html#为paper配色而生ggsci包"><i class="fa fa-check"></i><b>7.4</b> 为paper配色而生(ggsci包)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="plots.html"><a href="plots.html#获取颜色16进制值"><i class="fa fa-check"></i><b>7.4.1</b> 获取颜色16进制值</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="plots.html"><a href="plots.html#图片布局grid-gridextra"><i class="fa fa-check"></i><b>7.5</b> 图片布局(grid, gridExtra)</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="plots.html"><a href="plots.html#更精细控制布局使用-layout_matrix矩阵"><i class="fa fa-check"></i><b>7.5.1</b> 更精细控制布局:使用 layout_matrix=矩阵</a></li>
+<li class="chapter" data-level="7.5.2" data-path="plots.html"><a href="plots.html#图中图"><i class="fa fa-check"></i><b>7.5.2</b> 图中图</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="plots.html"><a href="plots.html#拼接图形gridextra-cowplot-patchwork"><i class="fa fa-check"></i><b>7.6</b> 拼接图形(gridExtra/ cowplot/ patchwork)</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="plots.html"><a href="plots.html#cowplot-拼接图"><i class="fa fa-check"></i><b>7.6.1</b> cowplot 拼接图</a></li>
+<li class="chapter" data-level="7.6.2" data-path="plots.html"><a href="plots.html#patchwork-拼接图"><i class="fa fa-check"></i><b>7.6.2</b> patchwork 拼接图</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="plots.html"><a href="plots.html#ggextra-画边缘分布"><i class="fa fa-check"></i><b>7.7</b> ggExtra 画边缘分布</a></li>
+<li class="chapter" data-level="7.8" data-path="plots.html"><a href="plots.html#相关分析去掉共线性的变量"><i class="fa fa-check"></i><b>7.8</b> 相关分析(去掉共线性的变量)</a></li>
+<li class="chapter" data-level="7.9" data-path="plots.html"><a href="plots.html#pheatmap-热图成熟"><i class="fa fa-check"></i><b>7.9</b> pheatmap 热图(成熟)</a></li>
+<li class="chapter" data-level="7.10" data-path="plots.html"><a href="plots.html#complexheatmap-热图功能多"><i class="fa fa-check"></i><b>7.10</b> ComplexHeatmap 热图(功能多)</a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="plots.html"><a href="plots.html#pheatmap-过渡函数"><i class="fa fa-check"></i><b>7.10.1</b> pheatmap() 过渡函数</a></li>
+<li class="chapter" data-level="7.10.2" data-path="plots.html"><a href="plots.html#heatmap-主力热图函数"><i class="fa fa-check"></i><b>7.10.2</b> Heatmap() 主力热图函数</a></li>
+<li class="chapter" data-level="7.10.3" data-path="plots.html"><a href="plots.html#为条形图加barplot顶右"><i class="fa fa-check"></i><b>7.10.3</b> 为条形图加barplot(顶/右)</a></li>
+<li class="chapter" data-level="7.10.4" data-path="plots.html"><a href="plots.html#仅注释特定几个基因"><i class="fa fa-check"></i><b>7.10.4</b> 仅注释特定几个基因</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="plots.html"><a href="plots.html#dendextend-给聚类图上色"><i class="fa fa-check"></i><b>7.11</b> dendextend 给聚类图上色</a></li>
+<li class="chapter" data-level="7.12" data-path="plots.html"><a href="plots.html#标文字-ggrepel-避免重叠"><i class="fa fa-check"></i><b>7.12</b> 标文字 ggrepel 避免重叠</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="grid.html"><a href="grid.html"><i class="fa fa-check"></i><b>8</b> grid</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="grid.html"><a href="grid.html#坐标系统-unit1-npc"><i class="fa fa-check"></i><b>8.1</b> 坐标系统 unit(1, “npc”)</a></li>
+<li class="chapter" data-level="8.2" data-path="grid.html"><a href="grid.html#基本图形及图形参数-gpgpar"><i class="fa fa-check"></i><b>8.2</b> 基本图形及图形参数 gp=gpar()</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="grid.html"><a href="grid.html#使用-rect.rect-绘制矩形"><i class="fa fa-check"></i><b>8.2.1</b> 使用 rect.rect() 绘制矩形</a></li>
+<li class="chapter" data-level="8.2.2" data-path="grid.html"><a href="grid.html#绘制嵌套的圆环并在顶部添加文字"><i class="fa fa-check"></i><b>8.2.2</b> 绘制嵌套的圆环，并在顶部添加文字</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="grid.html"><a href="grid.html#图形对象-grob-对象-及其排布放置"><i class="fa fa-check"></i><b>8.3</b> 图形对象 Grob 对象 及其排布、放置</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="grid.html"><a href="grid.html#grob-对象"><i class="fa fa-check"></i><b>8.3.1</b> Grob 对象</a></li>
+<li class="chapter" data-level="8.3.2" data-path="grid.html"><a href="grid.html#grid.edit"><i class="fa fa-check"></i><b>8.3.2</b> grid.edit</a></li>
+<li class="chapter" data-level="8.3.3" data-path="grid.html"><a href="grid.html#对象排布-glist-or-gtree"><i class="fa fa-check"></i><b>8.3.3</b> 对象排布 gList, or gTree</a></li>
+<li class="chapter" data-level="8.3.4" data-path="grid.html"><a href="grid.html#gpath-todo"><i class="fa fa-check"></i><b>8.3.4</b> gPath //todo</a></li>
+<li class="chapter" data-level="8.3.5" data-path="grid.html"><a href="grid.html#使用grobx和groby获得grob对象的坐标"><i class="fa fa-check"></i><b>8.3.5</b> 使用grobX和grobY获得grob对象的坐标</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="grid.html"><a href="grid.html#视口viewport"><i class="fa fa-check"></i><b>8.4</b> 视口(viewport)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="grid.html"><a href="grid.html#函数grid.show.viewport查看创建的视口"><i class="fa fa-check"></i><b>8.4.1</b> 函数grid.show.viewport()查看创建的视口</a></li>
+<li class="chapter" data-level="8.4.2" data-path="grid.html"><a href="grid.html#视口可以旋转"><i class="fa fa-check"></i><b>8.4.2</b> 视口可以旋转</a></li>
+<li class="chapter" data-level="8.4.3" data-path="grid.html"><a href="grid.html#viewport树"><i class="fa fa-check"></i><b>8.4.3</b> viewport树</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="grid.html"><a href="grid.html#行列布局-layout"><i class="fa fa-check"></i><b>8.5</b> 行列布局 layout</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="grid.html"><a href="grid.html#grid.show.layoutlayout-查看布局"><i class="fa fa-check"></i><b>8.5.1</b> grid.show.layout(layout) 查看布局</a></li>
+<li class="chapter" data-level="8.5.2" data-path="grid.html"><a href="grid.html#拼装散点图"><i class="fa fa-check"></i><b>8.5.2</b> 拼装散点图</a></li>
+<li class="chapter" data-level="8.5.3" data-path="grid.html"><a href="grid.html#print.ggplotg1-vp-拼合-ggplot2-图形"><i class="fa fa-check"></i><b>8.5.3</b> print.ggplot(g1, vp=) 拼合 ggplot2 图形</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="grid.html"><a href="grid.html#视口路径-viewport-paths"><i class="fa fa-check"></i><b>8.6</b> 视口路径 Viewport paths</a></li>
+<li class="chapter" data-level="8.7" data-path="grid.html"><a href="grid.html#grid-的渐变色"><i class="fa fa-check"></i><b>8.7</b> grid 的渐变色</a></li>
+<li class="chapter" data-level="8.8" data-path="grid.html"><a href="grid.html#拆解-ggplot2-对象"><i class="fa fa-check"></i><b>8.8</b> 拆解 ggplot2 对象</a></li>
+<li class="chapter" data-level="8.9" data-path="grid.html"><a href="grid.html#扩展"><i class="fa fa-check"></i><b>8.9</b> 扩展</a></li>
+<li class="chapter" data-level="8.10" data-path="grid.html"><a href="grid.html#ref"><i class="fa fa-check"></i><b>8.10</b> ref</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="good-resource.html"><a href="good-resource.html"><i class="fa fa-check"></i><b>9</b> Good resource</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="good-resource.html"><a href="good-resource.html#单细胞教程en"><i class="fa fa-check"></i><b>9.1</b> 单细胞教程(en)</a></li>
+<li class="chapter" data-level="9.2" data-path="good-resource.html"><a href="good-resource.html#单细胞教程cn"><i class="fa fa-check"></i><b>9.2</b> 单细胞教程(cn)</a></li>
+<li class="chapter" data-level="9.3" data-path="good-resource.html"><a href="good-resource.html#r-及-r包-教程"><i class="fa fa-check"></i><b>9.3</b> R 及 R包 教程</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>10</b> tables</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="intro.html"><a href="intro.html#how-to-make-tables"><i class="fa fa-check"></i><b>10.1</b> how to make tables</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 语言最佳实践 (R Best Practice)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="grid" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> grid</h1>
+<p>grid 绘图系统极其灵活、强大，几乎能绘制任何图形，当然代价是很繁琐。
+grid 包是 ggplot2 / ComplexHeatmap 等的底层包。</p>
+<p>grid 包的创建者 Paul Murrell’s Home Page: <a href="https://www.stat.auckland.ac.nz/~paul/" class="uri">https://www.stat.auckland.ac.nz/~paul/</a></p>
+<p>grid 的核心概念有：</p>
+<ul>
+<li>坐标系统 unit(1, “npc”)</li>
+<li>基本图形 grid.circle() 与 gpar()对象</li>
+<li>图形对象 Grob 对象 及其排布、放置</li>
+<li>视口 viewport 及其嵌套、导航</li>
+</ul>
+<p>创建新画布 grid.newpage()</p>
+<div id="坐标系统-unit1-npc" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> 坐标系统 unit(1, “npc”)</h2>
+<p>所谓坐标系统，主要就是坐标的单位系统。</p>
+<p>unit(x, units, data=NULL)</p>
+<p>例: 默认的单位 npc 是相对概念，把当前视口的长宽标准化到 0-1。
+左下角是(0,0)，右上角是(1,1)。</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="grid.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb115-2"><a href="grid.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="at">label =</span> <span class="st">&quot;Let&#39;s us begin!&quot;</span>) <span class="co">#默认画到中间</span></span>
+<span id="cb115-3"><a href="grid.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-4"><a href="grid.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="at">label =</span> <span class="st">&quot;2nd line&quot;</span>, <span class="at">x=</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;npc&quot;</span>), <span class="at">y=</span><span class="fl">0.8</span>,</span>
+<span id="cb115-5"><a href="grid.html#cb115-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">just=</span><span class="st">&quot;left&quot;</span>, <span class="co">#相对于(x,y)点的左边</span></span>
+<span id="cb115-6"><a href="grid.html#cb115-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">rot =</span> <span class="sc">-</span><span class="dv">10</span>, <span class="co">#旋转30度(和数学一致，+为逆时针)</span></span>
+<span id="cb115-7"><a href="grid.html#cb115-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;purple&quot;</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">face=</span><span class="st">&quot;bold&quot;</span>)) <span class="co">#紫色、2倍、黑体 </span></span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="192" /></p>
+<pre><code>坐标系统：描述
+native: 位置和大小相对于当前 viewport 的x、y轴的范围
+npc: 定义当前 viewport 的左下角(0,0)，右上角(1,1)
+snpc: 位置和大小被表示为当前 vewport 的宽度和高度中更小的值的比例
+inches: 英寸，(0,0)表示 viewport 的左下角
+cm: 厘米
+mm: 毫米 
+points: 点，每英寸相当于 72.27 个点
+bigpts: 大点，每英寸相当于72个大点
+picas: 1 pica 相当于12个点
+dida: 1157 个 dida 相当于 1238 个点
+cicero: 1 cicero 相当于 12 个 dida
+scaledpts: 相当于一个点的 65536 分之一
+char: 相当于字体大小为单位(由 fontsize 和 cex 确定)
+lines: 相当于以线条高度为单位(由 fontsize, cex, lineheight 确定)
+strwidth, strheight: 相当于以字符串的宽高为单位(由 fontsize, cex, fontfamily, fontface 确定)
+grobwidth, grobheight: 以给定图形对象的宽高位单位。</code></pre>
+</div>
+<div id="基本图形及图形参数-gpgpar" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> 基本图形及图形参数 gp=gpar()</h2>
+<p>绘制图形要指定坐标，指定长宽等参数，而其他参数则由 gp=gpar() 设定。</p>
+<p>常用的绘图函数: a1=ls(“package:grid”);a1[grep(“grid.” a1)]</p>
+<ul>
+<li>grid.rect(…)<br />
+</li>
+<li>grid.lines(…)<br />
+</li>
+<li>grid.polygon(…)</li>
+<li>grid.circle(…)</li>
+<li>grid.text(…)</li>
+</ul>
+<p>用gapr对象表示图形参数：</p>
+<ul>
+<li>col: Colour for lines and borders.</li>
+<li>fill: Colour for filling rectangles, polygons, …</li>
+<li>alpha: Alpha channel for transparency</li>
+<li>lty: Line type</li>
+<li>lwd: Line width</li>
+<li>lex: Multiplier applied to line width</li>
+<li>lineend: Line end style (round, butt, square)</li>
+<li>linejoin: Line join style (round, mitre, bevel)</li>
+<li>linemitre: Line mitre limit (number greater than 1)</li>
+<li>fontsize: The size of text (in points)</li>
+<li>cex: Multiplier applied to fontsize</li>
+<li>fontfamily: The font family</li>
+<li>fontface: The font face (bold, italic, …)</li>
+<li>lineheight: The height of a line as a multiple of the size of text</li>
+<li>font: Font face (alias for fontface; for backward compatibility)</li>
+</ul>
+<div id="使用-rect.rect-绘制矩形" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> 使用 rect.rect() 绘制矩形</h3>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="grid.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb117-2"><a href="grid.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>() <span class="co">#默认是充满视口(viewport)</span></span>
+<span id="cb117-3"><a href="grid.html#cb117-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-4"><a href="grid.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 自定义矩形</span></span>
+<span id="cb117-5"><a href="grid.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(</span>
+<span id="cb117-6"><a href="grid.html#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fl">0.5</span>, <span class="at">y=</span><span class="fl">0.8</span>, <span class="co">#设置矩形的位置</span></span>
+<span id="cb117-7"><a href="grid.html#cb117-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">just =</span> <span class="st">&quot;left&quot;</span>, <span class="co">#坐标的相对位置</span></span>
+<span id="cb117-8"><a href="grid.html#cb117-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">width=</span><span class="fl">0.4</span>, <span class="at">height=</span><span class="fl">0.2</span>, <span class="co">#宽高</span></span>
+<span id="cb117-9"><a href="grid.html#cb117-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="co">#边框颜色</span></span>
+<span id="cb117-10"><a href="grid.html#cb117-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">lwd=</span><span class="dv">3</span>, <span class="co"># 边框宽度</span></span>
+<span id="cb117-11"><a href="grid.html#cb117-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill=</span><span class="st">&quot;#00112200&quot;</span>, <span class="co">#填充色 </span></span>
+<span id="cb117-12"><a href="grid.html#cb117-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">lty=</span><span class="dv">2</span>) <span class="co">#边框虚线</span></span>
+<span id="cb117-13"><a href="grid.html#cb117-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb117-14"><a href="grid.html#cb117-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-15"><a href="grid.html#cb117-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 自定义圆</span></span>
+<span id="cb117-16"><a href="grid.html#cb117-16" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.circle</span>(<span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="fl">0.3</span>, <span class="at">r =</span> <span class="fl">0.25</span>,</span>
+<span id="cb117-17"><a href="grid.html#cb117-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb117-18"><a href="grid.html#cb117-18" aria-hidden="true" tabindex="-1"></a>                      <span class="at">lty =</span> <span class="dv">3</span>, <span class="at">lwd=</span><span class="dv">2</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-31-1.png" width="192" /></p>
+</div>
+<div id="绘制嵌套的圆环并在顶部添加文字" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> 绘制嵌套的圆环，并在顶部添加文字</h3>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="grid.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb118-2"><a href="grid.html#cb118-2" aria-hidden="true" tabindex="-1"></a>suffix <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;even&quot;</span>, <span class="st">&quot;odd&quot;</span>)</span>
+<span id="cb118-3"><a href="grid.html#cb118-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-4"><a href="grid.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb118-5"><a href="grid.html#cb118-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid.circle</span>( <span class="co">#画图</span></span>
+<span id="cb118-6"><a href="grid.html#cb118-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="fu">paste0</span>(<span class="st">&quot;circle.&quot;</span>, suffix[i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>]), <span class="co">#名字</span></span>
+<span id="cb118-7"><a href="grid.html#cb118-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">r =</span> (<span class="dv">9</span> <span class="sc">-</span> i) <span class="sc">/</span> <span class="dv">20</span>, <span class="co">#半径</span></span>
+<span id="cb118-8"><a href="grid.html#cb118-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">gp =</span> <span class="fu">gpar</span>(</span>
+<span id="cb118-9"><a href="grid.html#cb118-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="cn">NA</span>, <span class="co">#边框颜色</span></span>
+<span id="cb118-10"><a href="grid.html#cb118-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">grey</span>(i <span class="sc">/</span> <span class="dv">10</span>) <span class="co">#填充颜色</span></span>
+<span id="cb118-11"><a href="grid.html#cb118-11" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb118-12"><a href="grid.html#cb118-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb118-13"><a href="grid.html#cb118-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-14"><a href="grid.html#cb118-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 在顶部添加文字</span></span>
+<span id="cb118-15"><a href="grid.html#cb118-15" aria-hidden="true" tabindex="-1"></a>vp1<span class="ot">=</span><span class="fu">viewport</span>(<span class="at">x=</span><span class="fl">0.5</span>, <span class="at">y=</span><span class="fl">0.95</span>, <span class="at">width=</span><span class="fl">0.3</span>, <span class="at">height=</span><span class="fl">0.15</span>)</span>
+<span id="cb118-16"><a href="grid.html#cb118-16" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(vp1)</span>
+<span id="cb118-17"><a href="grid.html#cb118-17" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;Circles and rings&quot;</span>, <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>))</span>
+<span id="cb118-18"><a href="grid.html#cb118-18" aria-hidden="true" tabindex="-1"></a><span class="fu">upViewport</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" width="384" /></p>
+</div>
+</div>
+<div id="图形对象-grob-对象-及其排布放置" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> 图形对象 Grob 对象 及其排布、放置</h2>
+<p>grob, or gList, or gTree, or gPath.</p>
+<div id="grob-对象" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Grob 对象</h3>
+<p>每一个绘图原语都对应一个Grob，grob的命名格式是**Grob，Grob对象是一个可编辑的图形组件，该组件保留图形的所有属性，但不会立即输出图形：</p>
+<ul>
+<li>rectGrob(…)</li>
+<li>linesGrob(…)</li>
+<li>polygonGrob(…)</li>
+<li>circleGrob(…)</li>
+<li>textGrob(..)</li>
+</ul>
+<p>要输出Grob表示的图形，可以使用grid.draw()函数绘制图形：</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="grid.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(<span class="fu">roundrectGrob</span>(<span class="at">width=</span><span class="fl">0.9</span>, <span class="at">height=</span><span class="fl">0.9</span>)) <span class="co">#一行画一个圆角矩形</span></span>
+<span id="cb119-2"><a href="grid.html#cb119-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-3"><a href="grid.html#cb119-3" aria-hidden="true" tabindex="-1"></a>circ1 <span class="ot">&lt;-</span> <span class="fu">circleGrob</span>(<span class="at">r=</span><span class="fl">0.4</span>) </span>
+<span id="cb119-4"><a href="grid.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(circ1)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" width="96" /></p>
+</div>
+<div id="grid.edit" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> grid.edit</h3>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="grid.html#cb120-1" aria-hidden="true" tabindex="-1"></a>circ1 <span class="ot">&lt;-</span> <span class="fu">circleGrob</span>(<span class="at">r=</span><span class="fl">0.4</span>, <span class="at">name=</span><span class="st">&quot;circleX&quot;</span>) </span>
+<span id="cb120-2"><a href="grid.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(circ1)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" width="96" /></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="grid.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取对象</span></span>
+<span id="cb121-2"><a href="grid.html#cb121-2" aria-hidden="true" tabindex="-1"></a>obj1<span class="ot">=</span><span class="fu">grid.get</span>(<span class="st">&quot;circleX&quot;</span>) <span class="co">#就是 Grob的name属性</span></span>
+<span id="cb121-3"><a href="grid.html#cb121-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-4"><a href="grid.html#cb121-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 编辑对象，接收 gPath</span></span>
+<span id="cb121-5"><a href="grid.html#cb121-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.edit</span>(</span>
+<span id="cb121-6"><a href="grid.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;circleX&quot;</span>,</span>
+<span id="cb121-7"><a href="grid.html#cb121-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">gp =</span> <span class="fu">gpar</span>(</span>
+<span id="cb121-8"><a href="grid.html#cb121-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb121-9"><a href="grid.html#cb121-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="st">&quot;orange&quot;</span>,</span>
+<span id="cb121-10"><a href="grid.html#cb121-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="dv">3</span></span>
+<span id="cb121-11"><a href="grid.html#cb121-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb121-12"><a href="grid.html#cb121-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-2.png" width="96" /></p>
+<p>如果传入 grob 对象，则要使用 editGrob() 函数</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="grid.html#cb122-1" aria-hidden="true" tabindex="-1"></a>circ1 <span class="ot">&lt;-</span> <span class="fu">circleGrob</span>(<span class="at">r=</span><span class="fl">0.4</span>, <span class="at">name=</span><span class="st">&quot;circleX&quot;</span>)</span>
+<span id="cb122-2"><a href="grid.html#cb122-2" aria-hidden="true" tabindex="-1"></a>circ2<span class="ot">=</span><span class="fu">editGrob</span>(circ1, <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">7</span>) )</span>
+<span id="cb122-3"><a href="grid.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(circ2)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-35-1.png" width="96" /></p>
+</div>
+<div id="对象排布-glist-or-gtree" class="section level3" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> 对象排布 gList, or gTree</h3>
+<ul>
+<li>grob() and gTree() are the basic creators,</li>
+<li>grobTree() and gList() take several grobs to build a new one.</li>
+</ul>
+<p>gTree 能包含多个 grob 子对象。</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="grid.html#cb123-1" aria-hidden="true" tabindex="-1"></a>candy <span class="ot">&lt;-</span> <span class="fu">circleGrob</span>(<span class="at">r =</span> <span class="fl">0.1</span>, <span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="fl">0.6</span>)</span>
+<span id="cb123-2"><a href="grid.html#cb123-2" aria-hidden="true" tabindex="-1"></a>stick <span class="ot">&lt;-</span> <span class="fu">segmentsGrob</span>(<span class="at">x0 =</span> <span class="fl">0.5</span>, <span class="at">x1 =</span> <span class="fl">0.5</span>, <span class="at">y0 =</span> <span class="dv">0</span>, <span class="at">y1 =</span> <span class="fl">0.5</span>)</span>
+<span id="cb123-3"><a href="grid.html#cb123-3" aria-hidden="true" tabindex="-1"></a>lollipop <span class="ot">&lt;-</span> <span class="fu">gTree</span>(<span class="at">children =</span> <span class="fu">gList</span>(candy, stick)) <span class="co">#组合两个对象</span></span>
+<span id="cb123-4"><a href="grid.html#cb123-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-5"><a href="grid.html#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 一组内可以一起编辑，都设置成红色</span></span>
+<span id="cb123-6"><a href="grid.html#cb123-6" aria-hidden="true" tabindex="-1"></a>lollipop2<span class="ot">=</span><span class="fu">editGrob</span>(lollipop, <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>))</span>
+<span id="cb123-7"><a href="grid.html#cb123-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-8"><a href="grid.html#cb123-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(lollipop)</span>
+<span id="cb123-9"><a href="grid.html#cb123-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-10"><a href="grid.html#cb123-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 新视口</span></span>
+<span id="cb123-11"><a href="grid.html#cb123-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>( <span class="fu">viewport</span>(<span class="at">x=</span><span class="fl">0.8</span>, <span class="at">width=</span><span class="fl">0.5</span>,<span class="at">height =</span> <span class="fl">0.5</span>))</span>
+<span id="cb123-12"><a href="grid.html#cb123-12" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(lollipop2)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-1.png" width="288" /></p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="grid.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看树结构</span></span>
+<span id="cb124-2"><a href="grid.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.ls</span>(lollipop2)</span></code></pre></div>
+<pre><code>## GRID.gTree.5032
+##   GRID.circle.5030
+##   GRID.segments.5031</code></pre>
+</div>
+<div id="gpath-todo" class="section level3" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> gPath //todo</h3>
+</div>
+<div id="使用grobx和groby获得grob对象的坐标" class="section level3" number="8.3.5">
+<h3><span class="header-section-number">8.3.5</span> 使用grobX和grobY获得grob对象的坐标</h3>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="grid.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb126-2"><a href="grid.html#cb126-2" aria-hidden="true" tabindex="-1"></a>r1 <span class="ot">&lt;-</span> <span class="fu">rectGrob</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.8</span>, <span class="at">height =</span> <span class="fl">0.8</span>, </span>
+<span id="cb126-3"><a href="grid.html#cb126-3" aria-hidden="true" tabindex="-1"></a>               <span class="co">#just = c(&quot;left&quot;, &quot;top&quot;), </span></span>
+<span id="cb126-4"><a href="grid.html#cb126-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">fill=</span><span class="st">&quot;#00112200&quot;</span>), <span class="at">name=</span><span class="st">&quot;r1&quot;</span>)</span>
+<span id="cb126-5"><a href="grid.html#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(r1)</span>
+<span id="cb126-6"><a href="grid.html#cb126-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-7"><a href="grid.html#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="co"># grobX(obj, theta)# 相对于obj的边界，起始点是obj的中心，转theta角度后在x轴的投影坐标</span></span>
+<span id="cb126-8"><a href="grid.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;0-0&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">0</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">0</span>))</span>
+<span id="cb126-9"><a href="grid.html#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;90-0&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">90</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">0</span>))</span>
+<span id="cb126-10"><a href="grid.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;180-0&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">180</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">0</span>))</span>
+<span id="cb126-11"><a href="grid.html#cb126-11" aria-hidden="true" tabindex="-1"></a><span class="co">#grid.text(&quot;270-0&quot;, x=grobX(r1, 270), y=grobY(r1, 0)) #和90-0重叠</span></span>
+<span id="cb126-12"><a href="grid.html#cb126-12" aria-hidden="true" tabindex="-1"></a><span class="co">#grid.text(&quot;360-0&quot;, x=grobX(r1, 360), y=grobY(r1, 0)) #和0-0重叠</span></span>
+<span id="cb126-13"><a href="grid.html#cb126-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-14"><a href="grid.html#cb126-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grobY(obj, theta) #相对于obj的中心，旋转theta角度后在y轴边界上的投影坐标</span></span>
+<span id="cb126-15"><a href="grid.html#cb126-15" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;0-90&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">0</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">90</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>))</span>
+<span id="cb126-16"><a href="grid.html#cb126-16" aria-hidden="true" tabindex="-1"></a><span class="co">#grid.text(&quot;0-180&quot;, x=grobX(r1, 0), y=grobY(r1, 180), gp=gpar(col=&quot;red&quot;)) #和0-0重叠</span></span>
+<span id="cb126-17"><a href="grid.html#cb126-17" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;0-270&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">0</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1,<span class="dv">270</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>)) <span class="co">#和0-0重</span></span>
+<span id="cb126-18"><a href="grid.html#cb126-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-19"><a href="grid.html#cb126-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 剩下的坐标轴方位</span></span>
+<span id="cb126-20"><a href="grid.html#cb126-20" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;90-90&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">90</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">90</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)) <span class="co">#顶部</span></span>
+<span id="cb126-21"><a href="grid.html#cb126-21" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;270-270&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">270</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">270</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)) <span class="co">#底部</span></span>
+<span id="cb126-22"><a href="grid.html#cb126-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-23"><a href="grid.html#cb126-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 其余2个对角线</span></span>
+<span id="cb126-24"><a href="grid.html#cb126-24" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;180-90&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">180</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">90</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;purple&quot;</span>)) <span class="co">#左上角</span></span>
+<span id="cb126-25"><a href="grid.html#cb126-25" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;180-270&quot;</span>, <span class="at">x=</span><span class="fu">grobX</span>(r1, <span class="dv">180</span>), <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">270</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;purple&quot;</span>)) <span class="co">#左下角</span></span>
+<span id="cb126-26"><a href="grid.html#cb126-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-27"><a href="grid.html#cb126-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-28"><a href="grid.html#cb126-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 加一个点，使用两种坐标系指定位置</span></span>
+<span id="cb126-29"><a href="grid.html#cb126-29" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.points</span>(<span class="at">x=</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;npc&quot;</span>)<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb126-30"><a href="grid.html#cb126-30" aria-hidden="true" tabindex="-1"></a>            <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">90</span>)<span class="sc">/</span><span class="dv">4</span>, </span>
+<span id="cb126-31"><a href="grid.html#cb126-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">pch=</span><span class="dv">19</span>, <span class="at">size=</span><span class="fu">unit</span>(<span class="fl">0.04</span>, <span class="st">&quot;npc&quot;</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;#FF000099&quot;</span>))</span>
+<span id="cb126-32"><a href="grid.html#cb126-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 点下方添加文字描述</span></span>
+<span id="cb126-33"><a href="grid.html#cb126-33" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;box1&quot;</span>, </span>
+<span id="cb126-34"><a href="grid.html#cb126-34" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">&quot;npc&quot;</span>)<span class="sc">/</span><span class="dv">2</span>, </span>
+<span id="cb126-35"><a href="grid.html#cb126-35" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span><span class="fu">grobY</span>(r1, <span class="dv">90</span>)<span class="sc">/</span><span class="dv">4</span> <span class="sc">-</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">&quot;mm&quot;</span>), </span>
+<span id="cb126-36"><a href="grid.html#cb126-36" aria-hidden="true" tabindex="-1"></a>          <span class="at">just =</span> <span class="st">&quot;top&quot;</span>, <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>) )</span>
+<span id="cb126-37"><a href="grid.html#cb126-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-38"><a href="grid.html#cb126-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-39"><a href="grid.html#cb126-39" aria-hidden="true" tabindex="-1"></a><span class="co"># 加一个箭头，中心指向矩形的右上角</span></span>
+<span id="cb126-40"><a href="grid.html#cb126-40" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.segments</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fu">grobX</span>(r1, <span class="dv">0</span>), <span class="fu">grobY</span>(r1, <span class="dv">90</span>), </span>
+<span id="cb126-41"><a href="grid.html#cb126-41" aria-hidden="true" tabindex="-1"></a>              <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">angle=</span><span class="dv">15</span>, <span class="at">type=</span><span class="st">&quot;closed&quot;</span>), </span>
+<span id="cb126-42"><a href="grid.html#cb126-42" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">fill=</span><span class="st">&quot;orange&quot;</span>))</span>
+<span id="cb126-43"><a href="grid.html#cb126-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-44"><a href="grid.html#cb126-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-45"><a href="grid.html#cb126-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 再加一个矩形2</span></span>
+<span id="cb126-46"><a href="grid.html#cb126-46" aria-hidden="true" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> <span class="fu">rectGrob</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="fl">0.2</span>, </span>
+<span id="cb126-47"><a href="grid.html#cb126-47" aria-hidden="true" tabindex="-1"></a>               <span class="at">just =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>), </span>
+<span id="cb126-48"><a href="grid.html#cb126-48" aria-hidden="true" tabindex="-1"></a>               <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">fill=</span><span class="st">&quot;#00112200&quot;</span>), <span class="at">name=</span><span class="st">&quot;r2&quot;</span>)</span>
+<span id="cb126-49"><a href="grid.html#cb126-49" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.draw</span>(r2)</span>
+<span id="cb126-50"><a href="grid.html#cb126-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-51"><a href="grid.html#cb126-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 在矩形中间添加文字</span></span>
+<span id="cb126-52"><a href="grid.html#cb126-52" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;box2&quot;</span>, </span>
+<span id="cb126-53"><a href="grid.html#cb126-53" aria-hidden="true" tabindex="-1"></a>          <span class="at">x=</span><span class="fu">grobX</span>(r2, <span class="dv">90</span>), </span>
+<span id="cb126-54"><a href="grid.html#cb126-54" aria-hidden="true" tabindex="-1"></a>          <span class="at">y=</span><span class="fu">grobY</span>(r2, <span class="dv">0</span>), </span>
+<span id="cb126-55"><a href="grid.html#cb126-55" aria-hidden="true" tabindex="-1"></a>          <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;#0000FF99&quot;</span>) )</span>
+<span id="cb126-56"><a href="grid.html#cb126-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-57"><a href="grid.html#cb126-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 箭头指向，中心指向矩形的下边中点</span></span>
+<span id="cb126-58"><a href="grid.html#cb126-58" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.segments</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fu">grobX</span>(r2, <span class="dv">90</span>), <span class="fu">grobY</span>(r2, <span class="sc">-</span><span class="dv">90</span>), </span>
+<span id="cb126-59"><a href="grid.html#cb126-59" aria-hidden="true" tabindex="-1"></a>              <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">angle=</span><span class="dv">15</span>, <span class="at">type=</span><span class="st">&quot;closed&quot;</span>), </span>
+<span id="cb126-60"><a href="grid.html#cb126-60" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)) <span class="co">#红边、灰色填充</span></span>
+<span id="cb126-61"><a href="grid.html#cb126-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-62"><a href="grid.html#cb126-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-63"><a href="grid.html#cb126-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 矩形1的左下角，指向矩形2的右下角</span></span>
+<span id="cb126-64"><a href="grid.html#cb126-64" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.segments</span>(<span class="fu">grobX</span>(r1, <span class="dv">180</span>), <span class="fu">grobY</span>(r1, <span class="sc">-</span><span class="dv">90</span>), </span>
+<span id="cb126-65"><a href="grid.html#cb126-65" aria-hidden="true" tabindex="-1"></a>              <span class="fu">grobX</span>(r2, <span class="dv">0</span>), <span class="fu">grobY</span>(r2, <span class="sc">-</span><span class="dv">90</span>), </span>
+<span id="cb126-66"><a href="grid.html#cb126-66" aria-hidden="true" tabindex="-1"></a>              <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">angle=</span><span class="dv">5</span>, <span class="at">type=</span><span class="st">&quot;closed&quot;</span>), </span>
+<span id="cb126-67"><a href="grid.html#cb126-67" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">fill=</span><span class="st">&quot;purple&quot;</span>, <span class="at">col=</span><span class="st">&quot;purple&quot;</span>))</span>
+<span id="cb126-68"><a href="grid.html#cb126-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-69"><a href="grid.html#cb126-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 矩形2的右边中点，指向矩形1的右下角，大箭头</span></span>
+<span id="cb126-70"><a href="grid.html#cb126-70" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.segments</span>(<span class="fu">grobX</span>(r2, <span class="dv">0</span>), <span class="fu">grobY</span>(r2, <span class="dv">0</span>), </span>
+<span id="cb126-71"><a href="grid.html#cb126-71" aria-hidden="true" tabindex="-1"></a>              <span class="fu">grobX</span>(r1, <span class="dv">0</span>), <span class="fu">grobY</span>(r1, <span class="sc">-</span><span class="dv">90</span>), </span>
+<span id="cb126-72"><a href="grid.html#cb126-72" aria-hidden="true" tabindex="-1"></a>              <span class="at">arrow=</span><span class="fu">arrow</span>(<span class="at">angle=</span><span class="dv">20</span>, <span class="at">type=</span><span class="st">&quot;closed&quot;</span>), </span>
+<span id="cb126-73"><a href="grid.html#cb126-73" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">fill=</span><span class="st">&quot;red&quot;</span>, <span class="at">col=</span><span class="st">&quot;grey&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-37-1.png" width="288" /></p>
+</div>
+</div>
+<div id="视口viewport" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> 视口(viewport)</h2>
+<p>viewport是grid包的核心对象，简单来说，它就是画布中的一个矩形的绘图区域，直译为视口，通过viewport()函数新建一个viewport对象。</p>
+<ul>
+<li>视口就是绘图区，每个绘图对象都在某个视口中。</li>
+<li>当前视口是唯一能绘图、编辑的视口。</li>
+<li>视口可以嵌套成树状结构，可以选择、删除</li>
+<li>创建的视口只有推入视口树中才能生效。</li>
+</ul>
+<p>有了viewport这个工具，我们就可以很灵活的在图形中画出任意区域分割的子图了。</p>
+<pre><code>viewport(x = unit(0.5, &quot;npc&quot;), y = unit(0.5, &quot;npc&quot;),
+         width = unit(1, &quot;npc&quot;), height = unit(1, &quot;npc&quot;),
+         default.units = &quot;npc&quot;, just = &quot;centre&quot;,
+         gp = gpar(), clip = &quot;inherit&quot;,
+         xscale = c(0, 1), yscale = c(0, 1),
+         angle = 0,
+         layout = NULL, 
+         layout.pos.row = NULL, layout.pos.col = NULL,
+         name = NULL)
+
+- x：视口的几何中心点相对页面左下角原点的x坐标轴，默认单位是npc
+- y：视口的几何中心点相对页面左下角原点的y坐标轴，默认单位是npc
+- width：视口的宽度（x轴方向）
+- height：视口的高度（y轴方向）
+- default.units：默认单位为npc (Normalised Parent Coordinates)，含义是规范化化的父区域坐标
+- just：x和y所指的位置，默认为矩形中心位置
+- gp：gpar对象，用于设置图形参数；
+- clip：裁剪区域，有效值是“on”，“inherit”或“off”，指示剪裁到视口范围内，从父视口继承剪裁区域，或者完全关闭剪裁。 为了后向兼容性，逻辑值TRUE对应于“on”，而FALSE对应于“inherit”
+- xscale，yscale：两个数值元素的向量，用于表示坐标轴的最小值和最大值。
+- angle：把视口逆时针旋转的角度
+- layout：布局（grid.layout）对象，用于把视口划分为多个子区域
+- layout.pos.row，layout.pos.col：子区域在父布局中的行位置和列位置
+- name：此视口的名字，用于搜索和定位</code></pre>
+<div id="函数grid.show.viewport查看创建的视口" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> 函数grid.show.viewport()查看创建的视口</h3>
+<p>height和width是矩形的长和宽，x和y是视口中心点（也就是，矩形的几何中心点）距离x坐标抽和y坐标轴的距离。</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="grid.html#cb128-1" aria-hidden="true" tabindex="-1"></a>vp1 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="fl">0.5</span>, </span>
+<span id="cb128-2"><a href="grid.html#cb128-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">height =</span> <span class="fl">0.25</span>, </span>
+<span id="cb128-3"><a href="grid.html#cb128-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">angle=</span><span class="dv">30</span>)</span>
+<span id="cb128-4"><a href="grid.html#cb128-4" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.show.viewport</span>(vp1)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="288" /></p>
+</div>
+<div id="视口可以旋转" class="section level3" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> 视口可以旋转</h3>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="grid.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb129-2"><a href="grid.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>()</span>
+<span id="cb129-3"><a href="grid.html#cb129-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb129-4"><a href="grid.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义视口</span></span>
+<span id="cb129-5"><a href="grid.html#cb129-5" aria-hidden="true" tabindex="-1"></a>vp1<span class="ot">=</span><span class="fu">viewport</span>(</span>
+<span id="cb129-6"><a href="grid.html#cb129-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fl">0.5</span>, <span class="at">y=</span><span class="fl">0.4</span>,</span>
+<span id="cb129-7"><a href="grid.html#cb129-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">width=</span><span class="fl">0.6</span>, <span class="at">height=</span><span class="fl">0.2</span>,</span>
+<span id="cb129-8"><a href="grid.html#cb129-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">angle=</span><span class="dv">30</span> <span class="co">#逆时针旋转</span></span>
+<span id="cb129-9"><a href="grid.html#cb129-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb129-10"><a href="grid.html#cb129-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 把视口推入当前位置，称为当前视口</span></span>
+<span id="cb129-11"><a href="grid.html#cb129-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(vp1)</span>
+<span id="cb129-12"><a href="grid.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 在当前视口绘图</span></span>
+<span id="cb129-13"><a href="grid.html#cb129-13" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>))</span>
+<span id="cb129-14"><a href="grid.html#cb129-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;in the vewport&quot;</span>, <span class="at">x=</span><span class="dv">0</span>,<span class="at">y=</span><span class="dv">1</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="192" /></p>
+</div>
+<div id="viewport树" class="section level3" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> viewport树</h3>
+<p>视口支持嵌套成树状结构。
+当前视口是唯一可编辑的区域，可以把某个视口设为当前视口。</p>
+<p>通过5个函数实现对viewport树的遍历和更新：</p>
+<ul>
+<li>使用pushViewport()可以将指定的viewport插入到当前viewport的子节点中，同时当前viewport对象移动为刚刚插入的viewport；</li>
+<li>使用popViewport()可以删除当前viewport，同时当前viewport改为刚刚删除的viewport的父节点；</li>
+<li>使用upViewport()当前viewport移动到父节点；</li>
+<li>使用downViewport()当前viewport移动到指定name的子节点；</li>
+<li>使用seekViewport()在整棵树范围内搜索指定name的viewport，将其设置为当前viewport。</li>
+<li>upViewport(0) 回到根视口</li>
+</ul>
+<p>注意：当向树中push一个viewport时，如果树中存在一个级别（level）相同，名字相同的viewport，那么push操作会把该viewport替换掉。</p>
+<p>绘制的图形依次嵌套，这说明，每push一次，原活跃viewport都变成父节点，把当前的veiwport作为子viewport。</p>
+<p>后续的旋转都是相对于当前视口的旋转。</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="grid.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb130-2"><a href="grid.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>() <span class="co">#第一个视口是默认的</span></span>
+<span id="cb130-3"><a href="grid.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;viewport root&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&#39;top&#39;</span>)) <span class="co">#在矩形左上角写字</span></span>
+<span id="cb130-4"><a href="grid.html#cb130-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-5"><a href="grid.html#cb130-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 新建视口2，并推入</span></span>
+<span id="cb130-6"><a href="grid.html#cb130-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>( <span class="fu">viewport</span>( <span class="at">width=</span><span class="fl">0.8</span>, <span class="at">height=</span><span class="fl">0.5</span>,  <span class="at">angle=</span><span class="dv">30</span> ) )</span>
+<span id="cb130-7"><a href="grid.html#cb130-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)) <span class="co">#矩形框</span></span>
+<span id="cb130-8"><a href="grid.html#cb130-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;viewport2&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&#39;top&#39;</span>)) <span class="co">#在矩形左上角写字</span></span>
+<span id="cb130-9"><a href="grid.html#cb130-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-10"><a href="grid.html#cb130-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 继续嵌套视口3</span></span>
+<span id="cb130-11"><a href="grid.html#cb130-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>( <span class="fu">viewport</span>( <span class="at">width=</span><span class="fl">0.8</span>, <span class="at">height=</span><span class="fl">0.5</span>,  <span class="at">angle=</span><span class="dv">30</span>,</span>
+<span id="cb130-12"><a href="grid.html#cb130-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">name=</span><span class="st">&quot;vp3&quot;</span>)) <span class="co">#视口3有一个名字</span></span>
+<span id="cb130-13"><a href="grid.html#cb130-13" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;orange&quot;</span>)) <span class="co">#矩形框</span></span>
+<span id="cb130-14"><a href="grid.html#cb130-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;viewport3&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&#39;top&#39;</span>)) <span class="co">#在矩形左上角写字</span></span>
+<span id="cb130-15"><a href="grid.html#cb130-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-16"><a href="grid.html#cb130-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 继续嵌套视口4</span></span>
+<span id="cb130-17"><a href="grid.html#cb130-17" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>( <span class="fu">viewport</span>( <span class="at">width=</span><span class="fl">0.9</span>, <span class="at">height=</span><span class="fl">0.7</span>,  <span class="at">angle=</span><span class="dv">30</span>,</span>
+<span id="cb130-18"><a href="grid.html#cb130-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">fill=</span><span class="st">&quot;#00112200&quot;</span>) ) ) <span class="co">#视口4填充为透明</span></span>
+<span id="cb130-19"><a href="grid.html#cb130-19" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)) <span class="co">#矩形框</span></span>
+<span id="cb130-20"><a href="grid.html#cb130-20" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;viewport4&quot;</span>, <span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">1</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&#39;top&#39;</span>)) <span class="co">#在矩形左上角写字</span></span>
+<span id="cb130-21"><a href="grid.html#cb130-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-22"><a href="grid.html#cb130-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回上一个视口，3</span></span>
+<span id="cb130-23"><a href="grid.html#cb130-23" aria-hidden="true" tabindex="-1"></a><span class="fu">upViewport</span>()</span>
+<span id="cb130-24"><a href="grid.html#cb130-24" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;viewport3&quot;</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&#39;bottom&#39;</span>),</span>
+<span id="cb130-25"><a href="grid.html#cb130-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;orange&quot;</span>)) <span class="co">#在矩形右下角写字</span></span>
+<span id="cb130-26"><a href="grid.html#cb130-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-27"><a href="grid.html#cb130-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回上一个视口，2</span></span>
+<span id="cb130-28"><a href="grid.html#cb130-28" aria-hidden="true" tabindex="-1"></a><span class="fu">upViewport</span>()</span>
+<span id="cb130-29"><a href="grid.html#cb130-29" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;viewport2&quot;</span>, <span class="at">x=</span><span class="dv">1</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&#39;bottom&#39;</span>),</span>
+<span id="cb130-30"><a href="grid.html#cb130-30" aria-hidden="true" tabindex="-1"></a>          <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;red&quot;</span>)) <span class="co">#在矩形右下角写字</span></span>
+<span id="cb130-31"><a href="grid.html#cb130-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-32"><a href="grid.html#cb130-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 找到视口名 </span></span>
+<span id="cb130-33"><a href="grid.html#cb130-33" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="at">name=</span><span class="st">&quot;vp3&quot;</span>)</span>
+<span id="cb130-34"><a href="grid.html#cb130-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 在中间添加一个圆</span></span>
+<span id="cb130-35"><a href="grid.html#cb130-35" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.circle</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;orange&quot;</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">fill=</span><span class="st">&quot;#00112200&quot;</span>)) <span class="co">#填充为透明</span></span>
+<span id="cb130-36"><a href="grid.html#cb130-36" aria-hidden="true" tabindex="-1"></a><span class="fu">upViewport</span>(<span class="dv">0</span>) <span class="co">#回到最顶部</span></span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="384" /></p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="grid.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">current.vpTree</span>())  <span class="co"># 查看当前viewport树结构</span></span></code></pre></div>
+<pre><code>## viewport[ROOT]-&gt;(viewport[GRID.VP.1244]-&gt;(viewport[vp3]-&gt;(viewport[GRID.VP.1245])))</code></pre>
+</div>
+</div>
+<div id="行列布局-layout" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> 行列布局 layout</h2>
+<p>grid包中定义了布局对象，布局是矩形的子分区，也就是说，布局（layout）把一个矩形区域细分为更小的分区。</p>
+<pre><code>grid.layout(nrow = 1, ncol = 1,
+    widths = unit(rep_len(1, ncol), &quot;null&quot;), 
+    heights = unit(rep_len(1, nrow), &quot;null&quot;),
+    default.units = &quot;null&quot;, 
+    respect = FALSE, just=&quot;centre&quot;)
+
+参数注释：
+nrow,ncol：布局分为多少个行和列，每一个行和列构成的单元叫做分区（subdivision）
+widths，heights：每一个分区的宽和高
+default.units：默认单位
+respect：逻辑值，如果为true，指定行高度和列宽度都遵守。
+just：指定对齐方式，有效的值是：&quot;left&quot;, &quot;right&quot;, &quot;centre&quot;, &quot;center&quot;, &quot;bottom&quot;, 和 &quot;top&quot;.</code></pre>
+<div id="grid.show.layoutlayout-查看布局" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> grid.show.layout(layout) 查看布局</h3>
+<p>把top.vp视口分割为3X3的分区，使用函数grid.show.layout()查看布局，创建的布局如下图所示：</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="grid.html#cb134-1" aria-hidden="true" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">grid.layout</span>(<span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">3</span>,</span>
+<span id="cb134-2"><a href="grid.html#cb134-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">widths=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="st">&quot;lines&quot;</span>, <span class="st">&quot;null&quot;</span>, <span class="st">&quot;lines&quot;</span>)),</span>
+<span id="cb134-3"><a href="grid.html#cb134-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">heights=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="st">&quot;lines&quot;</span>, <span class="st">&quot;null&quot;</span>, <span class="st">&quot;lines&quot;</span>)))</span>
+<span id="cb134-4"><a href="grid.html#cb134-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-5"><a href="grid.html#cb134-5" aria-hidden="true" tabindex="-1"></a>top.vp <span class="ot">&lt;-</span><span class="fu">viewport</span>(<span class="at">layout=</span>layout, <span class="at">name=</span><span class="st">&quot;top&quot;</span>) <span class="co"># viewport 的 layout参数</span></span>
+<span id="cb134-6"><a href="grid.html#cb134-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-7"><a href="grid.html#cb134-7" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.show.layout</span>(layout)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="480" /></p>
+<p>创建一系列的viewport，占用布局的各个分区，由于没有push任何viewport，因此画布中没有绘制任何图形。</p>
+<p>为每个视口命名时，使用统一的格式：margin+数值，如下代码所示：</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="grid.html#cb135-1" aria-hidden="true" tabindex="-1"></a>margin1 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">2</span>, <span class="at">layout.pos.row =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">&quot;margin1&quot;</span>) <span class="co">#(3,2)</span></span>
+<span id="cb135-2"><a href="grid.html#cb135-2" aria-hidden="true" tabindex="-1"></a>margin2 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">1</span>, <span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;margin2&quot;</span>) <span class="co">#(2,1)</span></span>
+<span id="cb135-3"><a href="grid.html#cb135-3" aria-hidden="true" tabindex="-1"></a>margin3 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">2</span>, <span class="at">layout.pos.row =</span> <span class="dv">1</span>, <span class="at">name =</span> <span class="st">&quot;margin3&quot;</span>) <span class="co">#(1,2)</span></span>
+<span id="cb135-4"><a href="grid.html#cb135-4" aria-hidden="true" tabindex="-1"></a>margin4 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">3</span>, <span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;margin4&quot;</span>) <span class="co">#(2,3)</span></span>
+<span id="cb135-5"><a href="grid.html#cb135-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-6"><a href="grid.html#cb135-6" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">2</span>, <span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;plot&quot;</span>)       <span class="co">#(2,2)</span></span>
+<span id="cb135-7"><a href="grid.html#cb135-7" aria-hidden="true" tabindex="-1"></a><span class="co"># R用数字来表示位置，数值代表的含义是：1=Buttom，2=Left，3=Top，4=Right，视口被布局分割的分区如下图</span></span>
+<span id="cb135-8"><a href="grid.html#cb135-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-9"><a href="grid.html#cb135-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-10"><a href="grid.html#cb135-10" aria-hidden="true" tabindex="-1"></a>splot <span class="ot">=</span> <span class="fu">vpTree</span>(top.vp, <span class="fu">vpList</span>(margin1, margin2, margin3, margin4, plot))</span>
+<span id="cb135-11"><a href="grid.html#cb135-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb135-12"><a href="grid.html#cb135-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(splot)</span>
+<span id="cb135-13"><a href="grid.html#cb135-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 1bottom</span></span>
+<span id="cb135-14"><a href="grid.html#cb135-14" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;margin1&quot;</span>)</span>
+<span id="cb135-15"><a href="grid.html#cb135-15" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>))</span>
+<span id="cb135-16"><a href="grid.html#cb135-16" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;margin1&quot;</span>, <span class="at">x=</span><span class="dv">0</span>,<span class="at">y=</span><span class="dv">1</span>,<span class="at">just=</span><span class="fu">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;top&#39;</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>))</span>
+<span id="cb135-17"><a href="grid.html#cb135-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2left</span></span>
+<span id="cb135-18"><a href="grid.html#cb135-18" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;margin2&quot;</span>)</span>
+<span id="cb135-19"><a href="grid.html#cb135-19" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>))</span>
+<span id="cb135-20"><a href="grid.html#cb135-20" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;margin2&quot;</span>, <span class="at">x=</span><span class="dv">0</span>,<span class="at">y=</span><span class="dv">1</span>,<span class="at">just=</span><span class="fu">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;top&#39;</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>))</span>
+<span id="cb135-21"><a href="grid.html#cb135-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 3top</span></span>
+<span id="cb135-22"><a href="grid.html#cb135-22" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;margin3&quot;</span>)</span>
+<span id="cb135-23"><a href="grid.html#cb135-23" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>))</span>
+<span id="cb135-24"><a href="grid.html#cb135-24" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;margin3&quot;</span>, <span class="at">x=</span><span class="dv">0</span>,<span class="at">y=</span><span class="dv">1</span>,<span class="at">just=</span><span class="fu">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;top&#39;</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>))</span>
+<span id="cb135-25"><a href="grid.html#cb135-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 4right</span></span>
+<span id="cb135-26"><a href="grid.html#cb135-26" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;margin4&quot;</span>)</span>
+<span id="cb135-27"><a href="grid.html#cb135-27" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>))</span>
+<span id="cb135-28"><a href="grid.html#cb135-28" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;mg4&quot;</span>, <span class="at">x=</span><span class="dv">0</span>,<span class="at">y=</span><span class="dv">1</span>,<span class="at">just=</span><span class="fu">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;top&#39;</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>))</span>
+<span id="cb135-29"><a href="grid.html#cb135-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 5 mid</span></span>
+<span id="cb135-30"><a href="grid.html#cb135-30" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb135-31"><a href="grid.html#cb135-31" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>))</span>
+<span id="cb135-32"><a href="grid.html#cb135-32" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.xaxis</span>()</span>
+<span id="cb135-33"><a href="grid.html#cb135-33" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.yaxis</span>()</span>
+<span id="cb135-34"><a href="grid.html#cb135-34" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">x=</span><span class="dv">0</span>,<span class="at">y=</span><span class="dv">1</span>,<span class="at">just=</span><span class="fu">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;top&#39;</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">col=</span><span class="st">&quot;grey&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-42-1.png" width="384" /></p>
+</div>
+<div id="拼装散点图" class="section level3" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> 拼装散点图</h3>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="grid.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb136-2"><a href="grid.html#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-3"><a href="grid.html#cb136-3" aria-hidden="true" tabindex="-1"></a>layout <span class="ot">&lt;-</span> <span class="fu">grid.layout</span>(<span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">3</span>,</span>
+<span id="cb136-4"><a href="grid.html#cb136-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">widths=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="st">&quot;lines&quot;</span>, <span class="st">&quot;null&quot;</span>, <span class="st">&quot;lines&quot;</span>)),</span>
+<span id="cb136-5"><a href="grid.html#cb136-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">heights=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">4</span>), <span class="fu">c</span>(<span class="st">&quot;lines&quot;</span>, <span class="st">&quot;null&quot;</span>, <span class="st">&quot;lines&quot;</span>)))</span>
+<span id="cb136-6"><a href="grid.html#cb136-6" aria-hidden="true" tabindex="-1"></a><span class="co">#grid.show.layout(layout)</span></span>
+<span id="cb136-7"><a href="grid.html#cb136-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-8"><a href="grid.html#cb136-8" aria-hidden="true" tabindex="-1"></a>top.vp <span class="ot">&lt;-</span><span class="fu">viewport</span>(<span class="at">layout=</span>layout,<span class="at">name=</span><span class="st">&quot;top&quot;</span>)</span>
+<span id="cb136-9"><a href="grid.html#cb136-9" aria-hidden="true" tabindex="-1"></a><span class="co">#grid.show.viewport(top.vp)</span></span>
+<span id="cb136-10"><a href="grid.html#cb136-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-11"><a href="grid.html#cb136-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">202201</span>)</span>
+<span id="cb136-12"><a href="grid.html#cb136-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span>)</span>
+<span id="cb136-13"><a href="grid.html#cb136-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">10</span>)</span>
+<span id="cb136-14"><a href="grid.html#cb136-14" aria-hidden="true" tabindex="-1"></a>xscale <span class="ot">&lt;-</span> <span class="fu">extendrange</span>(x) <span class="co">#grDevices 包基础函数 坐标轴量变留一小段空白</span></span>
+<span id="cb136-15"><a href="grid.html#cb136-15" aria-hidden="true" tabindex="-1"></a>yscale <span class="ot">&lt;-</span> <span class="fu">extendrange</span>(y)</span>
+<span id="cb136-16"><a href="grid.html#cb136-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-17"><a href="grid.html#cb136-17" aria-hidden="true" tabindex="-1"></a>margin1 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">2</span>, <span class="at">layout.pos.row =</span> <span class="dv">3</span>, <span class="at">name =</span> <span class="st">&quot;margin1&quot;</span>)</span>
+<span id="cb136-18"><a href="grid.html#cb136-18" aria-hidden="true" tabindex="-1"></a>margin2 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">1</span>, <span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;margin2&quot;</span>)</span>
+<span id="cb136-19"><a href="grid.html#cb136-19" aria-hidden="true" tabindex="-1"></a>margin3 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">2</span>, <span class="at">layout.pos.row =</span> <span class="dv">1</span>, <span class="at">name =</span> <span class="st">&quot;margin3&quot;</span>)</span>
+<span id="cb136-20"><a href="grid.html#cb136-20" aria-hidden="true" tabindex="-1"></a>margin4 <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">3</span>, <span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;margin4&quot;</span>)</span>
+<span id="cb136-21"><a href="grid.html#cb136-21" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">layout.pos.col =</span> <span class="dv">2</span>, <span class="at">layout.pos.row =</span> <span class="dv">2</span>, <span class="at">name =</span> <span class="st">&quot;plot&quot;</span>,<span class="at">xscale =</span> xscale, <span class="at">yscale =</span> yscale)</span>
+<span id="cb136-22"><a href="grid.html#cb136-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-23"><a href="grid.html#cb136-23" aria-hidden="true" tabindex="-1"></a>splot <span class="ot">&lt;-</span> <span class="fu">vpTree</span>(top.vp, <span class="fu">vpList</span>(margin1, margin2, margin3, margin4, plot))</span>
+<span id="cb136-24"><a href="grid.html#cb136-24" aria-hidden="true" tabindex="-1"></a><span class="co">#grid.show.viewport(splot)</span></span>
+<span id="cb136-25"><a href="grid.html#cb136-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-26"><a href="grid.html#cb136-26" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(splot)</span>
+<span id="cb136-27"><a href="grid.html#cb136-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-28"><a href="grid.html#cb136-28" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb136-29"><a href="grid.html#cb136-29" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.xaxis</span>()</span>
+<span id="cb136-30"><a href="grid.html#cb136-30" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.yaxis</span>()</span>
+<span id="cb136-31"><a href="grid.html#cb136-31" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>()</span>
+<span id="cb136-32"><a href="grid.html#cb136-32" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.points</span>(x, y,<span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb136-33"><a href="grid.html#cb136-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-34"><a href="grid.html#cb136-34" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;margin1&quot;</span>)</span>
+<span id="cb136-35"><a href="grid.html#cb136-35" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;Random X&quot;</span>, <span class="at">y =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>))</span>
+<span id="cb136-36"><a href="grid.html#cb136-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-37"><a href="grid.html#cb136-37" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;margin2&quot;</span>)</span>
+<span id="cb136-38"><a href="grid.html#cb136-38" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.text</span>(<span class="st">&quot;Random Y&quot;</span>, <span class="at">x =</span> <span class="fu">unit</span>(<span class="dv">1</span>, <span class="st">&quot;lines&quot;</span>), <span class="at">rot =</span> <span class="dv">90</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-43-1.png" width="384" /></p>
+</div>
+<div id="print.ggplotg1-vp-拼合-ggplot2-图形" class="section level3" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> print.ggplot(g1, vp=) 拼合 ggplot2 图形</h3>
+<p>方法1: 使用行列布局</p>
+<p>print.ggplot()函数。这个函数有一个选项vp，可以指定这个图形要绘制的viewport的位置。</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="grid.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step1，创建多个图形</span></span>
+<span id="cb137-2"><a href="grid.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb137-3"><a href="grid.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb137-4"><a href="grid.html#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare ggplot charts</span></span>
+<span id="cb137-5"><a href="grid.html#cb137-5" aria-hidden="true" tabindex="-1"></a>p.hist.len <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length))<span class="sc">+</span><span class="fu">theme_classic</span>()</span>
+<span id="cb137-6"><a href="grid.html#cb137-6" aria-hidden="true" tabindex="-1"></a>p.hist.wid <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Width)) <span class="sc">+</span> <span class="fu">coord_flip</span>()<span class="sc">+</span><span class="fu">theme_classic</span>()</span>
+<span id="cb137-7"><a href="grid.html#cb137-7" aria-hidden="true" tabindex="-1"></a>p.scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sepal.Length, <span class="at">y=</span>Sepal.Width))<span class="sc">+</span><span class="fu">theme_classic</span>()</span>
+<span id="cb137-8"><a href="grid.html#cb137-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-9"><a href="grid.html#cb137-9" aria-hidden="true" tabindex="-1"></a><span class="co"># step2，创建布局，分割视口，并push当前视口</span></span>
+<span id="cb137-10"><a href="grid.html#cb137-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb137-11"><a href="grid.html#cb137-11" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">layout =</span> <span class="fu">grid.layout</span>(<span class="dv">3</span>, <span class="dv">3</span>)))</span>
+<span id="cb137-12"><a href="grid.html#cb137-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-13"><a href="grid.html#cb137-13" aria-hidden="true" tabindex="-1"></a><span class="co"># step3，把图形输出到布局的不同区域中</span></span>
+<span id="cb137-14"><a href="grid.html#cb137-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p.scatter, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.row=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">layout.pos.col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
+<span id="cb137-15"><a href="grid.html#cb137-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p.hist.len, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.row=</span><span class="dv">1</span>, <span class="at">layout.pos.col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
+<span id="cb137-16"><a href="grid.html#cb137-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p.hist.wid, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.row=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">layout.pos.col=</span><span class="dv">3</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="384" /></p>
+<p>方法2: 使用视口不同方法</p>
+<p>使用print(, newpage=F)函数。</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="grid.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># top left panel</span></span>
+<span id="cb138-2"><a href="grid.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb138-3"><a href="grid.html#cb138-3" aria-hidden="true" tabindex="-1"></a>vp.len <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="fl">0.66</span>, <span class="at">width=</span><span class="fl">0.66</span>, <span class="at">height=</span><span class="fl">0.34</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span>
+<span id="cb138-4"><a href="grid.html#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(vp.len)</span>
+<span id="cb138-5"><a href="grid.html#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p.hist.len, <span class="at">newpage=</span>F)</span>
+<span id="cb138-6"><a href="grid.html#cb138-6" aria-hidden="true" tabindex="-1"></a><span class="fu">upViewport</span>() <span class="co"># 返回父节点</span></span>
+<span id="cb138-7"><a href="grid.html#cb138-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-8"><a href="grid.html#cb138-8" aria-hidden="true" tabindex="-1"></a><span class="co"># bottom right panel</span></span>
+<span id="cb138-9"><a href="grid.html#cb138-9" aria-hidden="true" tabindex="-1"></a>vp.wid <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">x=</span><span class="fl">0.66</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">width=</span><span class="fl">0.34</span>, <span class="at">height=</span><span class="fl">0.66</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span>
+<span id="cb138-10"><a href="grid.html#cb138-10" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(vp.wid)</span>
+<span id="cb138-11"><a href="grid.html#cb138-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p.hist.wid, <span class="at">newpage=</span>F)</span>
+<span id="cb138-12"><a href="grid.html#cb138-12" aria-hidden="true" tabindex="-1"></a><span class="fu">upViewport</span>()</span>
+<span id="cb138-13"><a href="grid.html#cb138-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-14"><a href="grid.html#cb138-14" aria-hidden="true" tabindex="-1"></a><span class="co"># bottom left panel</span></span>
+<span id="cb138-15"><a href="grid.html#cb138-15" aria-hidden="true" tabindex="-1"></a>vp.scatter <span class="ot">&lt;-</span> <span class="fu">viewport</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y=</span><span class="dv">0</span>, <span class="at">width=</span><span class="fl">0.66</span>, <span class="at">height=</span><span class="fl">0.66</span>, <span class="at">just=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span>
+<span id="cb138-16"><a href="grid.html#cb138-16" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(vp.scatter)</span>
+<span id="cb138-17"><a href="grid.html#cb138-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p.scatter, <span class="at">newpage=</span>F)</span>
+<span id="cb138-18"><a href="grid.html#cb138-18" aria-hidden="true" tabindex="-1"></a><span class="fu">upViewport</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-45-1.png" width="384" /></p>
+</div>
+</div>
+<div id="视口路径-viewport-paths" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> 视口路径 Viewport paths</h2>
+<p>可以使用视口路径来选择某个视口，适合选择不同级别的同名视口。</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="grid.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb139-2"><a href="grid.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">name =</span> <span class="st">&quot;A&quot;</span>))</span>
+<span id="cb139-3"><a href="grid.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">name =</span> <span class="st">&quot;B&quot;</span>))</span>
+<span id="cb139-4"><a href="grid.html#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">name =</span> <span class="st">&quot;A&quot;</span>))</span>
+<span id="cb139-5"><a href="grid.html#cb139-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-6"><a href="grid.html#cb139-6" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="st">&quot;A&quot;</span>)</span>
+<span id="cb139-7"><a href="grid.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="fu">current.vpTree</span>(<span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## viewport[A]-&gt;(viewport[B]-&gt;(viewport[A]))</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="grid.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过 vpPath() 函数选择B下面的A</span></span>
+<span id="cb141-2"><a href="grid.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seekViewport</span>(<span class="fu">vpPath</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;A&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-46-1.png" width="96" /></p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="grid.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">current.vpTree</span>(<span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## viewport[A]</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="grid.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 所谓的 vp 路径，就是::连起来的 viewport 名字</span></span>
+<span id="cb144-2"><a href="grid.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vpPath</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>)</span></code></pre></div>
+<pre><code>## A::B</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="grid.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="co"># seekViewport(vpPath(&quot;A&quot;, &quot;B&quot;)) 等价于seekViewport(&quot;A::B&quot;)</span></span></code></pre></div>
+</div>
+<div id="grid-的渐变色" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> grid 的渐变色</h2>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="grid.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 一共wid，居中对齐，共n份，有2个0.5是在外面的，每份长度 wid/(n-1)</span></span>
+<span id="cb147-2"><a href="grid.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb147-3"><a href="grid.html#cb147-3" aria-hidden="true" tabindex="-1"></a>wid<span class="ot">=</span><span class="fl">0.5</span></span>
+<span id="cb147-4"><a href="grid.html#cb147-4" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">20</span> <span class="co">#n越大，渐变色条越细腻</span></span>
+<span id="cb147-5"><a href="grid.html#cb147-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.rect</span>(<span class="at">x =</span> <span class="fu">unit</span>(<span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span><span class="sc">+</span>wid, <span class="at">length=</span>n), <span class="st">&quot;npc&quot;</span>), <span class="co">#unit(0.5, &quot;npc&quot;),</span></span>
+<span id="cb147-6"><a href="grid.html#cb147-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">y =</span> <span class="fl">0.5</span>,</span>
+<span id="cb147-7"><a href="grid.html#cb147-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">width =</span> <span class="fu">unit</span>(wid<span class="sc">/</span>(n<span class="dv">-1</span>), <span class="st">&quot;npc&quot;</span>), <span class="at">height =</span> <span class="fl">0.5</span>,</span>
+<span id="cb147-8"><a href="grid.html#cb147-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">just =</span> <span class="st">&quot;center&quot;</span>,</span>
+<span id="cb147-9"><a href="grid.html#cb147-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">gp =</span> <span class="fu">gpar</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill =</span><span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;blue&quot;</span>))(n) ) )</span>
+<span id="cb147-10"><a href="grid.html#cb147-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">lty=</span><span class="dv">2</span>))</span>
+<span id="cb147-11"><a href="grid.html#cb147-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.lines</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.6</span>), <span class="at">gp=</span><span class="fu">gpar</span>(<span class="at">lty=</span><span class="dv">2</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" width="480" /></p>
+</div>
+<div id="拆解-ggplot2-对象" class="section level2" number="8.8">
+<h2><span class="header-section-number">8.8</span> 拆解 ggplot2 对象</h2>
+<p>grid.force() 后 可以使用 grid.ls() 查看ggplot2对象的是怎么由 grid 对象堆积的。</p>
+<p>You can use the <code>ggplotGrob</code> function from the ggplot2 package to explicitly make a <code>ggplot grob</code> from a <code>ggplot object</code>.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="grid.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb148-2"><a href="grid.html#cb148-2" aria-hidden="true" tabindex="-1"></a>g_plot<span class="ot">=</span><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(mpg, disp, <span class="at">color=</span><span class="fu">factor</span>(carb) ))<span class="sc">+</span></span>
+<span id="cb148-3"><a href="grid.html#cb148-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb148-4"><a href="grid.html#cb148-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>gear)<span class="sc">+</span></span>
+<span id="cb148-5"><a href="grid.html#cb148-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb148-6"><a href="grid.html#cb148-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name=</span><span class="st">&quot;Carb&quot;</span>, <span class="at">values =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb148-7"><a href="grid.html#cb148-7" aria-hidden="true" tabindex="-1"></a>g_plot</span>
+<span id="cb148-8"><a href="grid.html#cb148-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.force</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-48-1.png" width="432" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="grid.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.ls</span>()</span></code></pre></div>
+<pre><code>## layout
+##   background.1-15-13-1
+##   panel-1-1.8-5-8-5
+##     grill.gTree.5356
+##       panel.background..rect.5347
+##       panel.grid.minor.y..polyline.5349
+##       panel.grid.minor.x..polyline.5351
+##       panel.grid.major.y..polyline.5353
+##       panel.grid.major.x..polyline.5355
+##     NULL
+##     geom_point.points.5338
+##     NULL
+##     panel.border..rect.5344
+##   panel-1-2.8-7-8-7
+##     grill.gTree.5372
+##       panel.background..rect.5363
+##       panel.grid.minor.y..polyline.5365
+##       panel.grid.minor.x..polyline.5367
+##       panel.grid.major.y..polyline.5369
+##       panel.grid.major.x..polyline.5371
+##     NULL
+##     geom_point.points.5340
+##     NULL
+##     panel.border..rect.5360
+##   panel-1-3.8-9-8-9
+##     grill.gTree.5388
+##       panel.background..rect.5379
+##       panel.grid.minor.y..polyline.5381
+##       panel.grid.minor.x..polyline.5383
+##       panel.grid.major.y..polyline.5385
+##       panel.grid.major.x..polyline.5387
+##     NULL
+##     geom_point.points.5342
+##     NULL
+##     panel.border..rect.5376
+##   strip-t-1.7-5-7-5
+##     strip.1-1-1-1
+##       strip.background.x..rect.5417
+##       strip.text.x.top..titleGrob.5409
+##         GRID.text.5407
+##   strip-t-2.7-7-7-7
+##     strip.1-1-1-1
+##       strip.background.x..rect.5417
+##       strip.text.x.top..titleGrob.5412
+##         GRID.text.5410
+##   strip-t-3.7-9-7-9
+##     strip.1-1-1-1
+##       strip.background.x..rect.5417
+##       strip.text.x.top..titleGrob.5415
+##         GRID.text.5413
+##   axis-t-1.6-5-6-5
+##   axis-t-2.6-7-6-7
+##   axis-t-3.6-9-6-9
+##   axis-b-1.9-5-9-5
+##     NULL
+##     axis
+##       axis.1-1-1-1
+##       axis.2-1-2-1
+##         GRID.text.5391
+##   axis-b-2.9-7-9-7
+##     NULL
+##     axis
+##       axis.1-1-1-1
+##       axis.2-1-2-1
+##         GRID.text.5395
+##   axis-b-3.9-9-9-9
+##     NULL
+##     axis
+##       axis.1-1-1-1
+##       axis.2-1-2-1
+##         GRID.text.5399
+##   axis-l-1.8-4-8-4
+##     NULL
+##     axis
+##       axis.1-1-1-1
+##         GRID.text.5403
+##       axis.1-2-1-2
+##   axis-r-1.8-10-8-10
+##   xlab-t.5-9-5-5
+##   xlab-b.10-9-10-5
+##     GRID.text.5441
+##   ylab-l.8-3-8-3
+##     GRID.text.5444
+##   ylab-r.8-11-8-11
+##   guide-box.8-13-8-13
+##     legend.box.background.2-4-4-2
+##     guides.3-3-3-3
+##       background.1-6-10-1
+##       title.2-5-2-2
+##         guide.title.titleGrob.5449
+##           GRID.text.5447
+##       key-3-1-bg.4-2-4-2
+##       key-3-1-1.4-2-4-2
+##       key-4-1-bg.5-2-5-2
+##       key-4-1-1.5-2-5-2
+##       key-5-1-bg.6-2-6-2
+##       key-5-1-1.6-2-6-2
+##       key-6-1-bg.7-2-7-2
+##       key-6-1-1.7-2-7-2
+##       key-7-1-bg.8-2-8-2
+##       key-7-1-1.8-2-8-2
+##       key-8-1-bg.9-2-9-2
+##       key-8-1-1.9-2-9-2
+##       label-3-3.4-4-4-4
+##         guide.label.titleGrob.5452
+##           GRID.text.5450
+##       label-4-3.5-4-5-4
+##         guide.label.titleGrob.5455
+##           GRID.text.5453
+##       label-5-3.6-4-6-4
+##         guide.label.titleGrob.5458
+##           GRID.text.5456
+##       label-6-3.7-4-7-4
+##         guide.label.titleGrob.5461
+##           GRID.text.5459
+##       label-7-3.8-4-8-4
+##         guide.label.titleGrob.5464
+##           GRID.text.5462
+##       label-8-3.9-4-9-4
+##         guide.label.titleGrob.5467
+##           GRID.text.5465
+##   subtitle.4-9-4-5
+##   title.3-9-3-5
+##   caption.11-9-11-5
+##   tag.2-2-2-2</code></pre>
+</div>
+<div id="扩展" class="section level2" number="8.9">
+<h2><span class="header-section-number">8.9</span> 扩展</h2>
+<ul>
+<li><p><a href="https://github.com/cran/gridBase">gridBase</a>: — Integration of base and grid graphics</p></li>
+<li><p><a href="https://github.com/cran/gridGraphics">gridGraphics</a> — Redraw Base Graphics Using ‘grid’ Graphics.</p></li>
+<li><p><a href="https://github.com/cran/gridBezier">gridBezier</a> — Bezier Curves in ‘grid.’</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/gridExtra/index.html">gridExtra</a> Miscellaneous Functions for “Grid” Graphics</p></li>
+<li><p><a href="https://github.com/gforge/forestplot">forestplot</a></p></li>
+<li><p><a href="https://github.com/wilkelab/gridtext">gridtext</a>, <a href="https://wilkelab.org/gridtext/">html</a>, <a href="https://wilkelab.org/software">more</a></p></li>
+<li><p><a href="https://github.com/bsspirit/gridgame">游戏框架</a></p></li>
+<li><p><a href="https://github.com/cran/gridpattern">gridpattern</a> — ‘grid’ Pattern Grobs.</p></li>
+<li><p><a href="https://github.com/cran/gridGraphviz/blob/master/R/graph.R" class="uri">https://github.com/cran/gridGraphviz/blob/master/R/graph.R</a></p></li>
+<li><p><a href="https://github.com/yjunechoe/gridAnnotate/blob/master/R/qdraw.R" class="uri">https://github.com/yjunechoe/gridAnnotate/blob/master/R/qdraw.R</a></p></li>
+<li><p><a href="https://github.com/atofigh/gridheat/tree/master/R" class="uri">https://github.com/atofigh/gridheat/tree/master/R</a></p></li>
+</ul>
+</div>
+<div id="ref" class="section level2" number="8.10">
+<h2><span class="header-section-number">8.10</span> ref</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/ljhdo/p/4874785.html" class="uri">https://www.cnblogs.com/ljhdo/p/4874785.html</a></li>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/grid/doc/viewports.pdf" class="uri">https://stat.ethz.ch/R-manual/R-patched/library/grid/doc/viewports.pdf</a></li>
+<li><a href="https://stat.ethz.ch/R-manual/R-patched/library/grid/html/00Index.html" class="uri">https://stat.ethz.ch/R-manual/R-patched/library/grid/html/00Index.html</a></li>
+<li><a href="https://bookdown.org/rdpeng/RProgDA/" class="uri">https://bookdown.org/rdpeng/RProgDA/</a></li>
+<li>just 参数 <a href="https://www.cnblogs.com/ywliao/archive/2018/08/30/9562180.html" class="uri">https://www.cnblogs.com/ywliao/archive/2018/08/30/9562180.html</a></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="plots.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="good-resource.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-grid.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
