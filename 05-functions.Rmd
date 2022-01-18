@@ -1,0 +1,48 @@
+# functions
+
+函数是R语言的一级公民，只要有响应的地方都是有函数在执行。
+
+## 函数的定义
+
+
+## 返回函数的函数
+
+
+
+
+## df 相关函数
+
+
+### 横向合并表格(cbind/merge)
+```{r}
+# 如果合并依赖的列没有重复值
+course=data.frame(
+  id=c(101,102,100),
+  course=c("math", "english", "IT"),
+  row.names =paste0("v1_", 1:3)
+)
+course
+score=data.frame(
+  sid=c(1,2,2),
+  cid=c(100,101,102),
+  value=c(100,91,82),
+  row.names =paste0("v2_", 1:3)
+)
+score
+
+# 如果不做检查校验，直接简单拼接
+cbind(course, score)
+
+# 如果需要按某一列合并，比如学生不同科目的成绩
+m1=merge(course, score, by.x="id", by.y="cid"); m1 # 基于没重复值的列 merge后，行数不变，失去 rowname
+
+# 如果有重复值，行数会变多，返回的是基于该同值的行的各种组合
+student=data.frame(
+  id=c(1,2, 1), #身份证
+  name=c("Jack", "Robin", "Jack2") #教职员工考的在职研究生
+)
+student
+merge(student, score, by.x='id', by.y="sid")
+```
+
+

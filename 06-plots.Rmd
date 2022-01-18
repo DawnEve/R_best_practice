@@ -1,6 +1,197 @@
-# Applications
+# Plots
 
 Some _significant_ applications are demonstrated in this chapter.
+
+
+
+## ggplot2 特殊用法
+
+```{r, fig.width=3, fig.height=2.5}
+library(ggplot2)
+
+# 1.旋转分面标题的文字 
+# Rotate Strip Text in ggplot2 https://stackoverflow.com/questions/48892826/rotate-strip-text-in-ggplot2
+ggplot(mtcars, aes(mpg, disp, color=factor(carb) ))+
+  geom_point()+
+  facet_grid(gear~.)+
+  theme_classic()+
+  theme(
+    strip.background = element_blank(),
+    panel.border = element_rect(fill="#00112200"),
+    strip.text.y = element_text(angle=60, color='red'),
+    legend.position = 'none' #不显示图例
+  )
+```
+
+
+
+
+## ggplot2 主题及自定义主题
+
+我们平常修改主题就是在 theme() 中写很多规则，这样很灵活，但是不方便复用。
+
+对于常用的规则，最好是包装成返回一堆 theme 规则的函数，类似 theme_bw()，方便复用、方便记忆。
+
+
+下面2个主题函数分别来自 Seurat(4.0.4)包和 ggplot2 自带，我们可以模仿，来自定义主题。
+```
+> Seurat::NoLegend
+function (...) 
+{
+    no.legend.theme <- theme(legend.position = "none", validate = TRUE, 
+        ...)
+    return(no.legend.theme)
+}
+
+
+> Seurat::NoAxes
+function (..., keep.text = FALSE, keep.ticks = FALSE) 
+{
+    blank <- element_blank()
+    no.axes.theme <- theme(axis.line.x = blank, axis.line.y = blank, 
+        validate = TRUE, ...)
+    if (!keep.text) {
+        no.axes.theme <- no.axes.theme + theme(axis.text.x = blank, 
+            axis.text.y = blank, axis.title.x = blank, axis.title.y = blank, 
+            validate = TRUE, ...)
+    }
+    if (!keep.ticks) {
+        no.axes.theme <- no.axes.theme + theme(axis.ticks.x = blank, 
+            axis.ticks.y = blank, validate = TRUE, ...)
+    }
+    return(no.axes.theme)
+}
+
+
+
+> theme_bw
+function (base_size = 11, base_family = "", base_line_size = base_size/22, 
+    base_rect_size = base_size/22) 
+{
+    theme_grey(base_size = base_size, base_family = base_family, 
+        base_line_size = base_line_size, base_rect_size = base_rect_size) %+replace% 
+        theme(panel.background = element_rect(fill = "white", 
+            colour = NA), panel.border = element_rect(fill = NA, 
+            colour = "grey20"), panel.grid = element_line(colour = "grey92"), 
+            panel.grid.minor = element_line(size = rel(0.5)), 
+            strip.background = element_rect(fill = "grey85", 
+                colour = "grey20"), legend.key = element_rect(fill = "white", 
+                colour = NA), complete = TRUE)
+}
+```
+
+
+
+```{r, fig.width=4.5, fig.height=4}
+# 这些数据是 dput() 输出的
+dat1=structure(list(year = 2020:2000, all = c(4561L, 4393L, 4359L, 
+                                              3756L, 3744L, 3674L, 3346L, 2955L, 2597L, 2652L, 2747L, 2878L, 
+                                              2928L, 2640L, 2570L, 2762L, 2787L, 2623L, 2830L, 3093L, 2932L
+), en = c(4312L, 4115L, 3983L, 3482L, 3450L, 3416L, 3156L, 2734L, 
+          2367L, 2425L, 2509L, 2675L, 2734L, 2433L, 2396L, 2589L, 2606L, 
+          2425L, 2624L, 2884L, 2758L), wa = c(224L, 240L, 327L, 260L, 271L, 
+                                              238L, 168L, 208L, 214L, 215L, 224L, 184L, 161L, 189L, 157L, 156L, 
+                                              161L, 181L, 183L, 187L, 152L)), row.names = c(NA, 21L), class = "data.frame")
+head(dat1)
+
+
+# 自定义主题
+theme_guardian = function(...){
+  require(grid)
+  theme_grey(...)+ #基于预设主题
+    theme(
+      #plot.background = element_blank(),
+      plot.caption = element_text(color = "grey30", face = "italic", 
+                                  margin=margin(t=4, unit="pt"),
+                                  hjust = 0, size=10), #底部数据源
+      plot.title = element_text(hjust = 0, size=12), #大标题
+      
+      panel.grid.major.y = element_line(color="grey70", size=0.5),
+      panel.background = element_blank(), #不要灰背景
+      
+      panel.grid.major.x = element_blank(), #不要竖线
+      axis.line.x = element_blank(),
+      axis.ticks = element_line(color="grey70"),
+      axis.text = element_text(color="grey70"),
+      axis.title = element_text(color="grey70", size=14),
+      axis.title.x = element_text(margin=margin(t=5, unit="pt")),
+      axis.title.y = element_text(margin=margin(r=5, unit="pt")),
+      
+      legend.position = "top",
+      legend.justification = "left",
+      legend.key.size = unit(10, unit="pt"),
+      legend.background = element_blank(),
+      )
+}
+
+library(ggplot2)
+
+# fig1:
+#library(ggthemes)
+g1=ggplot(dat1, aes(year, all))+geom_line(color="darkred")+
+  labs(x="Year of death registration",
+       y="The number of deaths",
+       caption = "Guardian graphic. Source:ONS",
+       title="There were 4,561 drug posoning deaths in 
+England and Wales in 2020- the eighth
+consecutive annual rise")+ 
+  theme_guardian()+ #使用自定义主题
+  annotate("text", x=2020, y=4671, label="4,561", color="darkred")+
+  geom_point(data=data.frame(x=2020, y=4561), aes(x,y), 
+             size=2, 
+             color="darkred"); #g1
+
+#pdf("g1.pdf", width=4.5, height=4, useDingbats = F)
+print(g1)
+#dev.off()
+
+
+
+# fig2:
+colors=c("#BB2924", "#306B9F")
+#dat2=read.table("dat2.txt", header = T)
+dat2=structure(list(year = 2020:2000, M = c(21.7, 19.5, 18.1, 11.8, 
+                                       11, 9.4, 7.3, 4.8, 4.1, 3.1, 4.4, 6.2, 6.8, 5.7, 5.8, 5.3, 4.6, 
+                                       4, 4, 2.8, 2.4), F = c(5.5, 5.1, 4.1, 3.3, 1.9, 1.8, 1.4, 1.2, 
+                                                              0.7, 0.8, 0.6, 0.8, 1.3, 1.1, 0.9, 0.9, 0.8, 0.6, 0.6, 0.7, 0.5
+                                       )), class = "data.frame", row.names = c(NA, -21L))
+
+library(tidyr)
+dat3=pivot_longer(dat2, cols=c("M", "F"))
+dat3$name=factor(dat3$name, levels=c("M", "F"))
+head(dat3)
+
+p1=ggplot()+
+  geom_line(data=dat3, mapping=aes(year, value, color=name ))+
+  labs(x="Year of death registration",
+       y="The Rate of Deaths involving Cocaine(%)",
+       caption = "Guardian graphic. Source:ONS, age-standardised mortality rates",
+       title="The rate of male deaths involving cocaine has
+increased shaply since 2010")+
+  theme_guardian()+ #使用自定义主题
+  scale_color_manual(name="", values = colors)+
+  guides(color = guide_legend(override.aes = list(size = 5)))+
+  annotate("text", 
+           x=2020, 
+           y= c(max(dat2$M), max(dat2$F))+2, 
+           label=c(max(dat2$M), max(dat2$F)), color=colors)+
+  geom_point(data=data.frame(x=2020, 
+                             y=c(max(dat2$M), max(dat2$F)) ), 
+             aes(x,y), 
+             size=2, 
+             color=colors); #p1
+
+#pdf("g2.pdf", width=5, height=4.5, useDingbats = F)
+print(p1)
+#dev.off()
+```
+
+使用 grid 包还能继续修改该图形。比如把上图的图例修改为圆角矩形([links](https://tool.biomooc.com/R_scripts/index_pkgs.html#t5))。
+
+
+
+
+
 
 
 
@@ -23,6 +214,41 @@ ggplot(diamonds, aes(carat, price, color=cut))+
 #dev.off()
 ```
 
+
+
+```
+Ubuntu 安装报错
+Please install cairo (http://www.cairographics.org/) and/or set CAIRO_CFLAGS/LIBS correspondingly
+...
+ERROR: dependencies ‘Cairo’, ‘ragg’ are not available for package ‘ggrastr’
+
+
+Shell
+https://cairographics.org/download/
+# apt-get install libcairo2-dev
+# R 
+> BiocManager::install("ggrastr")
+
+Configuration failed to find the harfbuzz freetype2 fribidi library. Try installing:
+ * deb: libharfbuzz-dev libfribidi-dev (Debian, Ubuntu, etc)
+
+
+Shell
+# apt-get install libharfbuzz-dev libfribidi-dev 
+# R 
+> BiocManager::install("ggrastr")
+
+Configuration failed to find one of freetype2 libpng libtiff-4. Try installing:
+ * deb: libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev (Debian, Ubuntu, etc)
+
+
+Shell
+# apt-get install libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+# R 
+> BiocManager::install("ggrastr")
+...
+* DONE (ggrastr)
+```
 
 
 
@@ -300,7 +526,10 @@ grid.arrange(hist_top, empty, scatter, hist_right, ncol=2, nrow=2, widths=c(4,1)
 
 
 ### cowplot 拼接图
+拼接方法: https://zhuanlan.zhihu.com/p/384189537
+
 ```{r}
+
 library(cowplot)
 plot_grid(hist_top, empty, 
           p1+theme( legend.position = "none"), hist_right, 
@@ -309,6 +538,9 @@ plot_grid(hist_top, empty,
           align = "hv", # h 和 v 方向都对齐
           #scale = 1,
           rel_widths = c(4, 1), rel_heights = c(1, 4))
+
+
+# 坐标轴的对齐 https://wilkelab.org/cowplot/articles/aligning_plots.html
 ```
 
 
@@ -369,10 +601,66 @@ corrplot(M, method = "circle", type = "lower",
 
 
 
+## pheatmap 热图(成熟)
+
+https://r-charts.com/correlation/pheatmap/
+https://www.rdocumentation.org/packages/pheatmap/versions/1.0.12/topics/pheatmap
+
+[中文教程](https://mp.weixin.qq.com/s?__biz=MzI4ODE0NTE3OA==&mid=2649216432&idx=1&sn=26a99e46994c291c9310f2fe167ae518)
+
+```{r, fig.width=5, fig.height=5}
+library("pheatmap")
+
+# cutree_rows 分成4份
+pheatmap( mtcars, scale="column", border_color = NA, cutree_rows = 4)
+
+
+# 显示数字
+pheatmap(mtcars,scale="column",border=NA,
+         display_numbers = T, # 热图上显示数值
+         fontsize_number = 6, #文字大小
+         number_color="darkred", #文字颜色
+         #number_format="%.1e", #数值显示类型, 如 科学计数法
+         
+         cutree_cols = 3,cutree_rows =4, #对行列分块
+         # main="Gene1",
+         angle_col = 90, #列名旋转
+         clustering_distance_rows = "minkowski",
+         clustering_method="complete",
+         cluster_cols = T,treeheight_col = 20,
+         cluster_rows = T,treeheight_row = 20)
+
+
+# 还可以标记正负号，小于0是-，大于1是++，0-1之间是+
+pheatmap(mtcars,scale="column",border=NA,
+         display_numbers = matrix(ifelse(mtcars > 0, 
+                                         ifelse(mtcars>1, "++", "+"), 
+                                         "-"), 
+                                  nrow(mtcars)), #输入为矩阵
+         main="")
+
+# 添加行注释和列注释
+#p <- pheatmap(data,
+#              annotation_col = annotation_col,
+#              annotation_row = annotation_row)
+
+
+# 保存为pdf
+#p <- pheatmap(data, 
+#              filename = "基因家族热图.pdf", width = 10, height = 8)
+```
 
 
 
-## ComplexHeatmap 画热图 
+
+
+
+
+
+
+
+
+## ComplexHeatmap 热图(功能多)
 
 [官方文档](https://jokergoo.github.io/ComplexHeatmap-reference/book/)
 
@@ -447,8 +735,17 @@ ComplexHeatmap::pheatmap()内部其实使用了Heatmap()函数，因此更多的
 
 
 
+
+
 ```{r, fig.width=5, fig.height=5}
 Heatmap(test) #可见，主函数默认是不带边框的，符合预期
+
+
+# km/row_km:对列进行聚类拆分
+Heatmap(test, name = "row_km", km = 4)
+
+# 按照行进行分割聚类：column_km
+Heatmap(test, name = "column_km", column_km = 4)
 
 
 # 自定义颜色，这主要是通过circlize包中的colorRamp2()函数来实现的
@@ -622,3 +919,57 @@ Heatmap( test,
          show_row_names = F, #不显示右侧注释
          right_annotation = row_anno) #只显示感兴趣基因
 ```
+
+
+
+
+## dendextend 给聚类图上色
+
+```{r, fig.width=5, fig.height=4}
+# BiocManager::install("dendextend")
+library(dendextend)
+df1=mtcars
+row_dend = hclust(dist(df1)) # row clustering
+col_dend = hclust(dist(t(df1))) # column clustering
+
+# plot(row_dend )
+#plot( color_branches(row_dend, k = 4), leaflab = "none")
+plot( color_branches(row_dend, k = 4),  #染色
+      leaflab = "none", #不显示叶子标签
+      lwd=10, #怎么加粗？
+      cex=10, #怎么加粗？
+      horiz = T ) #水平放置
+
+library(ComplexHeatmap)
+library(grid)
+Heatmap(scale(df1), name = "mtcars",
+        row_names_gp = gpar(fontsize = 6.5),
+        cluster_rows = color_branches(row_dend, k = 4),
+        cluster_columns = color_branches(col_dend, k = 2))
+```
+
+
+
+
+
+## 标文字 ggrepel 避免重叠
+
+https://ggrepel.slowkow.com/articles/examples.html
+
+```{r, fig.width=4, fig.height=4}
+library(ggplot2)
+library(ggrepel)
+
+ggplot(mtcars,
+       aes(wt, mpg, label = rownames(mtcars), colour = factor(cyl))) +
+  geom_point()+
+  geom_label_repel(aes(fill=factor(cyl)), #填充背景
+                   colour="white", #文字颜色
+                   segment.colour="black")+ #连线颜色
+  theme_bw()
+```
+
+
+
+
+
