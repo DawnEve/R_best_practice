@@ -1,7 +1,6 @@
 # 最佳实践
 
 
-
 ## Best practices
 
 what are some tips for writing clean and efficient R code?
@@ -32,6 +31,8 @@ what are some tips for writing clean and efficient R code?
   * 一个项目的代码放到一个文件夹内，使用相对路径。
   * 在某个文件中记录使用的包的版本号  keep track of sessionInfo()
   * 
+
+- [R Code – Best practices](https://www.r-bloggers.com/2018/09/r-code-best-practices/)
 
 
 - other hints:

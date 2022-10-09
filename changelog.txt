@@ -3,6 +3,6 @@ v0.2 add code
 v0.0.0-3 fix title
 v0.0.0-4 learn ComplexHeatmap [2022.1.8]
 v0.0.0-5 add grid [2022.1.18]
-
+v0.0.0-6 new build [2022.10.9]
 
 How to build? in /index.Rmd

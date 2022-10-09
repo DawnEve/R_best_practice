@@ -1,6 +1,50 @@
 # colors
 
 
+## 颜色格式互转、生成颜色
+
+```{r}
+# 颜色名 to rgb: col2rgb(col, alpha = FALSE)
+colors()[2]
+col2rgb("aliceblue")
+
+
+# 使用 rgb() 生成颜色
+rgb(240,248,255, maxColorValue =255)
+
+# 使用 hsv() 生成颜色
+hsv(0.57, 0.05, 1) # "#F2FAFF"
+
+# rgb to hsv: rgb2hsv(r, g = NULL, b = NULL, maxColorValue = 255)
+rgb2hsv(240,248,255)
+
+
+# color name to hex: col2hex('aliceblue')
+# method1
+col2hex1=function(namedColor){
+  RGB = col2rgb(namedColor)
+  rgb(t(RGB), maxColorValue =255)
+}
+# test
+col2hex1('aliceblue') 
+
+
+# method2
+col2hex2 = function(x, alpha = "ff") {
+  RGB = col2rgb(x)
+  return(apply(RGB, 2, function(C) {
+    paste(c("#", sprintf("%02x", C), alpha), collapse = "")
+  }))
+}
+# test
+col2hex2('aliceblue')
+```
+
+
+
+
+
+
 ## 1.ggplot2 常用的渐变色
 ```{r, fig.width=3, fig.height=2}
 library(ggplot2)
@@ -104,4 +148,52 @@ colorbar(springgreen)
 
 cleanwater  <- c("#0669a5", "#0479c1", "#038de1", "#18a5fb", "#4cbbff")
 colorbar(cleanwater)
+```
+
+
+
+## colors()
+
+```{r, fig.width=3, fig.height=2.5}
+# 显示所有颜色
+head( colors() ) #"white" "aliceblue" "antiquewhite" ...
+length(colors()) # 657 个颜色
+length(colors(distinct = T)) # 502 种独特颜色
+
+setdiff(colors(), colors(distinct=T)) #查看被去重的颜色
+```
+
+
+## 颜色和变量的映射: match()
+```{r, fig.width=3, fig.height=0.5}
+# 示例：找6个颜色画散点图
+colors0=c("firebrick1", "deepskyblue3", "goldenrod1", 
+         "mediumpurple1", "orange3", "palegreen4")
+
+#pdf("00.pdf", width=3, height=2.5, useDingbats=F)
+# fig1
+par(mar=c(0,1,0,0))
+barplot(rep(1,6), col=colors0)
+```
+
+
+```{r, fig.width=3, fig.height=2.5}
+# fig2
+# 分类 - 颜色的 映射
+colors=colors0[c(1,2,3)]
+colorsMap=colors[match(iris$Species, levels( factor(iris$Species) ) ) ] 
+#match(x, table) 返回x每个元素在table中的位置编号，没有找到就返回NA
+#> match(c(-5,0,5), 0:10)  #[1] NA  1  6
+
+
+#png("00.png", width=72*3, height=72*2.5, res=72)
+par(mar=c(3,3,1,4.2))
+plot(Sepal.Length ~ Sepal.Width, data=iris, pch=20, cex=1.2, col=colorsMap, mgp=c(2,1,0))
+XY=par("usr")
+legend(XY[2], XY[3]+(XY[4]-XY[3])/1.5, pch=20, col=colors, legend=levels( factor(iris$Species) ),
+       title="Species",
+       xpd=T,
+       cex=0.8, #图里中字体大小
+       pt.cex=2.5, #图例中点的大小
+       bty="n") #不要边框
 ```

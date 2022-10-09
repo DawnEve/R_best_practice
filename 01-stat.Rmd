@@ -1,0 +1,60 @@
+# stat
+
+统计学，包括统计、相关、拟合、假设检验等。
+
+
+
+## 相关
+
+### 相关系数
+
+```{r, fig.width=3, fig.height=3}
+x=seq(-10,10,2)
+y=ifelse(x>0, x^4, -x^4)
+plot(x,y)
+cor(x,y, method = "pearson")
+cor(x,y, method = "spearman")
+```
+
+
+
+
+
+
+
+
+
+## 拟合
+
+### 使用 nls 拟合 正态分布 模型
+
+```{r, fig.width=4, fig.height=4}
+# step1 使用一个正态分布，模拟一个峰
+set.seed(2022)
+a1=rnorm(20000, mean=100, sd=10)
+hist(a1, n=50, freq = T)
+
+
+# step2 获取位置x，和每个位置的高度y
+a2=density(a1, n=1000)
+par(new=T)
+plot(a2, col="red", lty=2, lwd=3, axes=F, ann=F)
+str(a2)
+
+x=a2$x
+y=a2$y
+
+# step3开始拟合参数: 
+# k 是y的最大值，
+# 起始值: mu是y最大值位置的x值，sigma 控制峰的宽度 初始值 峰值降低一半时x的变化
+k=max(y)
+xi=x[match(max(y),y)];xi
+fit2=nls( y~k*exp(-0.5*(x-mu)^2/sigma^2), start = list(mu=xi, sigma=100), trace=T )
+#summary(fit2)
+fit2
+
+# 设置更高的精度，没有明显变化
+fit2up <- update(fit2, control = list(tol = 8e-9, nDcentral=TRUE), trace=TRUE)
+summary(fit2up)
+```
+

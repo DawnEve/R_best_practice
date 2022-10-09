@@ -1,0 +1,172 @@
+
+# Good resource
+
+
+
+## ref sequencing
+
+For mouse and human, gtf and fasta file use gencode is recommended.
+
+参考基因组的路径和命名最好自带解释: `/home/wangjl/data/ref/hg38/gencode/STAR/index/` 我们看路径就知道这里面是 hg38的 gencode 提供的一套数据生成的 STAR index。
+
+
+```
+1. human: GRCh38.p13 https://www.gencodegenes.org/human/
+点击下载基因组注释文件
+- gtf 一般选择 CHR, the main annotation file for most users.
+- fasta 一般选择 Genome sequence(GRCh38.p13) ALL
+
+$ cd /home/wangjl/data/ref/hg38/gencode/
+
+(1) gtf and fasta
+$ wget -O GRCh38.p13.gtf.gz https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_39/gencode.v39.annotation.gtf.gz
+$ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_39/GRCh38.p13.genome.fa.gz
+
+## Gene symbol: HGNC approved gene symbol (from Ensembl xref pipeline)
+$ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_39/gencode.v39.metadata.HGNC.gz
+
+(2) 必须解压一份，生成index后可以删掉
+$ gunzip -c GRCh38.p13.genome.fa.gz > GRCh38.p13.genome.fa #解压，并保留原始压缩文件
+$ gunzip -c GRCh38.p13.gtf.gz > GRCh38.p13.gtf
+
+(3) build index with STAR
+$ cd /home/wangjl/data/ref/hg38/gencode/index/STAR/
+$ STAR --version
+STAR_2.5.2b
+
+$ STAR --runMode genomeGenerate \
+	--runThreadN 100 \
+	--genomeDir /home/wangjl/data/ref/hg38/gencode/index/STAR/ \
+	--genomeFastaFiles /home/wangjl/data/ref/hg38/gencode/GRCh38.p13.genome.fa \
+	--sjdbGTFfile /home/wangjl/data/ref/hg38/gencode/GRCh38.p13.gtf \
+	--sjdbOverhang 100
+
+Jan 30 15:50:41 ..... started STAR run
+Jan 30 15:50:41 ... starting to generate Genome files
+Jan 30 15:51:37 ... starting to sort Suffix Array. This may take a long time...
+Jan 30 15:51:50 ... sorting Suffix Array chunks and saving them to disk...
+Jan 30 16:08:56 ... loading chunks from disk, packing SA...
+Jan 30 16:10:45 ... finished generating suffix array
+Jan 30 16:10:45 ... generating Suffix Array index
+Jan 30 16:14:53 ... completed Suffix Array index
+Jan 30 16:14:53 ..... processing annotations GTF
+Jan 30 16:15:13 ..... inserting junctions into the genome indices
+Jan 30 16:18:19 ... writing Genome to disk ...
+Jan 30 16:18:23 ... writing Suffix Array to disk ...
+Jan 30 16:19:13 ... writing SAindex to disk
+Jan 30 16:19:20 ..... finished successfully
+
+一共 30 分钟。
+
+
+
+
+
+
+2. mouse GRCm39  https://www.gencodegenes.org/mouse/
+
+$ cd /home/wangjl/data/ref/GRCm39/gencode/
+
+(1) get gtf and fasta
+
+$ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M28/gencode.vM28.annotation.gtf.gz
+$ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M28/GRCm39.genome.fa.gz
+
+# Gene symbol:MGI approved gene symbol (from Ensembl xref pipeline)
+$ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M28/gencode.vM28.metadata.MGI.gz
+
+
+(2) 解压 
+$ gunzip gencode.vM28.annotation.gtf.gz
+$ gunzip GRCm39.genome.fa.gz
+
+
+(3) build index with STAR
+$ cd /home/wangjl/data/ref/GRCm39/gencode/index/STAR/
+$ STAR --version
+STAR_2.5.2b
+
+$ STAR --runMode genomeGenerate \
+	--runThreadN 100 \
+	--genomeDir /home/wangjl/data/ref/GRCm39/gencode/index/STAR/ \
+	--genomeFastaFiles /home/wangjl/data/ref/GRCm39/gencode/GRCm39.genome.fa \
+	--sjdbGTFfile /home/wangjl/data/ref/GRCm39/gencode/gencode.vM28.annotation.gtf \
+	--sjdbOverhang 100
+```
+
+
+
+
+
+
+
+## 单细胞教程(en)
+
+- 纽约大学 [Seurat: Integration and Label Transfer](https://learn.gencore.bio.nyu.edu/seurat-integration-and-label-transfer/)
+
+
+
+## 单细胞教程(cn)
+
+- xx
+
+
+
+## R 及 R包 教程
+
+- [ComplexHeatmap 包](https://jokergoo.github.io/ComplexHeatmap-reference/book/)
+- [ggpubr](https://felixfan.gitbooks.io/r-plots/content/ggpubr.html?q=)
+
+
+
+
+
+
+
+
+
+
+
+
+
+## tables {#intro}
+
+
+## how to make tables
+You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+
+Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+
+```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+par(mar = c(4, 4, .1, .1))
+plot(pressure, type = 'b', pch = 19)
+```
+
+Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(iris, 20), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+
+You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`

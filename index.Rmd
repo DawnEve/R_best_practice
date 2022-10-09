@@ -13,16 +13,15 @@ description: "This is a minimal example of using the bookdown package to write a
 ---
 
 
-```{r setup, include=FALSE}
-# settings
-# knitr::opts_chunk$set(echo = TRUE)
+```{r setup0, include=FALSE}
+# settings # knitr::opts_chunk$set(echo = TRUE)
 
 knitr::opts_chunk$set(fig.width=3, fig.height=2.8, 
                       echo=T, warning=T, message=FALSE)
 ```
 
 
-# 前言 preface
+# 前言 preface {-}
 
 本书目标：总结R语言的最佳实践，特别是可视化方面，并付诸行动，持续提升技能、习惯和思维方式。
 
@@ -63,6 +62,9 @@ knitr::opts_chunk$set(fig.width=3, fig.height=2.8,
   * https://otexts.com/fpp2/
 
 
+- 类似书: https://csgillespie.github.io/efficientR/index.html
+
+
 
 ### R包版本信息 version
 ```{r}
@@ -76,38 +78,21 @@ sessionInfo()
 
 
 
+## Rstudio tips
 
-### How to Build and publish?
+### 为 Rstudio Server 指定R版本
 
-- push master with code;
-- push gh-pages with html and figs.
-
-
-```
-dir: /home/wangjl/data/rmarkdown_demo/bookdown-demo-main/
-
-1. 修改好后，增加版本号 index.Rmd 和 changeLog.txt 中一致
-2. > build
-3. push
-$ git add .
-$ git commit -m 'xxx'
-$ git push origin master
-
-3. $ mv docs docs2
-```
+免费的 Rstudio Server 已经不支持为每个用户设置R版本了。要改就是所有用户一起改。改的方法如下：
 
 
 ```
-1. $ git checkout gh-pages
-2. replace docs/
-$ rm -rf docs
-$ mv docs2 docs
+* change R location in /etc/rstudio/rserver.conf:
 
-$ git add docs/
-$ git commit -m '20220118'
-$ git push origin gh-pages
+rsession-which-r=/usr/bin/R
 
-$ git checkout master
-> build # again
+* restart rstudio-server
+sudo rstudio-server restart
 ```
+
+
 

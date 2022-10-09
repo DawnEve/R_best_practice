@@ -5,6 +5,10 @@ grid 包是 ggplot2 / ComplexHeatmap 等的底层包。
 
 grid 包的创建者 Paul Murrell's Home Page: https://www.stat.auckland.ac.nz/~paul/
 
+- R Graphics Third Edition, by Paul Murrell https://www.stat.auckland.ac.nz/~paul/RG3e/
+- grid 包: https://www.stat.auckland.ac.nz/~paul/grid/grid.html
+
+
 
 grid 的核心概念有：
 
@@ -16,6 +20,8 @@ grid 的核心概念有：
 
 
 创建新画布 grid.newpage()
+
+
 
 
 
@@ -68,6 +74,8 @@ grobwidth, grobheight: 以给定图形对象的宽高位单位。
 
 
 
+
+
 ## 基本图形及图形参数 gp=gpar()
 
 绘制图形要指定坐标，指定长宽等参数，而其他参数则由 gp=gpar() 设定。
@@ -101,6 +109,9 @@ grobwidth, grobheight: 以给定图形对象的宽高位单位。
 
 
 
+
+
+
 ### 使用 rect.rect() 绘制矩形
 
 ```{r, fig.width=2, fig.height=2}
@@ -122,7 +133,6 @@ grid.rect(
 grid.circle(x = 0.5, y = 0.3, r = 0.25,
             gp = gpar(col = "blue", 
                       lty = 3, lwd=2))
-
 ```
 
 
@@ -172,6 +182,8 @@ grob, or gList, or gTree, or gPath.
 
 每一个绘图原语都对应一个Grob，grob的命名格式是**Grob，Grob对象是一个可编辑的图形组件，该组件保留图形的所有属性，但不会立即输出图形：
 
+grid.circle() 对应于 circleGrob()，grid.edit() 对应于 editGrob()。
+
 - rectGrob(...)
 - linesGrob(...)
 - polygonGrob(...)
@@ -193,8 +205,7 @@ grid.draw(circ1)
 
 
 
-
-### grid.edit
+### grid.edit / editGrob 与 gPath()
 
 
 ```{r, fig.width=1, fig.height=1}
@@ -225,13 +236,132 @@ grid.draw(circ2)
 
 
 
+
+### grob, editGrob, addGrob, removeGrob, getGrob, setGrob
+
+#### gPath 为 grid.edit()提供参数
+
+```{r, fig.width=2, fig.height=2}
+gPath("part1", "part2")
+
+grid.newpage()
+pushViewport(plotViewport(c(4, 4, 2, 2)))
+grid.rect(name="box2")
+
+grid.edit(gPath("box2"), #obj by gPath
+          width=unit(0.5,"npc"),  #宽高可以修改
+          gp=gpar(col="red", lwd=5) ) #图形参数也可以修改
+```
+
+
+
+### 修改默认的x轴刻度颜色
+```{r, fig.width=2, fig.height=1}
+grid.newpage()
+grid.xaxis(name = "xa", vp = viewport(y=0.9, width=.5, height=.5))
+
+w1=grid.get("xa")
+grid.ls(w1)
+
+grid.edit("xa", gp = gpar(col="red"))
+w1=grid.get("xa")
+grid.ls(w1)
+
+# won't work because no ticks (at is NULL)
+try(grid.edit(gPath("xa", "ticks"), gp = gpar(col="green")))
+
+grid.edit("xa", at = 1:6/5)
+
+w1=grid.get("xa")
+grid.ls(w1)
+
+# Now it should work
+try(grid.edit(gPath("xa", "ticks"), gp = gpar(col="green")))
+```
+
+
+
+
+
 ### 对象排布 gList, or gTree
+
+gList：包含多个 grobs 的 list; 由于不是 grob 类型，所以不能edit。
+gTree：grobs 的树形结构，即一个 grob 中包含其他的 grob
 
 - grob() and gTree() are the basic creators, 
 - grobTree() and gList() take several grobs to build a new one.
 
 
-gTree 能包含多个 grob 子对象。
+
+```{r, fig.width=3, fig.height=3}
+library(grid)
+
+grid.newpage()
+pushViewport(viewport(y = 0.5, height = 0.5, width = 0.5))
+grid.rect()
+pushViewport(viewport(y = 0.5, height = 0.5, width = 0.5))
+grid.rect(gp=gpar(col='grey', fill="#00112200"))
+
+# 设置坐标轴刻度值位置
+grid.xaxis(name="axis1", at=1:4/5)
+childNames(grid.get("axis1"))
+
+obj1=grid.get("axis1")
+obj1$children
+grid.ls(obj1)
+# 如果把 xaxis grob 看作为一棵树的根，那么它包含三个子 grob。
+# 其中 major 是 lines grob，ticks是segments，labels 为 text grob。
+class(obj1$children$major)
+
+# 修改刻度值位置
+grid.edit("axis1", at=1:3/4) #指定 gPath
+
+# 修改gp对象
+grid.edit( gPath("axis1", "labels"), rot=60, gp=gpar(col="red")) #通过 gPath 指定其子对象，修改：旋转，红色
+
+# 也支持vp对象
+grid.edit( gPath("axis1", "labels"), rot=60, gp=gpar(col="red"), 
+           vp=viewport(y=1)) #修改位置
+
+```
+
+
+
+
+#### gList() 能包含多个对象，但是不能编辑。
+
+```{r, fig.width=3, fig.height=3}
+library(grid)
+
+g1=circleGrob(x=0.5, y=0.7, r=0.3, 
+              gp=gpar(col="red", fill="#00112200", lwd=2))
+#grid.draw(g1)
+
+g2=rectGrob(x=0.5, y=0.25,
+            width = 0.8, height=0.3, gp=gpar(col="blue", fill="blue"))
+#grid.draw(g2)
+
+g3=gList(g1, g2)
+#grid.newpage()
+#grid.draw(g3)
+
+
+grid.newpage()
+pushViewport( viewport( width=0.6, height=0.3, angle=30))
+grid.rect( gp=gpar(col="grey", lty=2))
+grid.draw(g3)
+upViewport()
+
+grid.ls(g3)
+
+# edit failed: can only edit grob. but gList is not a grob, but gTree is.
+class(g3)
+```
+
+
+
+
+#### gTree 能包含多个 grob 子对象。
 
 ```{r, fig.width=3, fig.height=3}
 candy <- circleGrob(r = 0.1, x = 0.5, y = 0.6)
@@ -249,6 +379,82 @@ grid.draw(lollipop2)
 
 # 查看树结构
 grid.ls(lollipop2)
+
+class(lollipop) #是 grob 对象
+```
+
+
+
+
+
+
+### 获取 grob 的宽高(grobWidth/grobHeight)
+
+```{r, fig.width=1.5, fig.height=0.7}
+grid.newpage()
+
+#文字
+tg <- textGrob("sample text")
+
+#按文字的宽度定义一个矩形
+rg <- roundrectGrob(
+  width = 1.2*grobWidth(tg), #文字宽度
+  height = 1.5*grobHeight(tg),
+  r=unit(0.3, "snpc"),
+  gp=gpar(fill="#00112200")
+)
+
+boxedText <- gTree(
+  children = gList(rg, tg)
+)
+
+grid.draw(boxedText)
+
+
+# 修改该组合对象
+grid.draw(
+  editGrob(
+    boxedText, 
+    gp=gpar(col="skyblue"), #指定颜色
+    vp = viewport(angle=45) #指定vp
+    )
+  )
+```
+
+
+
+
+
+
+### 捕获对象 grid.grab()
+
+先构建了一个组合对象，然后绘制该对象。
+
+还可以反着来，先绘制图形对象，然后对它们进行组合。
+
+使用 grid.grab() 函数，可以获取当前画布中所有输出的图形对象，并以 gTree 的形式返回
+
+例如，我们使用 ggplot2 绘制一个直方图，并获取所有图形对象
+
+```{r, fig.width=4, fig.height=3}
+library(ggplot2)
+ggplot(mpg) + geom_histogram(aes(displ, fill = class), bins = 10, position = "dodge")
+histTree <- grid.grab()
+
+# 然后，你可以尝试运行下面的代码
+#grid.newpage()
+#grid.draw(histTree)
+
+# 也可以使用 grid.grabExpr 来获取表达式的输出图形对象
+grid.grabExpr(
+  print(
+    ggplot(mpg) + 
+      geom_histogram(
+        aes(displ, fill = class), 
+        bins = 10, 
+        position = "dodge")
+    )
+  )
 ```
 
 
@@ -257,7 +463,7 @@ grid.ls(lollipop2)
 
 
 
-### gPath //todo
+
 
 
 
@@ -381,7 +587,10 @@ viewport(x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 - width：视口的宽度（x轴方向）
 - height：视口的高度（y轴方向）
 - default.units：默认单位为npc (Normalised Parent Coordinates)，含义是规范化化的父区域坐标
-- just：x和y所指的位置，默认为矩形中心位置
+- just:视口中心的位置，如果是两个值则第一个对水平调整，第二个对纵轴方向调整。
+  * 若用字符表达："left","right", "centre","center", "bottom", and "top"。
+  * 若用数值表达0表示左对齐，1表示右对齐。默认状态下是所创建的视口的中心。
+
 - gp：gpar对象，用于设置图形参数；
 - clip：裁剪区域，有效值是“on”，“inherit”或“off”，指示剪裁到视口范围内，从父视口继承剪裁区域，或者完全关闭剪裁。 为了后向兼容性，逻辑值TRUE对应于“on”，而FALSE对应于“inherit”
 - xscale，yscale：两个数值元素的向量，用于表示坐标轴的最小值和最大值。
@@ -439,8 +648,9 @@ grid.text("in the vewport", x=0,y=1, just=c("left", "top"))
 通过5个函数实现对viewport树的遍历和更新：
 
 - 使用pushViewport()可以将指定的viewport插入到当前viewport的子节点中，同时当前viewport对象移动为刚刚插入的viewport；
-- 使用popViewport()可以删除当前viewport，同时当前viewport改为刚刚删除的viewport的父节点；
-- 使用upViewport()当前viewport移动到父节点；
+- 使用popViewport()可以删除当前viewport，同时当前viewport改为刚刚删除的viewport的父节点。
+  * 不建议使用该函数，建议使用 upViewport
+- 使用upViewport()当前viewport移动到父节点，父viewport变成活跃viewport，原viewport不会被删除；
 - 使用downViewport()当前viewport移动到指定name的子节点；
 - 使用seekViewport()在整棵树范围内搜索指定name的viewport，将其设置为当前viewport。
 - upViewport(0) 回到根视口
@@ -501,11 +711,198 @@ print(current.vpTree())  # 查看当前viewport树结构
 
 
 
+### 裁剪 viewport: clip 参数
+
+我们可以将图形限制在当前 viewport 之内，如果绘制的图形大小超过了当前 viewport 则不会显示，我们可以使用 clip 参数
+
+该参数接受三个值：
+
+- on：输出的图形必须保持在当前 viewport 内，超出的部分会被裁剪
+- inherit：继承上一个 viewport 的 clip 值
+- off：不会被裁剪
+
+只有最后一个圆显示出了全部，前面两个圆形只显示在 viewport 内的部分:
+
+```{r, fig.width=4, fig.height=3}
+grid.newpage()
+# 在画布中心添加一个 viewport，并设置允许剪切
+pushViewport(viewport(w=.5, h=.5, clip="on")) #允许裁剪
+
+# 添加矩形框和线条很粗的圆形
+grid.rect(
+  gp = gpar(fill = "orange")
+)
+grid.circle(
+  r = .7, 
+  gp = gpar(
+    lwd = 20,
+    col = "blue"
+  )
+)
+
+# 在当前 viewport 中添加一个 viewport，继承方式
+pushViewport(viewport(clip="inherit"))
+# 添加线条更细一点的圆形
+grid.circle(
+  r = .7, 
+  gp = gpar(
+    lwd = 10, 
+    col = "purple",
+    fill = NA)
+)
+
+# 关闭裁剪
+pushViewport(viewport(clip="off"))
+# 显示整个圆形
+grid.circle(
+  r=.7,
+  gp = gpar(
+    fill = NA,
+    col = "red"
+  )
+)
+```
+
+
+
+
+### viewport 的3种排列
+
+- vpList：viewport 列表，以平行的方式排列各 viewport
+- vpStack：以堆叠的方式排列，俗称套娃，与使用 pushViewport 功能相似
+- vpTree：以树的方式排列，一个根节点可以有任意个子节点
+
+
+```{r, fig.show="hide"}
+# step0: 新建3个视口
+vp1 <- viewport(name="A")
+vp2 <- viewport(name="B")
+vp3 <- viewport(name="C")
+
+# 平行排列
+pushViewport(vpList(vp1, vp2, vp3))
+current.vpTree() #平行关系
+
+# 堆叠方式
+grid.newpage()
+pushViewport(vpStack(vp1, vp2, vp3))
+current.vpTree() #根是ROOT节点，其子节点是A，A的子节点是B，B的子节点是C
+
+# 树形排列
+grid.newpage()
+pushViewport(vpTree(vp1, vpList(vp2, vp3)))
+current.vpTree() #根节点下是A，A的子节点是B和C
+```
+
+我们知道，画布中的所有 viewport 是以树的方式存储的，那么我们就可以根据 viewport 的父节点来定位某一个 viewport。
+
+
+
+
+
+### 视口路径 Viewport paths
+
+可以使用视口路径来选择某个视口，适合选择不同级别的同名视口。
+
+```{r, fig.show="hide"}
+grid.newpage()
+pushViewport(viewport(name = "A"))
+pushViewport(viewport(name = "B"))
+pushViewport(viewport(name = "A"))
+
+seekViewport("A")
+current.vpTree(FALSE)
+
+# 通过 vpPath() 函数选择B下面的A
+seekViewport(vpPath("B", "A"))
+current.vpTree(FALSE)
+
+# 所谓的 vp 路径，就是::连起来的 viewport 名字
+vpPath("A", "B")
+# seekViewport(vpPath("A", "B")) 等价于seekViewport("A::B")
+```
+
+
+例如，我们想查找名称 C 的 viewport，其父节点为 B，再上层父节点为 A，则可以使用 vpPath 函数来构造检索路径，同时也可以消除同名 viewport 的干扰。
+
+```{r, fig.show="hide"}
+vpPath("A", "B", "C")
+```
+
+
+
+
+
+### 将 viewport 作为图形原语的参数
+
+每个原语函数都有一个 vp 参数
+
+例如，在一个 viewport 中绘制文本
+```{r, fig.width=3, fig.height=1}
+vp1 <- viewport(height=0.5, name="vp_1")
+pushViewport(vp1)
+
+grid.text("text in a vp")
+popViewport()
+```
+
+也可以下面的代码代替，将文本绘制到指定的 viewport 中
+```{r, fig.width=3, fig.height=1}
+grid.text("text in a vp2", vp=vp1)
+#grid.text("text in a vp3", vp=vpPath("vp_1")) #使用视图路径时，使用vp的name属性
+```
+
+
+
+
+### viewport 的图形参数
+
+viewport 也有一个 gp 参数，用来设置图形属性，设置的值将会作为 viewport 中所有的图形对象的默认值。
+
+```{r, fig.width=3, fig.height=1}
+grid.newpage()
+
+pushViewport(
+  viewport(
+    gp = gpar(fill="grey")
+    )
+  )
+
+grid.rect(
+  x = 0.33, 
+  height = 0.7, 
+  width = 0.2 #默认是grey
+  )
+grid.rect(
+  x = 0.66, 
+  height = 0.7, 
+  width = 0.2,
+  gp = gpar(fill="black") #指定了，覆盖默认值
+  )
+
+popViewport()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## 行列布局 layout
 
-grid包中定义了布局对象，布局是矩形的子分区，也就是说，布局（layout）把一个矩形区域细分为更小的分区。
+viewport 的 layout 参数可以用来设置布局，将 viewport 区域分割成不同的行和列，行之间可以有不同的高度，列之间可以有不同的宽度。
+布局是矩形的子分区，也就是说，布局（layout）把一个矩形区域细分为更小的分区。
+
+grid 布局使用 grid.layout() 函数来构造，例如
 
 
 ```
@@ -521,6 +918,27 @@ widths，heights：每一个分区的宽和高
 default.units：默认单位
 respect：逻辑值，如果为true，指定行高度和列宽度都遵守。
 just：指定对齐方式，有效的值是："left", "right", "centre", "center", "bottom", 和 "top".
+
+
+vplay=grid.layout(
+  nrow = 3, 
+  ncol = 3
+)
+# 推入当前视图树
+pushViewport(viewport(layout=vplay))
+
+# 可以使用 layout.pos.col 和 layout.pos.row 参数来指定 viewport 放置的位置
+pushViewport(
+  viewport(
+    layout.pos.col = 2,  # 这个值也可以是向量，比如 1:3
+    name = "col2")
+  )
+grid.rect(
+  gp = gpar(
+    lwd = 10,
+    col = "black",
+    fill = NA
+  ))
 ```
 
 
@@ -693,29 +1111,7 @@ upViewport()
 
 
 
-
-## 视口路径 Viewport paths
-
-可以使用视口路径来选择某个视口，适合选择不同级别的同名视口。
-
-
-```{r, fig.width=1, fig.height=1}
-grid.newpage()
-pushViewport(viewport(name = "A"))
-pushViewport(viewport(name = "B"))
-pushViewport(viewport(name = "A"))
-
-seekViewport("A")
-current.vpTree(FALSE)
-
-# 通过 vpPath() 函数选择B下面的A
-seekViewport(vpPath("B", "A"))
-current.vpTree(FALSE)
-
-# 所谓的 vp 路径，就是::连起来的 viewport 名字
-vpPath("A", "B")
-# seekViewport(vpPath("A", "B")) 等价于seekViewport("A::B")
-```
+### grid 布局也可以嵌套 //todo
 
 
 
@@ -742,6 +1138,202 @@ grid.rect(x = unit(seq(0.1, 0.1+wid, length=n), "npc"), #unit(0.5, "npc"),
 grid.lines(x=c(0.1, 0.1), gp=gpar(lty=2))
 grid.lines(x=c(0.6, 0.6), gp=gpar(lty=2))
 ```
+
+
+
+
+
+## 带水平连线的百分比barplot
+
+灵感来自 [gridHandout.pdf](https://www.stat.auckland.ac.nz/~paul/useR2011-grid/gridHandout.pdf) 第100/114 页。
+
+- 还有一个 [网页版](http://www.bioinformatics.com.cn/plot_basic_vertical_stackbar_with_links_and_fill_plot_038)
+- 一个 [office版](https://zhuanlan.zhihu.com/p/25652101)
+
+
+```{r, fig.width=2, fig.height=2}
+library(grid)
+
+# 计算百分比
+prop <- function(x) {
+  x/sum(x)
+}
+
+# 计算累积百分比
+cprop <- function(x) {
+  prop <- x/sum(x)
+  cumsum(prop)
+}
+
+# A connector() function that draws line segments.
+connector <- function(x1, x2,
+                      gp=gpar(),
+                      name=NULL,alpha=0.5,fill=rainbow(length(x1))) {
+  cp1 <- cprop(x1)
+  cp2 <- cprop(x2)
+  # barplot之间的连接部分的填充，依赖 fill 和 alpha 参数
+  grid.polygon(
+    x=c(0, 1, 1,0),
+    y=c(0, 0, cp2[1], cp1[1]),
+
+    gp=gpar(fill=fill[1], alpha=alpha,lwd=0))
+
+  for(i in 1:(length(cp1)-1) ){
+    grid.polygon(
+      x=c(0, 1, 1,0),
+      y=c(cp1[i], cp2[i], cp2[i+1], cp1[i+1]),
+
+      gp=gpar(fill=fill[i+1], alpha=alpha,lwd=0))
+  }
+  # barplot之间的连接部分的描边，依赖 gp 参数
+  grid.segments(0, cp1, 1, cp2,gp=gp, name=name)
+}
+
+# test
+grid.newpage()
+connector(1:10, 10:1,
+          gp=gpar(col=grey(1:10/11), lwd=3),
+          name="connectorDemo")
+# test 2
+grid.newpage()
+cols=sample(rainbow(10), 10); cols
+grid.newpage()
+connector(1:10, 10:1,
+          fill=cols,
+          gp=gpar(col= cols, lwd=1),
+          name="connectorDemo", alpha=0.5)
+
+
+
+
+# A spine() function that draws rectangles.
+spine <- function(x,
+                  gp=gpar(),
+                  name=NULL) {
+  px <- prop(x)
+  cpx <- cprop(x)
+  grid.rect(y=cpx, height=px, just="top",
+            gp=gp, name=name)
+}
+# test
+spine(1:10,
+      #gp=gpar(fill=grey(1:10/11)),
+      gp=gpar(fill=cols, col=cols),
+      name="spineDemo")
+
+#cp1 <- cprop(y1)
+#cp2 <- cprop(y2)
+
+
+
+############
+# 主图
+cplot <- function(df, gp=gpar(), name="cplot", fill=NULL, alpha=0.5) {
+  # barplot 之间的连接: 区域+描边
+  for (i in 1:length(df)) {
+    if (i > 1) {
+      conName <- paste(name, "con", i, sep="-")
+      pushViewport(viewport(x=unit(i - 0.5, "native"),
+                            width=unit(0.5, "native"),
+                            name=conName))
+      connector(df[[i - 1]], df[[i]], gp=gp, name=conName, fill=fill,alpha=alpha)
+      upViewport()
+    }
+  }
+  # put barplot on top
+  for (i in 1:length(df)) {
+    spineName <- paste(name, "spine", i, sep="-")
+    pushViewport(viewport(x=unit(i, "native"),
+                          width=unit(0.5, "native"),
+                          name=spineName))
+    spine(df[[i]], gp=gp, name=spineName)
+    upViewport()
+  }
+}
+```
+
+
+
+例子1: 大麦产量数据(产量，变量)
+```{r, fig.width=4, fig.height=3}
+library(lattice)
+#View(barley) #大麦产量数据: 产量，变量，年份，地点
+barley1931 <- subset(barley, year == 1931)
+#dim(barley1931)
+#head(barley1931)
+barley1931$variety <- reorder(barley1931$variety,
+                                barley1931$yield,
+                                FUN=function(x) {
+                                  prop(x)[1]
+                                })
+barley1931 <- barley1931[order(barley1931$variety), ]
+
+
+##########################
+# begin paint
+##########################
+cols=rev(c("#F17B21", "#339838", "#8A564B", "#B5B531", "#AEC3E2", "#1FB1C6"))
+
+# 新画布
+grid.newpage()
+# 定位
+pushViewport(plotViewport(c(5, 4, 2, 2),
+                            xscale=c(0, 11),
+                            yscale=0:1),
+               viewport(clip=TRUE,
+                        xscale=c(0, 11),
+                        yscale=0:1))
+df <- as.data.frame(split(barley1931$yield,
+                            barley1931$variety))
+# 主图：柱状图
+cplot(df, gp=gpar(col=cols, fill=cols, lwd=1), fill=cols, alpha=0.5)
+# 返回上一层
+upViewport()
+
+# 坐标轴x
+grid.text(colnames(df),
+            x=unit(1:10, "native"),
+            y=unit(-0.5 ,"lines"),
+            rot=45, just="right")
+# 坐标轴y
+grid.yaxis()
+
+# 边框
+grid.rect( gp=gpar(fill="#00112200"))
+
+# 回到起点
+upViewport()
+
+# 查看图形结构
+#grid.ls(viewports=TRUE, fullNames=TRUE)
+```
+
+
+
+
+继续画分面的图，2列
+
+```{r, fig.width=6, fig.height=6}
+
+##########################
+# 分面图
+##########################
+barley$variety <- factor(barley$variety,
+                         levels=levels(barley1931$variety))
+panel.cplot <- function(x, y, groups, subscripts, ...) {
+  cplot(as.data.frame(split(y, x)),
+        gp=gpar(col=cols, fill=cols), fill=cols, alpha=0.3)
+}
+print(
+  xyplot(yield ~ variety | year, barley,
+         groups=site, layout=c(2, 1),
+         scales=list(x=list(rot=40), y=list(limits=0:1)),
+         panel=panel.cplot)
+)
+```
+
+
+
 
 
 
@@ -792,6 +1384,7 @@ grid.ls()
 
 ## ref
 
+- https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzkxMjE4NDc2Mw==&action=getalbum&album_id=1804600017806999555&scene=173
 - https://www.cnblogs.com/ljhdo/p/4874785.html
 - https://stat.ethz.ch/R-manual/R-patched/library/grid/doc/viewports.pdf
 - https://stat.ethz.ch/R-manual/R-patched/library/grid/html/00Index.html

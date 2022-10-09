@@ -1,6 +1,89 @@
-# Plots
+# Plot
 
 Some _significant_ applications are demonstrated in this chapter.
+
+
+
+```
+# 高水平画图命令
+plot(1:10)
+
+
+```
+
+
+
+
+
+```
+# 低水平画图命令
+rect(0,0, 5,6, col="red", border = NA)
+
+```
+
+
+
+
+## clip() from base
+
+```{r, fig.width=3, fig.height=2.5}
+# https://statisticsglobe.com/clip-function-r
+
+set.seed(202201)
+x <- rnorm(5000)
+hist(x, xlim = c(-4,4), n=50)
+
+# left
+usr <- par("usr")
+clip(usr[1], -1, usr[3], usr[4])
+hist(x, col = 'red', add = TRUE, n=50)
+
+# right
+clip(1.5, usr[2], usr[3], usr[4])
+hist(x, col = 'blue', add = TRUE, n=50)
+
+do.call("clip", as.list(usr))  # reset to plot region
+```
+
+
+
+
+
+
+## layout() 布局函数
+
+实例: plot an logo for R QQ群(187923577)
+
+```{r, fig.width=2.5, fig.height=2.5}
+#pdf("logoR.pdf", width=2.5, height=2.5)
+#png("logoR.png", width=2.5, height=2.5, units = "in", res = 72)
+#settings
+border_width=30
+border_color=c("#71BE4B","#ED245B","#FAC319", "#00A1DF")
+r=0.85 #radius of circle
+#
+par(oma=c(0.1,0.1,0.1,0.1)*0)
+layout(matrix(c(1:4),nrow=2,byrow=T), widths = c(1,1), heights =c(1,1)) 
+for(i in 1:4){
+  par(mar=c(0,0,0,0))
+  plot(c(0), col='white', xlim=c(-0.5,0.5), ylim=c(-0.5, 0.5), 
+       xaxs ="i", yaxs ="i",
+       ann=F, axes=F); 
+  #circle
+  cir_X=-0.5*(-1)^i
+  cir_Y=0.5*ifelse(i<=2, -1, 1)
+  symbols(x = cir_X, y = cir_Y, circles = r, inches = FALSE, add = TRUE, lwd=border_width, fg=border_color[i])
+  # text R
+  text(cir_X, cir_Y, labels="R", col=rev(border_color)[i], cex=15, xpd=T)
+}
+#dev.off()
+```
+
+
+
+
+
+
 
 
 
@@ -33,6 +116,7 @@ ggplot(mtcars, aes(mpg, disp, color=factor(carb) ))+
 对于常用的规则，最好是包装成返回一堆 theme 规则的函数，类似 theme_bw()，方便复用、方便记忆。
 
 
+### 主题函数实例
 下面2个主题函数分别来自 Seurat(4.0.4)包和 ggplot2 自带，我们可以模仿，来自定义主题。
 ```
 > Seurat::NoLegend
@@ -81,6 +165,9 @@ function (base_size = 11, base_family = "", base_line_size = base_size/22,
 ```
 
 
+
+
+### 自定义主题函数
 
 ```{r, fig.width=4.5, fig.height=4}
 # 这些数据是 dput() 输出的
@@ -654,6 +741,53 @@ pheatmap(mtcars,scale="column",border=NA,
 
 
 
+### 添加行列注释颜色条的热图
+
+```{r, fig.width=3.5, fig.height=5}
+
+dat=iris
+# 该包要求df必须有rowname，否则报错
+# https://stackoverflow.com/questions/55432392/pheatmaperror-in-annotation-colorscolnamesannotationi-subscript-out-o
+rownames(dat)=paste0("s", seq(1, nrow(dat)) ) 
+head(dat)
+
+# 构建行注释信息
+ann_row = data.frame(
+  Class = dat$Species
+)
+rownames(ann_row) = paste0("",rownames(dat))
+head(ann_row)
+
+# 设定颜色
+ann_colors = list(
+  Class = c(setosa = "red3", versicolor = "limegreen", virginica="orange3")
+)
+# mediumpurple3 
+head(ann_colors)
+
+
+# 4个指标的单位一致，可比较。
+# 可见 setosa类的Petal.width最短，verisicolor类的Sepal.length最长。
+library(pheatmap)
+pheatmap( dat[,1:4], 
+          scale = "none", #指标单位一致，不用标准化即可比较
+          clustering_method = 'ward.D2', 
+          na_col = 'grey',
+          show_rownames=F,show_colnames=T,
+          color = colorRampPalette(c("navy", "white", "firebrick3"))(50), #指定渐变色颜色范围
+          annotation_row = ann_row, # 左侧分类
+          annotation_colors = ann_colors, #各分类的颜色
+          border=FALSE
+)
+```
+
+
+
+
+
+
+
+
 
 
 
@@ -968,6 +1102,7 @@ ggplot(mtcars,
                    segment.colour="black")+ #连线颜色
   theme_bw()
 ```
+
 
 
 
